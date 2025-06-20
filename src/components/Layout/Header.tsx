@@ -28,7 +28,7 @@ export const Header: React.FC = () => {
                 <User className="h-4 w-4 text-blue-600" />
               </div>
               <div className="text-sm">
-                <p className="font-medium text-gray-900">Admin System</p>
+                <p className="font-medium text-gray-900">Ari</p>
                 <p className="text-gray-500">Administrator</p>
               </div>
             </div>
