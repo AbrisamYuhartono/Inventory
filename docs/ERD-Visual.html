@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ILMATE Inventory System - ERD</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .erd-container {
+            padding: 40px;
+            overflow-x: auto;
+        }
+        
+        .erd-diagram {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            min-width: 1200px;
+            position: relative;
+        }
+        
+        .entity {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .entity:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: #3b82f6;
+        }
+        
+        .entity-header {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        
+        .entity-body {
+            padding: 15px;
+        }
+        
+        .attribute {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 0.9rem;
+        }
+        
+        .attribute:last-child {
+            border-bottom: none;
+        }
+        
+        .attribute-name {
+            font-weight: 600;
+            color: #374151;
+            flex: 1;
+        }
+        
+        .attribute-type {
+            color: #6b7280;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+        
+        .pk {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        
+        .fk {
+            background: #dbeafe;
+            color: #1d4ed8;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        
+        .relationship-line {
+            position: absolute;
+            background: #6b7280;
+            z-index: 1;
+        }
+        
+        .legend {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .legend h3 {
+            margin: 0 0 15px 0;
+            color: #374151;
+            font-size: 1.2rem;
+        }
+        
+        .legend-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .color-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        
+        .relationships-section {
+            margin-top: 40px;
+            padding: 30px;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+        
+        .relationships-section h3 {
+            margin: 0 0 20px 0;
+            color: #1f2937;
+            font-size: 1.3rem;
+        }
+        
+        .relationship-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .relationship-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .relationship-item strong {
+            color: #1f2937;
+        }
+        
+        .relationship-item p {
+            margin: 5px 0 0 0;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ILMATE Inventory Management System</h1>
+            <p>Entity Relationship Diagram</p>
+        </div>
+        
+        <div class="erd-container">
+            <div class="erd-diagram">
+                <!-- Users Entity -->
+                <div class="entity">
+                    <div class="entity-header">Users</div>
+                    <div class="entity-body">
+                        <div class="attribute">
+                            <span class="pk">PK</span>
+                            <span class="attribute-name">user_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">name</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">email</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">department</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">role</span>
+                            <span class="attribute-type">ENUM</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">phone</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">join_date</span>
+                            <span class="attribute-type">TIMESTAMP</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">is_active</span>
+                            <span class="attribute-type">BOOLEAN</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Rooms Entity -->
+                <div class="entity">
+                    <div class="entity-header">Rooms</div>
+                    <div class="entity-body">
+                        <div class="attribute">
+                            <span class="pk">PK</span>
+                            <span class="attribute-name">room_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">name</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">description</span>
+                            <span class="attribute-type">TEXT</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">building</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">floor</span>
+                            <span class="attribute-type">INTEGER</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">capacity</span>
+                            <span class="attribute-type">INTEGER</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">item_count</span>
+                            <span class="attribute-type">INTEGER</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Categories Entity -->
+                <div class="entity">
+                    <div class="entity-header">Categories</div>
+                    <div class="entity-body">
+                        <div class="attribute">
+                            <span class="pk">PK</span>
+                            <span class="attribute-name">category_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">name</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">description</span>
+                            <span class="attribute-type">TEXT</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">created_at</span>
+                            <span class="attribute-type">TIMESTAMP</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">updated_at</span>
+                            <span class="attribute-type">TIMESTAMP</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Items Entity -->
+                <div class="entity">
+                    <div class="entity-header">Items</div>
+                    <div class="entity-body">
+                        <div class="attribute">
+                            <span class="pk">PK</span>
+                            <span class="attribute-name">item_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">name</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">description</span>
+                            <span class="attribute-type">TEXT</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="fk">FK</span>
+                            <span class="attribute-name">category_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="fk">FK</span>
+                            <span class="attribute-name">room_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">status</span>
+                            <span class="attribute-type">ENUM</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">serial_number</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">qr_code</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Lending Records Entity -->
+                <div class="entity">
+                    <div class="entity-header">Lending_Records</div>
+                    <div class="entity-body">
+                        <div class="attribute">
+                            <span class="pk">PK</span>
+                            <span class="attribute-name">lending_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="fk">FK</span>
+                            <span class="attribute-name">item_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="fk">FK</span>
+                            <span class="attribute-name">user_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="fk">FK</span>
+                            <span class="attribute-name">approved_by</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">lend_date</span>
+                            <span class="attribute-type">TIMESTAMP</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">expected_return_date</span>
+                            <span class="attribute-type">DATE</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">actual_return_date</span>
+                            <span class="attribute-type">TIMESTAMP</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">status</span>
+                            <span class="attribute-type">ENUM</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Lending Documents Entity -->
+                <div class="entity">
+                    <div class="entity-header">Lending_Documents</div>
+                    <div class="entity-body">
+                        <div class="attribute">
+                            <span class="pk">PK</span>
+                            <span class="attribute-name">document_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="fk">FK</span>
+                            <span class="attribute-name">lending_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">document_url</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">document_type</span>
+                            <span class="attribute-type">ENUM</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">generated_at</span>
+                            <span class="attribute-type">TIMESTAMP</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- System Settings Entity -->
+                <div class="entity">
+                    <div class="entity-header">System_Settings</div>
+                    <div class="entity-body">
+                        <div class="attribute">
+                            <span class="pk">PK</span>
+                            <span class="attribute-name">setting_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">company_name</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">company_address</span>
+                            <span class="attribute-type">TEXT</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">max_lending_days</span>
+                            <span class="attribute-type">INTEGER</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">require_approval</span>
+                            <span class="attribute-type">BOOLEAN</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">enable_notifications</span>
+                            <span class="attribute-type">BOOLEAN</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Notifications Entity -->
+                <div class="entity">
+                    <div class="entity-header">Notifications</div>
+                    <div class="entity-body">
+                        <div class="attribute">
+                            <span class="pk">PK</span>
+                            <span class="attribute-name">notification_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="fk">FK</span>
+                            <span class="attribute-name">user_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="fk">FK</span>
+                            <span class="attribute-name">lending_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">type</span>
+                            <span class="attribute-type">ENUM</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">title</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">message</span>
+                            <span class="attribute-type">TEXT</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">is_read</span>
+                            <span class="attribute-type">BOOLEAN</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="legend">
+                <h3>Legend</h3>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <div class="color-box" style="background: #fef3c7;"></div>
+                        <span><strong>PK</strong> - Primary Key</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box" style="background: #dbeafe;"></div>
+                        <span><strong>FK</strong> - Foreign Key</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box" style="background: #3b82f6;"></div>
+                        <span>Entity Header</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="relationships-section">
+                <h3>Key Relationships</h3>
+                <div class="relationship-list">
+                    <div class="relationship-item">
+                        <strong>Users → Lending_Records</strong>
+                        <p>One user can have many lending records (1:N)</p>
+                    </div>
+                    <div class="relationship-item">
+                        <strong>Items → Lending_Records</strong>
+                        <p>One item can have many lending records over time (1:N)</p>
+                    </div>
+                    <div class="relationship-item">
+                        <strong>Rooms → Items</strong>
+                        <p>One room can contain many items (1:N)</p>
+                    </div>
+                    <div class="relationship-item">
+                        <strong>Categories → Items</strong>
+                        <p>One category can have many items (1:N)</p>
+                    </div>
+                    <div class="relationship-item">
+                        <strong>Lending_Records → Lending_Documents</strong>
+                        <p>One lending record can have multiple documents (1:N)</p>
+                    </div>
+                    <div class="relationship-item">
+                        <strong>Users → Notifications</strong>
+                        <p>One user can receive many notifications (1:N)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
