@@ -1,52 +1,62 @@
-export interface Item {
-  id: string;
-  name: string;
-  description: string;
-  category: string;
-  room: string;
-  status: 'Available' | 'Lended' | 'Broken';
-  serialNumber: string;
-  qrCode: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
 export interface User {
   id: string;
   name: string;
-  email: string;
-  department: string;
-  role: 'Admin' | 'Manager' | 'User';
-  phone?: string;
-  joinDate?: Date;
+  nip: string;
+  karpeg: string;
+  pangkatGolongan: string;
+  jabatan: string;
+  unit: 'Setditjen ILMATE' | 'Logam' | 'IPAMP' | 'IMATAB' | 'IET';
+  username: string;
+  password: string;
+  role: 'Superadmin' | 'Admin' | 'User';
   isActive: boolean;
-}
-
-export interface LendingRecord {
-  id: string;
-  itemId: string;
-  userId: string;
-  userName: string;
-  userEmail: string;
-  userDepartment: string;
-  itemName: string;
-  itemSerialNumber: string;
-  lendDate: Date;
-  expectedReturnDate: Date;
-  actualReturnDate?: Date;
-  status: 'Active' | 'Returned' | 'Overdue';
-  notes?: string;
-  generatedDocumentId?: string;
+  joinDate: Date;
 }
 
 export interface Room {
   id: string;
   name: string;
+  roomCode: string;
+  lantai: number;
+  roomType: 'Office' | 'Meeting' | 'Storage' | 'Laboratory' | 'Workshop';
   description: string;
-  itemCount: number;
-  capacity?: number;
-  floor?: number;
-  building?: string;
+  picName: string; // Person in charge name
+  picNip: string; // Person in charge NIP
+  picJabatan: string; // Person in charge position
+}
+
+export interface Item {
+  id: string;
+  serialNumber: string;
+  name: string;
+  nup: string; // Nomor Urut Pendaftaran
+  year: number;
+  roomId: string;
+  currentBorrowerId?: string; // User ID yang sedang meminjam
+  status: 'Available' | 'Lended' | 'Broken';
+  qrCode: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface LendingRecord {
+  id: string;
+  itemId: string;
+  borrowerId: string;
+  borrowerName: string;
+  borrowerNip: string;
+  borrowerUnit: string;
+  itemName: string;
+  itemSerialNumber: string;
+  itemNup: string;
+  lendDate: Date;
+  expectedReturnDate: Date;
+  actualReturnDate?: Date;
+  status: 'Pending' | 'Approved' | 'Active' | 'Returned' | 'Rejected';
+  approvedBy?: string;
+  approverName?: string;
+  notes?: string;
+  rejectionReason?: string;
 }
 
 export interface LendingDocument {
@@ -65,4 +75,13 @@ export interface SystemSettings {
   requireApproval: boolean;
   enableNotifications: boolean;
   autoGenerateQR: boolean;
+}
+
+export interface AuthUser {
+  id: string;
+  username: string;
+  name: string;
+  role: 'Superadmin' | 'Admin' | 'User';
+  unit: string;
+  nip: string;
 }
