@@ -11,6 +11,7 @@ import { ReportsPage } from './components/Reports/ReportsPage';
 import { SettingsPage } from './components/Settings/SettingsPage';
 import { ApprovalPage } from './components/Approval/ApprovalPage';
 import { MyRequestsPage } from './components/MyRequests/MyRequestsPage';
+import { RepairRequestsPage } from './components/RepairRequests/RepairRequestsPage';
 import { AuthUser } from './types';
 
 function App() {
@@ -42,6 +43,8 @@ function App() {
         return <ApprovalPage />;
       case 'my-requests':
         return <MyRequestsPage user={user} />;
+      case 'repair-requests':
+        return <RepairRequestsPage user={user} />;
       case 'users':
         return user.role === 'Superadmin' ? <UserManagement /> : <Dashboard />;
       case 'rooms':

@@ -33,7 +33,7 @@ export interface Item {
   year: number;
   roomId: string;
   currentBorrowerId?: string; // User ID yang sedang meminjam
-  status: 'Available' | 'Lended' | 'Broken';
+  status: 'Available' | 'Lended' | 'Broken' | 'Under Repair' | 'Disposed';
   qrCode: string;
   createdAt: Date;
   updatedAt: Date;
@@ -57,6 +57,33 @@ export interface LendingRecord {
   approverName?: string;
   notes?: string;
   rejectionReason?: string;
+}
+
+export interface RepairRequest {
+  id: string;
+  itemId: string;
+  itemName: string;
+  itemSerialNumber: string;
+  itemNup: string;
+  requesterId: string;
+  requesterName: string;
+  requesterNip: string;
+  requesterUnit: string;
+  damageDescription: string;
+  urgencyLevel: 'Low' | 'Medium' | 'High' | 'Critical';
+  requestDate: Date;
+  status: 'Pending' | 'Approved' | 'In Progress' | 'Completed' | 'Rejected';
+  approvedBy?: string;
+  approverName?: string;
+  rejectionReason?: string;
+  repairNotes?: string;
+  estimatedCost?: number;
+  actualCost?: number;
+  repairStartDate?: Date;
+  repairCompletionDate?: Date;
+  vendorName?: string;
+  vendorContact?: string;
+  attachments?: string[];
 }
 
 export interface LendingDocument {

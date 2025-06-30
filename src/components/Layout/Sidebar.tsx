@@ -7,7 +7,8 @@ import {
   Building, 
   Settings,
   BarChart3,
-  CheckSquare
+  CheckSquare,
+  Wrench
 } from 'lucide-react';
 import { AuthUser } from '../../types';
 
@@ -28,7 +29,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, user }
     if (user.role === 'User') {
       return [
         ...baseItems,
-        { id: 'my-requests', label: 'Permintaan Saya', icon: CheckSquare }
+        { id: 'my-requests', label: 'Permintaan Saya', icon: CheckSquare },
+        { id: 'repair-requests', label: 'Perbaikan Barang', icon: Wrench }
       ];
     }
 
@@ -36,6 +38,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, user }
       return [
         ...baseItems,
         { id: 'approval', label: 'Persetujuan', icon: CheckSquare },
+        { id: 'repair-requests', label: 'Perbaikan Barang', icon: Wrench },
         { id: 'rooms', label: 'Ruangan', icon: Building },
         { id: 'reports', label: 'Laporan', icon: BarChart3 }
       ];
@@ -45,6 +48,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, user }
       return [
         ...baseItems,
         { id: 'approval', label: 'Persetujuan', icon: CheckSquare },
+        { id: 'repair-requests', label: 'Perbaikan Barang', icon: Wrench },
         { id: 'users', label: 'Pengguna', icon: Users },
         { id: 'rooms', label: 'Ruangan', icon: Building },
         { id: 'reports', label: 'Laporan', icon: BarChart3 },

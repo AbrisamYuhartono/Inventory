@@ -1,4 +1,4 @@
-import { Item, User, LendingRecord, Room } from '../types';
+import { Item, User, LendingRecord, Room, RepairRequest } from '../types';
 
 export const mockUsers: User[] = [
   {
@@ -289,6 +289,18 @@ export const mockItems: Item[] = [
     qrCode: 'QR_SPK_2024_001',
     createdAt: new Date('2024-01-18'),
     updatedAt: new Date('2024-01-18')
+  },
+  {
+    id: '11',
+    serialNumber: 'LT-2023-005',
+    name: 'Laptop Lenovo ThinkPad X1 Carbon',
+    nup: '2023.11.025',
+    year: 2023,
+    roomId: '4',
+    status: 'Under Repair',
+    qrCode: 'QR_LT_2023_005',
+    createdAt: new Date('2023-11-15'),
+    updatedAt: new Date('2024-01-28')
   }
 ];
 
@@ -377,5 +389,71 @@ export const mockLendingRecords: LendingRecord[] = [
     expectedReturnDate: new Date('2024-02-01'),
     status: 'Pending',
     notes: 'Untuk pengolahan data penelitian material logam'
+  }
+];
+
+export const mockRepairRequests: RepairRequest[] = [
+  {
+    id: '1',
+    itemId: '4',
+    itemName: 'Microphone Wireless Shure SM58',
+    itemSerialNumber: 'MIC-2023-001',
+    itemNup: '2023.12.015',
+    requesterId: '3',
+    requesterName: 'Budi Santoso',
+    requesterNip: '198005102005031003',
+    requesterUnit: 'Logam',
+    damageDescription: 'Microphone tidak dapat menangkap suara dengan baik, ada noise yang mengganggu saat digunakan. Kemungkinan ada masalah pada receiver atau transmitter.',
+    urgencyLevel: 'High',
+    requestDate: new Date('2024-01-25'),
+    status: 'Pending',
+    attachments: ['mic_damage_photo1.jpg', 'mic_damage_photo2.jpg']
+  },
+  {
+    id: '2',
+    itemId: '11',
+    itemName: 'Laptop Lenovo ThinkPad X1 Carbon',
+    itemSerialNumber: 'LT-2023-005',
+    itemNup: '2023.11.025',
+    requesterId: '4',
+    requesterName: 'Sari Indrawati',
+    requesterNip: '198207252010032004',
+    requesterUnit: 'IPAMP',
+    damageDescription: 'Layar laptop berkedip-kedip dan terkadang mati total. Keyboard juga ada beberapa tombol yang tidak berfungsi (tombol E, R, dan spasi).',
+    urgencyLevel: 'Critical',
+    requestDate: new Date('2024-01-20'),
+    status: 'In Progress',
+    approvedBy: '2',
+    approverName: 'Ahmad Wijaya',
+    repairNotes: 'Sudah dikirim ke vendor untuk penggantian layar dan keyboard',
+    estimatedCost: 3500000,
+    repairStartDate: new Date('2024-01-22'),
+    vendorName: 'PT. Teknologi Solusi Indonesia',
+    vendorContact: '+62 21 5555 1234',
+    attachments: ['laptop_screen_issue.jpg', 'keyboard_damage.jpg']
+  },
+  {
+    id: '3',
+    itemId: '7',
+    itemName: 'Printer HP LaserJet Enterprise M507dn',
+    itemSerialNumber: 'PRT-2024-001',
+    itemNup: '2024.01.006',
+    requesterId: '6',
+    requesterName: 'Maya Sari',
+    requesterNip: '198412102012032006',
+    requesterUnit: 'IET',
+    damageDescription: 'Printer sering paper jam dan hasil print bergaris-garis. Sudah dicoba bersihkan tapi masalah masih ada.',
+    urgencyLevel: 'Medium',
+    requestDate: new Date('2024-01-18'),
+    status: 'Completed',
+    approvedBy: '2',
+    approverName: 'Ahmad Wijaya',
+    repairNotes: 'Sudah dilakukan pembersihan menyeluruh dan penggantian roller. Printer sudah normal kembali.',
+    estimatedCost: 500000,
+    actualCost: 450000,
+    repairStartDate: new Date('2024-01-19'),
+    repairCompletionDate: new Date('2024-01-21'),
+    vendorName: 'CV. Printer Service Center',
+    vendorContact: '+62 21 7777 5678'
   }
 ];
