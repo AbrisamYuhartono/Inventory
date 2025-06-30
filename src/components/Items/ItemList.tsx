@@ -52,19 +52,19 @@ export const ItemList: React.FC = () => {
   };
 
   return (
-    <div className="p-6 ml-64">
+    <div className="p-6 ml-64 bg-cream-50 min-h-screen">
       <div className="mb-8">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Items</h1>
-            <p className="text-gray-600 mt-2">Manage your inventory items</p>
+            <h1 className="text-3xl font-bold text-gray-900">Inventaris</h1>
+            <p className="text-gray-600 mt-2">Kelola barang inventaris Anda</p>
           </div>
           <button
             onClick={() => setIsAddModalOpen(true)}
-            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center space-x-2"
+            className="bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors flex items-center space-x-2 shadow-lg"
           >
             <Plus className="h-5 w-5" />
-            <span>Add Item</span>
+            <span>Tambah Barang</span>
           </button>
         </div>
 
@@ -73,8 +73,8 @@ export const ItemList: React.FC = () => {
             <Search className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Search items..."
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent w-full"
+              placeholder="Cari barang..."
+              className="pl-10 pr-4 py-2 border border-primary-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent w-full bg-white"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -83,38 +83,38 @@ export const ItemList: React.FC = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            className="px-4 py-2 border border-primary-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white"
           >
-            <option value="all">All Status</option>
-            <option value="Available">Available</option>
-            <option value="Lended">Lended</option>
-            <option value="Broken">Broken</option>
-            <option value="Under Repair">Under Repair</option>
-            <option value="Disposed">Disposed</option>
+            <option value="all">Semua Status</option>
+            <option value="Available">Tersedia</option>
+            <option value="Lended">Dipinjam</option>
+            <option value="Broken">Rusak</option>
+            <option value="Under Repair">Sedang Diperbaiki</option>
+            <option value="Disposed">Dibuang</option>
           </select>
         </div>
 
-        <div className="bg-white rounded-lg p-4 mb-6 border border-gray-200">
+        <div className="bg-white rounded-lg p-4 mb-6 border border-primary-200 shadow-sm">
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4 text-center">
             <div>
-              <p className="text-2xl font-bold text-green-600">{items.length}</p>
-              <p className="text-sm text-gray-600">Total Items</p>
+              <p className="text-2xl font-bold text-primary-600">{items.length}</p>
+              <p className="text-sm text-gray-600">Total Barang</p>
             </div>
             <div>
-              <p className="text-2xl font-bold text-emerald-600">{items.filter(i => i.status === 'Available').length}</p>
-              <p className="text-sm text-gray-600">Available</p>
+              <p className="text-2xl font-bold text-primary-600">{items.filter(i => i.status === 'Available').length}</p>
+              <p className="text-sm text-gray-600">Tersedia</p>
             </div>
             <div>
               <p className="text-2xl font-bold text-blue-600">{items.filter(i => i.status === 'Lended').length}</p>
-              <p className="text-sm text-gray-600">Lended</p>
+              <p className="text-sm text-gray-600">Dipinjam</p>
             </div>
             <div>
               <p className="text-2xl font-bold text-amber-600">{items.filter(i => i.status === 'Under Repair').length}</p>
-              <p className="text-sm text-gray-600">Under Repair</p>
+              <p className="text-sm text-gray-600">Sedang Diperbaiki</p>
             </div>
             <div>
-              <p className="text-2xl font-bold text-red-600">{items.filter(i => i.status === 'Broken').length}</p>
-              <p className="text-sm text-gray-600">Broken</p>
+              <p className="text-2xl font-bold text-danger-600">{items.filter(i => i.status === 'Broken').length}</p>
+              <p className="text-sm text-gray-600">Rusak</p>
             </div>
           </div>
         </div>
@@ -133,8 +133,8 @@ export const ItemList: React.FC = () => {
 
       {filteredItems.length === 0 && (
         <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">No items found matching your criteria</p>
-          <p className="text-gray-400 text-sm mt-2">Try adjusting your search or filters</p>
+          <p className="text-gray-500 text-lg">Tidak ada barang yang ditemukan</p>
+          <p className="text-gray-400 text-sm mt-2">Coba sesuaikan pencarian atau filter Anda</p>
         </div>
       )}
 

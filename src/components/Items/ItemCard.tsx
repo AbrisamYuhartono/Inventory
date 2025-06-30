@@ -13,15 +13,30 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item, onStatusUpdate, onLend
   const getStatusColor = (status: Item['status']) => {
     switch (status) {
       case 'Available':
-        return 'bg-green-100 text-green-800';
+        return 'bg-primary-100 text-primary-800';
       case 'Lended':
-        return 'bg-emerald-100 text-emerald-800';
+        return 'bg-blue-100 text-blue-800';
       case 'Broken':
-        return 'bg-red-100 text-red-800';
+        return 'bg-danger-100 text-danger-800';
       case 'Under Repair':
         return 'bg-amber-100 text-amber-800';
       case 'Disposed':
         return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  const getStatusText = (status: Item['status']) => {
+    switch (status) {
+      case 'Available':
+        return 'Tersedia';
+      case 'Lended':
+        return 'Dipinjam';
+      case 'Broken':
+        return 'Rusak';
+      case 'Under Repair':
+        return 'Sedang Diperbaiki';
+      case 'Disposed':
+        return 'Dibuang';
     }
   };
 
@@ -44,11 +59,11 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item, onStatusUpdate, onLend
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow duration-200">
+    <div className="bg-white rounded-xl shadow-sm border border-primary-200 p-6 hover:shadow-md transition-shadow duration-200">
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center space-x-3">
-          <div className="p-2 bg-green-50 rounded-lg">
-            <Package className="h-5 w-5 text-green-600" />
+          <div className="p-2 bg-primary-50 rounded-lg">
+            <Package className="h-5 w-5 text-primary-600" />
           </div>
           <div>
             <h3 className="font-semibold text-gray-900">{item.name}</h3>
@@ -56,7 +71,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item, onStatusUpdate, onLend
           </div>
         </div>
         <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(item.status)}`}>
-          {item.status}
+          {getStatusText(item.status)}
         </span>
       </div>
 
@@ -69,7 +84,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item, onStatusUpdate, onLend
         </div>
         <div className="flex items-center space-x-2 text-sm text-gray-600">
           <Calendar className="h-4 w-4" />
-          <span>Added {format(item.createdAt, 'MMM dd, yyyy')}</span>
+          <span>Ditambahkan {format(item.createdAt, 'dd MMM yyyy')}</span>
         </div>
       </div>
 
@@ -85,28 +100,28 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item, onStatusUpdate, onLend
         {item.status === 'Available' && (
           <button
             onClick={() => onLend(item)}
-            className="flex-1 bg-green-600 text-white px-3 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center space-x-1 text-sm"
+            className="flex-1 bg-primary-500 text-white px-3 py-2 rounded-lg hover:bg-primary-600 transition-colors flex items-center justify-center space-x-1 text-sm shadow-sm"
           >
             <FileText className="h-4 w-4" />
-            <span>Lend</span>
+            <span>Pinjam</span>
           </button>
         )}
         
         {item.status === 'Lended' && (
           <button
             onClick={() => onStatusUpdate(item.id, 'Available')}
-            className="flex-1 bg-emerald-600 text-white px-3 py-2 rounded-lg hover:bg-emerald-700 transition-colors text-sm"
+            className="flex-1 bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition-colors text-sm shadow-sm"
           >
-            Return
+            Kembalikan
           </button>
         )}
         
         {item.status === 'Broken' && (
           <button
             onClick={() => onStatusUpdate(item.id, 'Available')}
-            className="flex-1 bg-amber-600 text-white px-3 py-2 rounded-lg hover:bg-amber-700 transition-colors text-sm"
+            className="flex-1 bg-amber-500 text-white px-3 py-2 rounded-lg hover:bg-amber-600 transition-colors text-sm shadow-sm"
           >
-            Fix
+            Perbaiki
           </button>
         )}
       </div>

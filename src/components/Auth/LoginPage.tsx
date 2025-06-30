@@ -51,25 +51,25 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-600 via-green-700 to-green-800 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 flex items-center justify-center p-4">
       <div className="max-w-md w-full">
         {/* Logo and Title */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-white rounded-full mb-4 p-2">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-cream-50 rounded-full mb-4 p-2 shadow-lg">
             <img 
               src="https://github.com/AbrisamYuhartono/Inventory/blob/main/docs/Logo_of_the_Ministry_of_Industry_of_the_Republic_of_Indonesia.png?raw=true"
               alt="Ministry of Industry Logo"
               className="w-full h-full object-contain"
             />
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">ILMATE Inventory</h1>
-          <p className="text-green-100">Sistem Manajemen Inventaris</p>
-          <p className="text-green-200 text-sm mt-2">Direktorat Jenderal Industri Logam, Mesin, Alat Transportasi, dan Elektronika</p>
-          <p className="text-green-200 text-xs mt-1">Kementerian Perindustrian Republik Indonesia</p>
+          <h1 className="text-3xl font-bold text-cream-50 mb-2">ILMATE Inventory</h1>
+          <p className="text-primary-100">Sistem Manajemen Inventaris</p>
+          <p className="text-primary-200 text-sm mt-2">Direktorat Jenderal Industri Logam, Mesin, Alat Transportasi, dan Elektronika</p>
+          <p className="text-primary-200 text-xs mt-1">Kementerian Perindustrian Republik Indonesia</p>
         </div>
 
         {/* Login Form */}
-        <div className="bg-white rounded-2xl shadow-2xl p-8">
+        <div className="bg-cream-50 rounded-2xl shadow-2xl p-8 border border-primary-200">
           <div className="text-center mb-6">
             <h2 className="text-2xl font-bold text-gray-900">Masuk ke Sistem</h2>
             <p className="text-gray-600 mt-2">Silakan masukkan kredensial Anda</p>
@@ -83,7 +83,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
               <input
                 type="text"
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors bg-white"
                 placeholder="Masukkan username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -98,7 +98,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
                 <input
                   type={showPassword ? 'text' : 'password'}
                   required
-                  className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"
+                  className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors bg-white"
                   placeholder="Masukkan password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -114,15 +114,15 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
             </div>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-                <p className="text-red-600 text-sm">{error}</p>
+              <div className="bg-danger-50 border border-danger-200 rounded-lg p-3">
+                <p className="text-danger-600 text-sm">{error}</p>
               </div>
             )}
 
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+              className="w-full bg-primary-500 text-white py-3 px-4 rounded-lg hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 shadow-lg"
             >
               {isLoading ? (
                 <>
@@ -140,19 +140,19 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
         </div>
 
         {/* Demo Accounts */}
-        <div className="mt-8 bg-white/10 backdrop-blur-sm rounded-xl p-6">
-          <h3 className="text-white font-semibold mb-4 text-center">Akun Demo</h3>
+        <div className="mt-8 bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-primary-300/30">
+          <h3 className="text-cream-50 font-semibold mb-4 text-center">Akun Demo</h3>
           <div className="grid grid-cols-1 gap-3">
             {demoAccounts.map((account, index) => (
-              <div key={index} className="bg-white/20 rounded-lg p-3">
+              <div key={index} className="bg-white/20 rounded-lg p-3 border border-primary-300/30">
                 <div className="flex justify-between items-center">
                   <div>
-                    <p className="text-white font-medium">{account.role}</p>
-                    <p className="text-green-200 text-sm">{account.unit}</p>
+                    <p className="text-cream-50 font-medium">{account.role}</p>
+                    <p className="text-primary-200 text-sm">{account.unit}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-white text-sm font-mono">{account.username}</p>
-                    <p className="text-green-200 text-sm font-mono">{account.password}</p>
+                    <p className="text-cream-50 text-sm font-mono">{account.username}</p>
+                    <p className="text-primary-200 text-sm font-mono">{account.password}</p>
                   </div>
                 </div>
               </div>

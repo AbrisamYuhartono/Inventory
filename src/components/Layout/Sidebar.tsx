@@ -62,10 +62,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, user }
   const menuItems = getMenuItems();
 
   return (
-    <div className="w-64 bg-white shadow-lg h-screen fixed left-0 top-0 border-r border-gray-200">
-      <div className="p-6 border-b border-gray-200">
+    <div className="w-64 bg-cream-50 shadow-lg h-screen fixed left-0 top-0 border-r border-primary-200">
+      <div className="p-6 border-b border-primary-200 bg-gradient-to-r from-primary-500 to-primary-600">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-white rounded-lg p-1 border border-gray-200">
+          <div className="w-10 h-10 bg-cream-50 rounded-lg p-1 border border-primary-300 shadow-sm">
             <img 
               src="https://github.com/AbrisamYuhartono/Inventory/blob/main/docs/Logo_of_the_Ministry_of_Industry_of_the_Republic_of_Indonesia.png?raw=true"
               alt="Ministry of Industry Logo"
@@ -73,8 +73,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, user }
             />
           </div>
           <div>
-            <h1 className="text-lg font-bold text-gray-900">ILMATE Inventory</h1>
-            <p className="text-xs text-gray-500">Sistem Inventaris</p>
+            <h1 className="text-lg font-bold text-cream-50">ILMATE Inventory</h1>
+            <p className="text-xs text-primary-100">Sistem Inventaris</p>
           </div>
         </div>
       </div>
@@ -88,8 +88,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, user }
               onClick={() => onTabChange(item.id)}
               className={`w-full flex items-center space-x-3 px-6 py-3 text-left transition-colors duration-200 ${
                 activeTab === item.id
-                  ? 'bg-green-50 text-green-700 border-r-2 border-green-700'
-                  : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                  ? 'bg-primary-50 text-primary-700 border-r-3 border-primary-500 shadow-sm'
+                  : 'text-gray-700 hover:bg-primary-25 hover:text-primary-600'
               }`}
             >
               <Icon className="h-5 w-5" />
@@ -100,11 +100,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, user }
       </nav>
 
       {/* User Info */}
-      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 bg-gray-50">
+      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-primary-200 bg-gradient-to-r from-primary-50 to-cream-100">
         <div className="text-xs text-gray-600">
-          <p className="font-medium">{user.name}</p>
+          <p className="font-medium text-primary-700">{user.name}</p>
           <p>NIP: {user.nip}</p>
-          <p>{user.unit}</p>
+          <p className="text-primary-600">{user.unit}</p>
         </div>
       </div>
     </div>
