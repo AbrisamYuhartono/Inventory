@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Shield, Eye, EyeOff, Building } from 'lucide-react';
+import { Shield, Eye, EyeOff } from 'lucide-react';
 import { mockUsers } from '../../data/mockData';
 import { AuthUser } from '../../types';
 
@@ -51,16 +51,21 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-600 via-green-700 to-green-800 flex items-center justify-center p-4">
       <div className="max-w-md w-full">
         {/* Logo and Title */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full mb-4">
-            <Building className="h-8 w-8 text-blue-600" />
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-white rounded-full mb-4 p-2">
+            <img 
+              src="https://github.com/AbrisamYuhartono/Inventory/blob/main/docs/Logo_of_the_Ministry_of_Industry_of_the_Republic_of_Indonesia.png?raw=true"
+              alt="Ministry of Industry Logo"
+              className="w-full h-full object-contain"
+            />
           </div>
           <h1 className="text-3xl font-bold text-white mb-2">ILMATE Inventory</h1>
-          <p className="text-blue-200">Sistem Manajemen Inventaris</p>
-          <p className="text-blue-300 text-sm">Direktorat Jenderal Industri Logam, Mesin, Alat Transportasi, dan Elektronika</p>
+          <p className="text-green-100">Sistem Manajemen Inventaris</p>
+          <p className="text-green-200 text-sm mt-2">Direktorat Jenderal Industri Logam, Mesin, Alat Transportasi, dan Elektronika</p>
+          <p className="text-green-200 text-xs mt-1">Kementerian Perindustrian Republik Indonesia</p>
         </div>
 
         {/* Login Form */}
@@ -78,7 +83,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
               <input
                 type="text"
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"
                 placeholder="Masukkan username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -93,7 +98,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
                 <input
                   type={showPassword ? 'text' : 'password'}
                   required
-                  className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                  className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"
                   placeholder="Masukkan password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -117,7 +122,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+              className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
             >
               {isLoading ? (
                 <>
@@ -143,11 +148,11 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
                 <div className="flex justify-between items-center">
                   <div>
                     <p className="text-white font-medium">{account.role}</p>
-                    <p className="text-blue-200 text-sm">{account.unit}</p>
+                    <p className="text-green-200 text-sm">{account.unit}</p>
                   </div>
                   <div className="text-right">
                     <p className="text-white text-sm font-mono">{account.username}</p>
-                    <p className="text-blue-200 text-sm font-mono">{account.password}</p>
+                    <p className="text-green-200 text-sm font-mono">{account.password}</p>
                   </div>
                 </div>
               </div>

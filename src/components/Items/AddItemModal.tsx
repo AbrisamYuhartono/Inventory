@@ -10,11 +10,11 @@ interface AddItemModalProps {
 
 export const AddItemModal: React.FC<AddItemModalProps> = ({ isOpen, onClose, onAdd }) => {
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    category: '',
-    room: '',
     serialNumber: '',
+    name: '',
+    nup: '',
+    year: new Date().getFullYear(),
+    roomId: '',
     status: 'Available' as Item['status']
   });
 
@@ -25,11 +25,11 @@ export const AddItemModal: React.FC<AddItemModalProps> = ({ isOpen, onClose, onA
       qrCode: `QR_${formData.serialNumber}`
     });
     setFormData({
-      name: '',
-      description: '',
-      category: '',
-      room: '',
       serialNumber: '',
+      name: '',
+      nup: '',
+      year: new Date().getFullYear(),
+      roomId: '',
       status: 'Available'
     });
     onClose();
@@ -55,53 +55,10 @@ export const AddItemModal: React.FC<AddItemModalProps> = ({ isOpen, onClose, onA
             <input
               type="text"
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Description
-            </label>
-            <textarea
-              rows={3}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Category
-            </label>
-            <input
-              type="text"
-              required
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              value={formData.category}
-              onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Room
-            </label>
-            <select
-              required
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              value={formData.room}
-              onChange={(e) => setFormData({ ...formData, room: e.target.value })}
-            >
-              <option value="">Select Room</option>
-              <option value="IT Office">IT Office</option>
-              <option value="Meeting Room A">Meeting Room A</option>
-              <option value="Media Room">Media Room</option>
-              <option value="Storage Room">Storage Room</option>
-            </select>
           </div>
 
           <div>
@@ -111,10 +68,59 @@ export const AddItemModal: React.FC<AddItemModalProps> = ({ isOpen, onClose, onA
             <input
               type="text"
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
               value={formData.serialNumber}
               onChange={(e) => setFormData({ ...formData, serialNumber: e.target.value })}
             />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              NUP (Nomor Urut Pendaftaran)
+            </label>
+            <input
+              type="text"
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              value={formData.nup}
+              onChange={(e) => setFormData({ ...formData, nup: e.target.value })}
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Year
+            </label>
+            <input
+              type="number"
+              required
+              min="2000"
+              max={new Date().getFullYear() + 1}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              value={formData.year}
+              onChange={(e) => setFormData({ ...formData, year: parseInt(e.target.value) })}
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Room
+            </label>
+            <select
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              value={formData.roomId}
+              onChange={(e) => setFormData({ ...formData, roomId: e.target.value })}
+            >
+              <option value="">Select Room</option>
+              <option value="1">Ruang Direktur Jenderal</option>
+              <option value="2">Ruang Rapat Utama</option>
+              <option value="3">Laboratorium Logam</option>
+              <option value="4">Workshop IPAMP</option>
+              <option value="5">Ruang IMATAB</option>
+              <option value="6">Laboratorium IET</option>
+              <option value="7">Gudang Penyimpanan</option>
+            </select>
           </div>
 
           <div className="flex space-x-3 pt-4">
@@ -127,7 +133,7 @@ export const AddItemModal: React.FC<AddItemModalProps> = ({ isOpen, onClose, onA
             </button>
             <button
               type="submit"
-              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
             >
               Add Item
             </button>

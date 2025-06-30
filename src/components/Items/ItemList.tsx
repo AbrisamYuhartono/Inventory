@@ -13,17 +13,13 @@ export const ItemList: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
-  const [categoryFilter, setCategoryFilter] = useState<string>('all');
-
-  const categories = Array.from(new Set(items.map(item => item.category)));
 
   const filteredItems = items.filter(item => {
     const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          item.serialNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         item.description.toLowerCase().includes(searchTerm.toLowerCase());
+                         item.nup.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === 'all' || item.status === statusFilter;
-    const matchesCategory = categoryFilter === 'all' || item.category === categoryFilter;
-    return matchesSearch && matchesStatus && matchesCategory;
+    return matchesSearch && matchesStatus;
   });
 
   const handleAddItem = (newItem: Omit<Item, 'id' | 'createdAt' | 'updatedAt'>) => {
@@ -65,7 +61,7 @@ export const ItemList: React.FC = () => {
           </div>
           <button
             onClick={() => setIsAddModalOpen(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2"
+            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center space-x-2"
           >
             <Plus className="h-5 w-5" />
             <span>Add Item</span>
@@ -78,7 +74,7 @@ export const ItemList: React.FC = () => {
             <input
               type="text"
               placeholder="Search items..."
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full"
+              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent w-full"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -87,39 +83,34 @@ export const ItemList: React.FC = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
           >
             <option value="all">All Status</option>
             <option value="Available">Available</option>
             <option value="Lended">Lended</option>
             <option value="Broken">Broken</option>
-          </select>
-
-          <select
-            value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="all">All Categories</option>
-            {categories.map((category) => (
-              <option key={category} value={category}>{category}</option>
-            ))}
+            <option value="Under Repair">Under Repair</option>
+            <option value="Disposed">Disposed</option>
           </select>
         </div>
 
         <div className="bg-white rounded-lg p-4 mb-6 border border-gray-200">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 text-center">
             <div>
-              <p className="text-2xl font-bold text-blue-600">{items.length}</p>
+              <p className="text-2xl font-bold text-green-600">{items.length}</p>
               <p className="text-sm text-gray-600">Total Items</p>
             </div>
             <div>
-              <p className="text-2xl font-bold text-green-600">{items.filter(i => i.status === 'Available').length}</p>
+              <p className="text-2xl font-bold text-emerald-600">{items.filter(i => i.status === 'Available').length}</p>
               <p className="text-sm text-gray-600">Available</p>
             </div>
             <div>
-              <p className="text-2xl font-bold text-amber-600">{items.filter(i => i.status === 'Lended').length}</p>
+              <p className="text-2xl font-bold text-blue-600">{items.filter(i => i.status === 'Lended').length}</p>
               <p className="text-sm text-gray-600">Lended</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-amber-600">{items.filter(i => i.status === 'Under Repair').length}</p>
+              <p className="text-sm text-gray-600">Under Repair</p>
             </div>
             <div>
               <p className="text-2xl font-bold text-red-600">{items.filter(i => i.status === 'Broken').length}</p>

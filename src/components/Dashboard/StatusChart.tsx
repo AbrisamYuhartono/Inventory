@@ -3,7 +3,7 @@ import React from 'react';
 export const StatusChart: React.FC = () => {
   const data = [
     { status: 'Available', count: 121, color: 'bg-green-500', percentage: 82 },
-    { status: 'Lended', count: 23, color: 'bg-blue-500', percentage: 16 },
+    { status: 'Lended', count: 23, color: 'bg-emerald-500', percentage: 16 },
     { status: 'Broken', count: 3, color: 'bg-red-500', percentage: 2 }
   ];
 

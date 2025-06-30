@@ -45,11 +45,11 @@ export const RecentActivity: React.FC = () => {
   const getActivityIcon = (type: Activity['type']) => {
     switch (type) {
       case 'lend':
-        return <Package className="h-4 w-4 text-blue-600" />;
+        return <Package className="h-4 w-4 text-green-600" />;
       case 'return':
-        return <CheckCircle className="h-4 w-4 text-green-600" />;
+        return <CheckCircle className="h-4 w-4 text-emerald-600" />;
       case 'add':
-        return <Package className="h-4 w-4 text-purple-600" />;
+        return <Package className="h-4 w-4 text-blue-600" />;
       case 'broken':
         return <AlertCircle className="h-4 w-4 text-red-600" />;
       default:

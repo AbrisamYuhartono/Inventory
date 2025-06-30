@@ -19,7 +19,7 @@ export const Dashboard: React.FC = () => {
           change="+12 this month"
           changeType="positive"
           icon={Package}
-          color="blue"
+          color="green"
         />
         <StatCard
           title="Items Lended"
@@ -27,7 +27,7 @@ export const Dashboard: React.FC = () => {
           change="+5 today"
           changeType="positive"
           icon={FileText}
-          color="green"
+          color="emerald"
         />
         <StatCard
           title="Active Users"

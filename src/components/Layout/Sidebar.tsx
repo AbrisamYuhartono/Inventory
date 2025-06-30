@@ -64,8 +64,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, user }
   return (
     <div className="w-64 bg-white shadow-lg h-screen fixed left-0 top-0 border-r border-gray-200">
       <div className="p-6 border-b border-gray-200">
-        <div className="flex items-center space-x-2">
-          <Package className="h-8 w-8 text-blue-600" />
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 bg-white rounded-lg p-1 border border-gray-200">
+            <img 
+              src="https://github.com/AbrisamYuhartono/Inventory/blob/main/docs/Logo_of_the_Ministry_of_Industry_of_the_Republic_of_Indonesia.png?raw=true"
+              alt="Ministry of Industry Logo"
+              className="w-full h-full object-contain"
+            />
+          </div>
           <div>
             <h1 className="text-lg font-bold text-gray-900">ILMATE Inventory</h1>
             <p className="text-xs text-gray-500">Sistem Inventaris</p>
@@ -82,7 +88,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, user }
               onClick={() => onTabChange(item.id)}
               className={`w-full flex items-center space-x-3 px-6 py-3 text-left transition-colors duration-200 ${
                 activeTab === item.id
-                  ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
+                  ? 'bg-green-50 text-green-700 border-r-2 border-green-700'
                   : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
               }`}
             >

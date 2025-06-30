@@ -42,8 +42,8 @@ export const LendItemModal: React.FC<LendItemModalProps> = ({ isOpen, item, onCl
     doc.text('INFORMASI BARANG:', 20, 50);
     doc.text(`Nama Barang: ${item.name}`, 25, 60);
     doc.text(`Serial Number: ${item.serialNumber}`, 25, 70);
-    doc.text(`Kategori: ${item.category}`, 25, 80);
-    doc.text(`Lokasi: ${item.room}`, 25, 90);
+    doc.text(`NUP: ${item.nup}`, 25, 80);
+    doc.text(`Tahun: ${item.year}`, 25, 90);
     
     doc.text('INFORMASI PEMINJAM:', 20, 110);
     doc.text(`Nama: ${userName}`, 25, 120);
@@ -98,7 +98,7 @@ export const LendItemModal: React.FC<LendItemModalProps> = ({ isOpen, item, onCl
           <div className="bg-gray-50 rounded-lg p-4 mb-6">
             <h3 className="font-medium text-gray-900">{item.name}</h3>
             <p className="text-sm text-gray-600">{item.serialNumber}</p>
-            <p className="text-sm text-gray-600">{item.description}</p>
+            <p className="text-sm text-gray-600">NUP: {item.nup}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -110,7 +110,7 @@ export const LendItemModal: React.FC<LendItemModalProps> = ({ isOpen, item, onCl
               <input
                 type="text"
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 placeholder="Enter full name"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
@@ -124,7 +124,7 @@ export const LendItemModal: React.FC<LendItemModalProps> = ({ isOpen, item, onCl
               <input
                 type="email"
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 placeholder="user@company.com"
                 value={userEmail}
                 onChange={(e) => setUserEmail(e.target.value)}
@@ -135,14 +135,19 @@ export const LendItemModal: React.FC<LendItemModalProps> = ({ isOpen, item, onCl
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Department
               </label>
-              <input
-                type="text"
+              <select
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="e.g., Marketing, IT, Sales"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 value={userDepartment}
                 onChange={(e) => setUserDepartment(e.target.value)}
-              />
+              >
+                <option value="">Select Department</option>
+                <option value="Setditjen ILMATE">Setditjen ILMATE</option>
+                <option value="Logam">Logam</option>
+                <option value="IPAMP">IPAMP</option>
+                <option value="IMATAB">IMATAB</option>
+                <option value="IET">IET</option>
+              </select>
             </div>
 
             <div>
@@ -152,7 +157,7 @@ export const LendItemModal: React.FC<LendItemModalProps> = ({ isOpen, item, onCl
               <input
                 type="date"
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 value={returnDate}
                 onChange={(e) => setReturnDate(e.target.value)}
                 min={format(new Date(), 'yyyy-MM-dd')}
@@ -165,7 +170,7 @@ export const LendItemModal: React.FC<LendItemModalProps> = ({ isOpen, item, onCl
               </label>
               <textarea
                 rows={3}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 placeholder="Add any notes about this lending..."
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
@@ -182,7 +187,7 @@ export const LendItemModal: React.FC<LendItemModalProps> = ({ isOpen, item, onCl
               </button>
               <button
                 type="submit"
-                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2"
+                className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center space-x-2"
               >
                 <Download className="h-4 w-4" />
                 <span>Lend & Generate PDF</span>
