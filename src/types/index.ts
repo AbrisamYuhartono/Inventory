@@ -1,4 +1,4 @@
-export interface User {
+export interface Pegawai {
   id: string;
   name: string;
   nip: string;
@@ -6,11 +6,19 @@ export interface User {
   pangkatGolongan: string;
   jabatan: string;
   unit: 'Setditjen ILMATE' | 'Logam' | 'IPAMP' | 'IMATAB' | 'IET';
+  isActive: boolean;
+  joinDate: Date;
+}
+
+export interface User {
+  id: string;
   username: string;
   password: string;
   role: 'Superadmin' | 'Admin' | 'User';
+  unit: 'Setditjen ILMATE' | 'Logam' | 'IPAMP' | 'IMATAB' | 'IET';
+  pegawaiId?: string; // Link to Pegawai for User role
   isActive: boolean;
-  joinDate: Date;
+  createdAt: Date;
 }
 
 export interface Room {
@@ -20,36 +28,39 @@ export interface Room {
   lantai: number;
   roomType: 'Office' | 'Meeting' | 'Storage' | 'Laboratory' | 'Workshop';
   description: string;
-  picName: string; // Person in charge name
-  picNip: string; // Person in charge NIP
-  picJabatan: string; // Person in charge position
+  picName: string;
+  picNip: string;
+  picJabatan: string;
 }
 
 export interface Item {
   id: string;
   serialNumber: string;
   name: string;
-  nup: string; // Nomor Urut Pendaftaran
+  brand: string;
+  model: string;
+  nup: string;
   year: number;
   roomId: string;
-  currentBorrowerId?: string; // User ID yang sedang meminjam
+  currentBorrowerId?: string;
   status: 'Available' | 'Lended' | 'Broken' | 'Under Repair' | 'Disposed';
   qrCode: string;
+  description: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export interface LendingRecord {
+export interface LendingRequest {
   id: string;
   itemId: string;
-  borrowerId: string;
-  borrowerName: string;
-  borrowerNip: string;
-  borrowerUnit: string;
+  pegawaiId: string;
+  pegawaiName: string;
+  pegawaiNip: string;
+  pegawaiUnit: string;
   itemName: string;
   itemSerialNumber: string;
   itemNup: string;
-  lendDate: Date;
+  requestDate: Date;
   expectedReturnDate: Date;
   actualReturnDate?: Date;
   status: 'Pending' | 'Approved' | 'Active' | 'Returned' | 'Rejected';
@@ -57,6 +68,7 @@ export interface LendingRecord {
   approverName?: string;
   notes?: string;
   rejectionReason?: string;
+  requestedBy: string; // User ID who made the request
 }
 
 export interface RepairRequest {
@@ -65,10 +77,10 @@ export interface RepairRequest {
   itemName: string;
   itemSerialNumber: string;
   itemNup: string;
-  requesterId: string;
-  requesterName: string;
-  requesterNip: string;
-  requesterUnit: string;
+  pegawaiId: string;
+  pegawaiName: string;
+  pegawaiNip: string;
+  pegawaiUnit: string;
   damageDescription: string;
   urgencyLevel: 'Low' | 'Medium' | 'High' | 'Critical';
   requestDate: Date;
@@ -84,11 +96,12 @@ export interface RepairRequest {
   vendorName?: string;
   vendorContact?: string;
   attachments?: string[];
+  requestedBy: string; // User ID who made the request
 }
 
 export interface LendingDocument {
   id: string;
-  lendingRecordId: string;
+  lendingRequestId: string;
   documentUrl: string;
   generatedAt: Date;
 }
@@ -107,8 +120,8 @@ export interface SystemSettings {
 export interface AuthUser {
   id: string;
   username: string;
-  name: string;
   role: 'Superadmin' | 'Admin' | 'User';
   unit: string;
-  nip: string;
+  pegawaiId?: string;
+  pegawaiName?: string;
 }

@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ILMATE Inventory System - Updated Final ERD</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #7ac043 0%, #5a8f32 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            background: #ffffee;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #7ac043 0%, #5a8f32 100%);
+            color: #ffffee;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .erd-container {
+            padding: 40px;
+            overflow-x: auto;
+            position: relative;
+        }
+        
+        .erd-diagram {
+            position: relative;
+            min-width: 1600px;
+            min-height: 1400px;
+        }
+        
+        .entity {
+            position: absolute;
+            background: #ffffee;
+            border: 3px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            width: 320px;
+            z-index: 10;
+        }
+        
+        .entity:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-color: #7ac043;
+            z-index: 20;
+        }
+        
+        .entity-header {
+            background: linear-gradient(135deg, #7ac043 0%, #5a8f32 100%);
+            color: #ffffee;
+            padding: 15px;
+            border-radius: 9px 9px 0 0;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        
+        .entity-body {
+            padding: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .attribute {
+            display: flex;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 0.85rem;
+        }
+        
+        .attribute:last-child {
+            border-bottom: none;
+        }
+        
+        .attribute-name {
+            font-weight: 600;
+            color: #374151;
+            flex: 1;
+        }
+        
+        .attribute-type {
+            color: #6b7280;
+            font-size: 0.75rem;
+            margin-left: 10px;
+        }
+        
+        .pk {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        
+        .fk {
+            background: #dbeafe;
+            color: #1d4ed8;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        
+        /* Entity Positions */
+        .users { top: 50px; left: 50px; }
+        .pegawai { top: 50px; left: 420px; }
+        .rooms { top: 50px; left: 790px; }
+        .items { top: 350px; left: 420px; }
+        .lending-requests { top: 650px; left: 50px; }
+        .lending-documents { top: 650px; left: 420px; }
+        .repair-requests { top: 350px; left: 790px; }
+        .system-settings { top: 50px; left: 1160px; }
+        
+        /* Connection Lines */
+        .connection {
+            position: absolute;
+            z-index: 1;
+        }
+        
+        .connection-line {
+            stroke: #6b7280;
+            stroke-width: 2;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+        
+        .connection-line:hover {
+            stroke: #7ac043;
+            stroke-width: 3;
+        }
+        
+        .connection-label {
+            position: absolute;
+            background: #f9fafb;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #374151;
+            white-space: nowrap;
+            z-index: 5;
+        }
+        
+        .legend {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .legend h3 {
+            margin: 0 0 15px 0;
+            color: #374151;
+            font-size: 1.2rem;
+        }
+        
+        .legend-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .color-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        
+        .relationship-info {
+            margin-top: 30px;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .relationship-info h3 {
+            margin: 0 0 20px 0;
+            color: #1f2937;
+            font-size: 1.3rem;
+        }
+        
+        .relationship-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 15px;
+        }
+        
+        .relationship-card {
+            background: #ffffee;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #7ac043;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .relationship-card strong {
+            color: #1f2937;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .relationship-card p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .changes-section {
+            margin-top: 30px;
+            padding: 25px;
+            background: #ecfdf5;
+            border-radius: 12px;
+            border: 1px solid #7ac043;
+        }
+
+        .changes-section h3 {
+            margin: 0 0 20px 0;
+            color: #065f46;
+            font-size: 1.3rem;
+        }
+
+        .change-item {
+            background: #ffffee;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #7ac043;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ILMATE Inventory Management System</h1>
+            <p>Updated Final Entity Relationship Diagram</p>
+            <p style="font-size: 0.9rem;">Direktorat Jenderal Industri Logam, Mesin, Alat Transportasi, dan Elektronika</p>
+        </div>
+        
+        <div class="erd-container">
+            <div class="erd-diagram">
+                <!-- SVG for connection lines -->
+                <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0; z-index: 1;">
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+                                refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#6b7280" />
+                        </marker>
+                    </defs>
+                    
+                    <!-- Users to Pegawai (0:1) -->
+                    <path class="connection-line" d="M 370 200 L 420 200" stroke-dasharray="5,5" />
+                    
+                    <!-- Users to Lending_Requests (1:N) -->
+                    <path class="connection-line" d="M 210 370 Q 210 500 210 650" />
+                    
+                    <!-- Users to Repair_Requests (1:N) -->
+                    <path class="connection-line" d="M 370 300 Q 550 300 790 400" />
+                    
+                    <!-- Pegawai to Lending_Requests (1:N) -->
+                    <path class="connection-line" d="M 420 370 Q 300 500 250 650" />
+                    
+                    <!-- Pegawai to Repair_Requests (1:N) -->
+                    <path class="connection-line" d="M 740 250 Q 850 300 950 400" />
+                    
+                    <!-- Rooms to Items (1:N) -->
+                    <path class="connection-line" d="M 950 370 Q 950 360 740 450" />
+                    
+                    <!-- Items to Lending_Requests (1:N) -->
+                    <path class="connection-line" d="M 420 550 Q 300 600 250 650" />
+                    
+                    <!-- Items to Repair_Requests (1:N) -->
+                    <path class="connection-line" d="M 740 450 L 790 450" />
+                    
+                    <!-- Lending_Requests to Lending_Documents (1:N) -->
+                    <path class="connection-line" d="M 370 750 L 420 750" />
+                </svg>
+                
+                <!-- Connection Labels -->
+                <div class="connection-label" style="top: 190px; left: 380px;">0:1</div>
+                <div class="connection-label" style="top: 500px; left: 220px;">1:N</div>
+                <div class="connection-label" style="top: 340px; left: 580px;">1:N</div>
+                <div class="connection-label" style="top: 500px; left: 300px;">1:N</div>
+                <div class="connection-label" style="top: 320px; left: 820px;">1:N</div>
+                <div class="connection-label" style="top: 400px; left: 820px;">1:N</div>
+                <div class="connection-label" style="top: 575px; left: 300px;">1:N</div>
+                <div class="connection-label" style="top: 440px; left: 760px;">1:N</div>
+                <div class="connection-label" style="top: 750px; left: 380px;">1:N</div>
+                
+                <!-- Users Entity -->
+                <div class="entity users">
+                    <div class="entity-header">Users</div>
+                    <div class="entity-body">
+                        <div class="attribute">
+                            <span class="pk">PK</span>
+                            <span class="attribute-name">user_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">username</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">password</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">role</span>
+                            <span class="attribute-type">ENUM</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">unit</span>
+                            <span class="attribute-type">ENUM</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="fk">FK</span>
+                            <span class="attribute-name">pegawai_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">is_active</span>
+                            <span class="attribute-type">BOOLEAN</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">created_at</span>
+                            <span class="attribute-type">TIMESTAMP</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pegawai Entity -->
+                <div class="entity pegawai">
+                    <div class="entity-header">Pegawai</div>
+                    <div class="entity-body">
+                        <div class="attribute">
+                            <span class="pk">PK</span>
+                            <span class="attribute-name">pegawai_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">name</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">nip</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">karpeg</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">pangkat_golongan</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">jabatan</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">unit</span>
+                            <span class="attribute-type">ENUM</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">is_active</span>
+                            <span class="attribute-type">BOOLEAN</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">join_date</span>
+                            <span class="attribute-type">TIMESTAMP</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Rooms Entity -->
+                <div class="entity rooms">
+                    <div class="entity-header">Rooms</div>
+                    <div class="entity-body">
+                        <div class="attribute">
+                            <span class="pk">PK</span>
+                            <span class="attribute-name">room_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">name</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">room_code</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">lantai</span>
+                            <span class="attribute-type">INTEGER</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">room_type</span>
+                            <span class="attribute-type">ENUM</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">description</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">pic_name</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">pic_nip</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">pic_jabatan</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Items Entity -->
+                <div class="entity items">
+                    <div class="entity-header">Items</div>
+                    <div class="entity-body">
+                        <div class="attribute">
+                            <span class="pk">PK</span>
+                            <span class="attribute-name">item_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">serial_number</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">name</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">brand</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">model</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">nup</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">year</span>
+                            <span class="attribute-type">INTEGER</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="fk">FK</span>
+                            <span class="attribute-name">room_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="fk">FK</span>
+                            <span class="attribute-name">current_borrower_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">status</span>
+                            <span class="attribute-type">ENUM</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">qr_code</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">description</span>
+                            <span class="attribute-type">TEXT</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">created_at</span>
+                            <span class="attribute-type">TIMESTAMP</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">updated_at</span>
+                            <span class="attribute-type">TIMESTAMP</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Lending Requests Entity -->
+                <div class="entity lending-requests">
+                    <div class="entity-header">Lending_Requests</div>
+                    <div class="entity-body">
+                        <div class="attribute">
+                            <span class="pk">PK</span>
+                            <span class="attribute-name">request_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="fk">FK</span>
+                            <span class="attribute-name">item_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="fk">FK</span>
+                            <span class="attribute-name">pegawai_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="fk">FK</span>
+                            <span class="attribute-name">requested_by</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">pegawai_name</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">pegawai_nip</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">pegawai_unit</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">item_name</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">item_serial_number</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">item_nup</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">request_date</span>
+                            <span class="attribute-type">TIMESTAMP</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">expected_return_date</span>
+                            <span class="attribute-type">DATE</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">actual_return_date</span>
+                            <span class="attribute-type">TIMESTAMP</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">status</span>
+                            <span class="attribute-type">ENUM</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">approved_by</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">approver_name</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">notes</span>
+                            <span class="attribute-type">TEXT</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">rejection_reason</span>
+                            <span class="attribute-type">TEXT</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Lending Documents Entity -->
+                <div class="entity lending-documents">
+                    <div class="entity-header">Lending_Documents</div>
+                    <div class="entity-body">
+                        <div class="attribute">
+                            <span class="pk">PK</span>
+                            <span class="attribute-name">document_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="fk">FK</span>
+                            <span class="attribute-name">request_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">document_url</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">generated_at</span>
+                            <span class="attribute-type">TIMESTAMP</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Repair Requests Entity -->
+                <div class="entity repair-requests">
+                    <div class="entity-header">Repair_Requests</div>
+                    <div class="entity-body">
+                        <div class="attribute">
+                            <span class="pk">PK</span>
+                            <span class="attribute-name">repair_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="fk">FK</span>
+                            <span class="attribute-name">item_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="fk">FK</span>
+                            <span class="attribute-name">pegawai_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="fk">FK</span>
+                            <span class="attribute-name">requested_by</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">pegawai_name</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">pegawai_nip</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">pegawai_unit</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">damage_description</span>
+                            <span class="attribute-type">TEXT</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">urgency_level</span>
+                            <span class="attribute-type">ENUM</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">request_date</span>
+                            <span class="attribute-type">TIMESTAMP</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">status</span>
+                            <span class="attribute-type">ENUM</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">approved_by</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">approver_name</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">repair_notes</span>
+                            <span class="attribute-type">TEXT</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">estimated_cost</span>
+                            <span class="attribute-type">DECIMAL</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">actual_cost</span>
+                            <span class="attribute-type">DECIMAL</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">vendor_name</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">vendor_contact</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">repair_start_date</span>
+                            <span class="attribute-type">TIMESTAMP</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">repair_completion_date</span>
+                            <span class="attribute-type">TIMESTAMP</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">attachments</span>
+                            <span class="attribute-type">JSON</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- System Settings Entity -->
+                <div class="entity system-settings">
+                    <div class="entity-header">System_Settings</div>
+                    <div class="entity-body">
+                        <div class="attribute">
+                            <span class="pk">PK</span>
+                            <span class="attribute-name">setting_id</span>
+                            <span class="attribute-type">UUID</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">company_name</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">company_address</span>
+                            <span class="attribute-type">TEXT</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">company_phone</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">company_email</span>
+                            <span class="attribute-type">VARCHAR</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">max_lending_days</span>
+                            <span class="attribute-type">INTEGER</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">require_approval</span>
+                            <span class="attribute-type">BOOLEAN</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">enable_notifications</span>
+                            <span class="attribute-type">BOOLEAN</span>
+                        </div>
+                        <div class="attribute">
+                            <span class="attribute-name">auto_generate_qr</span>
+                            <span class="attribute-type">BOOLEAN</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="changes-section">
+                <h3>🔄 Perubahan Utama: Pemisahan Users dan Pegawai</h3>
+                <div class="change-item">
+                    <strong>1. Entitas Users (Sistem Login)</strong>
+                    <p>• Entitas terpisah untuk manajemen akses sistem<br>
+                    • Berisi username, password, role (Superadmin/Admin/User)<br>
+                    • Hanya dapat dikelola oleh Admin (untuk User) dan Superadmin (untuk semua)<br>
+                    • Relasi optional (0:1) dengan Pegawai untuk role User</p>
+                </div>
+                <div class="change-item">
+                    <strong>2. Entitas Pegawai (Data Pegawai)</strong>
+                    <p>• Entitas terpisah untuk data pegawai lengkap<br>
+                    • Berisi NIP, KARPEG, pangkat_golongan, jabatan, unit<br>
+                    • Data pegawai dapat dilihat berdasarkan unit masing-masing<br>
+                    • Unit: Setditjen ILMATE, Logam, IPAMP, IMATAB, IET</p>
+                </div>
+                <div class="change-item">
+                    <strong>3. Entitas Items (Diperbaharui)</strong>
+                    <p>• Menambahkan field brand, model, description<br>
+                    • Memperjelas informasi barang untuk kemudahan identifikasi<br>
+                    • QR Code otomatis untuk setiap barang</p>
+                </div>
+                <div class="change-item">
+                    <strong>4. Entitas Lending_Requests & Repair_Requests</strong>
+                    <p>• Mengganti nama dari Lending_Records menjadi Lending_Requests<br>
+                    • Menambahkan field requested_by untuk tracking user yang mengajukan<br>
+                    • Relasi dengan Pegawai untuk data peminjam/pengaju<br>
+                    • Workflow: User pilih barang → pilih pegawai → submit request</p>
+                </div>
+                <div class="change-item">
+                    <strong>5. Akses Data Berdasarkan Unit</strong>
+                    <p>• User hanya dapat melihat pegawai dari unit yang sama<br>
+                    • Admin dan Superadmin dapat melihat semua unit<br>
+                    • Pemisahan data untuk keamanan dan privasi</p>
+                </div>
+            </div>
+            
+            <div class="legend">
+                <h3>Legend</h3>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <div class="color-box" style="background: #fef3c7;"></div>
+                        <span><strong>PK</strong> - Primary Key</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box" style="background: #dbeafe;"></div>
+                        <span><strong>FK</strong> - Foreign Key</span>
+                    </div>
+                    <div class="legend-item">
+                        <div style="width: 30px; height: 2px; background: #6b7280;"></div>
+                        <span>Solid Line - Direct Relationship</span>
+                    </div>
+                    <div class="legend-item">
+                        <div style="width: 30px; height: 2px; background: #6b7280; border-top: 2px dashed #6b7280;"></div>
+                        <span>Dashed Line - Optional Relationship</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="color-box" style="background: #f9fafb; border: 1px solid #d1d5db;"></div>
+                        <span><strong>1:N</strong> - One to Many Relationship</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="relationship-info">
+                <h3>Detailed Relationship Mapping</h3>
+                <div class="relationship-grid">
+                    <div class="relationship-card">
+                        <strong>Users → Pegawai (0:1)</strong>
+                        <p>User dengan role 'User' dapat terhubung dengan satu pegawai. Admin dan Superadmin tidak perlu terhubung dengan pegawai.</p>
+                    </div>
+                    <div class="relationship-card">
+                        <strong>Users → Lending_Requests (1:N)</strong>
+                        <p>Satu user dapat mengajukan banyak permintaan peminjaman. Setiap permintaan dicatat siapa yang mengajukan.</p>
+                    </div>
+                    <div class="relationship-card">
+                        <strong>Users → Repair_Requests (1:N)</strong>
+                        <p>Satu user dapat mengajukan banyak permintaan perbaikan. Tracking lengkap siapa yang mengajukan permintaan.</p>
+                    </div>
+                    <div class="relationship-card">
+                        <strong>Pegawai → Lending_Requests (1:N)</strong>
+                        <p>Satu pegawai dapat menjadi peminjam di banyak permintaan. Data pegawai lengkap tersimpan untuk dokumentasi.</p>
+                    </div>
+                    <div class="relationship-card">
+                        <strong>Pegawai → Repair_Requests (1:N)</strong>
+                        <p>Satu pegawai dapat mengajukan banyak permintaan perbaikan. Identitas pengaju tercatat lengkap.</p>
+                    </div>
+                    <div class="relationship-card">
+                        <strong>Rooms → Items (1:N)</strong>
+                        <p>Satu ruangan dapat menyimpan banyak item. Setiap item berada di satu ruangan dengan PIC yang jelas.</p>
+                    </div>
+                    <div class="relationship-card">
+                        <strong>Items → Lending_Requests (1:N)</strong>
+                        <p>Satu item dapat memiliki banyak permintaan peminjaman (history). Tracking lengkap penggunaan barang.</p>
+                    </div>
+                    <div class="relationship-card">
+                        <strong>Items → Repair_Requests (1:N)</strong>
+                        <p>Satu item dapat memiliki banyak permintaan perbaikan (history). Maintenance record yang komprehensif.</p>
+                    </div>
+                    <div class="relationship-card">
+                        <strong>Lending_Requests → Lending_Documents (1:N)</strong>
+                        <p>Satu permintaan peminjaman dapat menghasilkan banyak dokumen (PDF, kontrak, dll).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

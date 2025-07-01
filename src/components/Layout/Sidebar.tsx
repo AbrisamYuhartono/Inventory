@@ -8,7 +8,8 @@ import {
   Settings,
   BarChart3,
   CheckSquare,
-  Wrench
+  Wrench,
+  UserCheck
 } from 'lucide-react';
 import { AuthUser } from '../../types';
 
@@ -39,6 +40,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, user }
         ...baseItems,
         { id: 'approval', label: 'Persetujuan', icon: CheckSquare },
         { id: 'repair-requests', label: 'Perbaikan Barang', icon: Wrench },
+        { id: 'pegawai', label: 'Data Pegawai', icon: UserCheck },
         { id: 'rooms', label: 'Ruangan', icon: Building },
         { id: 'reports', label: 'Laporan', icon: BarChart3 }
       ];
@@ -49,7 +51,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, user }
         ...baseItems,
         { id: 'approval', label: 'Persetujuan', icon: CheckSquare },
         { id: 'repair-requests', label: 'Perbaikan Barang', icon: Wrench },
-        { id: 'users', label: 'Pengguna', icon: Users },
+        { id: 'users', label: 'Manajemen User', icon: Users },
+        { id: 'pegawai', label: 'Data Pegawai', icon: UserCheck },
         { id: 'rooms', label: 'Ruangan', icon: Building },
         { id: 'reports', label: 'Laporan', icon: BarChart3 },
         { id: 'settings', label: 'Pengaturan', icon: Settings }
@@ -102,9 +105,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, user }
       {/* User Info */}
       <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-primary-200 bg-gradient-to-r from-primary-50 to-cream-100">
         <div className="text-xs text-gray-600">
-          <p className="font-medium text-primary-700">{user.name}</p>
-          <p>NIP: {user.nip}</p>
+          <p className="font-medium text-primary-700">{user.pegawaiName || user.username}</p>
           <p className="text-primary-600">{user.unit}</p>
+          <p className="text-gray-500">{user.role}</p>
         </div>
       </div>
     </div>

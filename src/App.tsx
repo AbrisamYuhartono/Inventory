@@ -6,6 +6,7 @@ import { Dashboard } from './components/Dashboard/Dashboard';
 import { ItemList } from './components/Items/ItemList';
 import { LendingManagement } from './components/Lending/LendingManagement';
 import { UserManagement } from './components/Users/UserManagement';
+import { PegawaiManagement } from './components/Pegawai/PegawaiManagement';
 import { RoomManagement } from './components/Rooms/RoomManagement';
 import { ReportsPage } from './components/Reports/ReportsPage';
 import { SettingsPage } from './components/Settings/SettingsPage';
@@ -34,7 +35,7 @@ function App() {
   const renderContent = () => {
     switch (activeTab) {
       case 'dashboard':
-        return <Dashboard />;
+        return <Dashboard user={user} />;
       case 'items':
         return <ItemList />;
       case 'lending':
@@ -46,15 +47,18 @@ function App() {
       case 'repair-requests':
         return <RepairRequestsPage user={user} />;
       case 'users':
-        return user.role === 'Superadmin' ? <UserManagement /> : <Dashboard />;
+        return user.role === 'Superadmin' ? <UserManagement /> : <Dashboard user={user} />;
+      case 'pegawai':
+        return (user.role === 'Admin' || user.role === 'Superadmin' || user.role === 'User') ? 
+          <PegawaiManagement user={user} /> : <Dashboard user={user} />;
       case 'rooms':
-        return (user.role === 'Admin' || user.role === 'Superadmin') ? <RoomManagement /> : <Dashboard />;
+        return (user.role === 'Admin' || user.role === 'Superadmin') ? <RoomManagement /> : <Dashboard user={user} />;
       case 'reports':
-        return (user.role === 'Admin' || user.role === 'Superadmin') ? <ReportsPage /> : <Dashboard />;
+        return (user.role === 'Admin' || user.role === 'Superadmin') ? <ReportsPage /> : <Dashboard user={user} />;
       case 'settings':
-        return user.role === 'Superadmin' ? <SettingsPage /> : <Dashboard />;
+        return user.role === 'Superadmin' ? <SettingsPage /> : <Dashboard user={user} />;
       default:
-        return <Dashboard />;
+        return <Dashboard user={user} />;
     }
   };
 

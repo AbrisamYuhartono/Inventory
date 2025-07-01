@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Shield, Eye, EyeOff } from 'lucide-react';
-import { mockUsers } from '../../data/mockData';
+import { mockUsers, mockPegawai } from '../../data/mockData';
 import { AuthUser } from '../../types';
 
 interface LoginPageProps {
@@ -25,13 +25,19 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
     const user = mockUsers.find(u => u.username === username && u.password === password && u.isActive);
 
     if (user) {
+      let pegawaiName = '';
+      if (user.pegawaiId) {
+        const pegawai = mockPegawai.find(p => p.id === user.pegawaiId);
+        pegawaiName = pegawai?.name || '';
+      }
+
       const authUser: AuthUser = {
         id: user.id,
         username: user.username,
-        name: user.name,
         role: user.role,
         unit: user.unit,
-        nip: user.nip
+        pegawaiId: user.pegawaiId,
+        pegawaiName
       };
       onLogin(authUser);
     } else {
