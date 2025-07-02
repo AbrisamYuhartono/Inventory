@@ -46,8 +46,31 @@ export interface Item {
   status: 'Available' | 'Lended' | 'Broken' | 'Under Repair' | 'Disposed';
   qrCode: string;
   description: string;
+  category: string; // Add this for compatibility
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface LendingRecord {
+  id: string;
+  itemId: string;
+  borrowerId: string; // Add this field
+  borrowerName: string;
+  borrowerNip: string;
+  borrowerUnit: string;
+  userName: string; // Add this for compatibility
+  userDepartment: string; // Add this for compatibility
+  itemName: string;
+  itemSerialNumber: string;
+  itemNup: string;
+  lendDate: Date;
+  expectedReturnDate: Date;
+  actualReturnDate?: Date;
+  status: 'Pending' | 'Approved' | 'Active' | 'Returned' | 'Rejected';
+  approvedBy?: string;
+  approverName?: string;
+  notes?: string;
+  rejectionReason?: string;
 }
 
 export interface LendingRequest {
@@ -81,6 +104,10 @@ export interface RepairRequest {
   pegawaiName: string;
   pegawaiNip: string;
   pegawaiUnit: string;
+  requesterId: string; // Add this field
+  requesterName: string; // Add this field
+  requesterNip: string; // Add this field
+  requesterUnit: string; // Add this field
   damageDescription: string;
   urgencyLevel: 'Low' | 'Medium' | 'High' | 'Critical';
   requestDate: Date;
@@ -124,4 +151,6 @@ export interface AuthUser {
   unit: string;
   pegawaiId?: string;
   pegawaiName?: string;
+  name?: string; // Add this for compatibility
+  nip?: string; // Add this for compatibility
 }

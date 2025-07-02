@@ -1,4 +1,4 @@
-import { Item, User, Pegawai, LendingRequest, Room, RepairRequest } from '../types';
+import { Item, User, Pegawai, LendingRequest, LendingRecord, Room, RepairRequest } from '../types';
 
 export const mockPegawai: Pegawai[] = [
   // Setditjen ILMATE
@@ -270,6 +270,7 @@ export const mockItems: Item[] = [
     name: 'Laptop Dell Precision 7560',
     brand: 'Dell',
     model: 'Precision 7560',
+    category: 'Electronics',
     nup: '2024.01.001',
     year: 2024,
     roomId: '3',
@@ -285,6 +286,7 @@ export const mockItems: Item[] = [
     name: 'Proyektor Epson EB-2250U',
     brand: 'Epson',
     model: 'EB-2250U',
+    category: 'Electronics',
     nup: '2024.01.002',
     year: 2024,
     roomId: '2',
@@ -301,6 +303,7 @@ export const mockItems: Item[] = [
     name: 'Kamera Digital Canon EOS R6',
     brand: 'Canon',
     model: 'EOS R6',
+    category: 'Electronics',
     nup: '2024.01.003',
     year: 2024,
     roomId: '7',
@@ -316,6 +319,7 @@ export const mockItems: Item[] = [
     name: 'Microphone Wireless Shure SM58',
     brand: 'Shure',
     model: 'SM58',
+    category: 'Audio',
     nup: '2023.12.015',
     year: 2023,
     roomId: '7',
@@ -331,6 +335,7 @@ export const mockItems: Item[] = [
     name: 'MacBook Pro 16" M3',
     brand: 'Apple',
     model: 'MacBook Pro 16" M3',
+    category: 'Electronics',
     nup: '2024.01.004',
     year: 2024,
     roomId: '5',
@@ -339,82 +344,6 @@ export const mockItems: Item[] = [
     description: 'Laptop premium untuk desain dan pengembangan aplikasi',
     createdAt: new Date('2024-01-08'),
     updatedAt: new Date('2024-01-08')
-  },
-  {
-    id: '6',
-    serialNumber: 'TAB-2024-001',
-    name: 'iPad Pro 12.9" M2',
-    brand: 'Apple',
-    model: 'iPad Pro 12.9" M2',
-    nup: '2024.01.005',
-    year: 2024,
-    roomId: '2',
-    currentBorrowerId: 'peg-5',
-    status: 'Lended',
-    qrCode: 'QR_TAB_2024_001',
-    description: 'Tablet profesional untuk presentasi dan demo aplikasi',
-    createdAt: new Date('2024-01-14'),
-    updatedAt: new Date('2024-01-22')
-  },
-  {
-    id: '7',
-    serialNumber: 'PRT-2024-001',
-    name: 'Printer HP LaserJet Enterprise M507dn',
-    brand: 'HP',
-    model: 'LaserJet Enterprise M507dn',
-    nup: '2024.01.006',
-    year: 2024,
-    roomId: '1',
-    status: 'Available',
-    qrCode: 'QR_PRT_2024_001',
-    description: 'Printer laser monokrom untuk dokumen resmi',
-    createdAt: new Date('2024-01-03'),
-    updatedAt: new Date('2024-01-03')
-  },
-  {
-    id: '8',
-    serialNumber: 'MON-2024-001',
-    name: 'Monitor Dell UltraSharp U2723QE 27"',
-    brand: 'Dell',
-    model: 'UltraSharp U2723QE 27"',
-    nup: '2024.01.007',
-    year: 2024,
-    roomId: '3',
-    status: 'Available',
-    qrCode: 'QR_MON_2024_001',
-    description: 'Monitor 4K IPS untuk desain dan analisis data',
-    createdAt: new Date('2024-01-11'),
-    updatedAt: new Date('2024-01-11')
-  },
-  {
-    id: '9',
-    serialNumber: 'TRP-2024-001',
-    name: 'Tripod Manfrotto MT055CXPRO3',
-    brand: 'Manfrotto',
-    model: 'MT055CXPRO3',
-    nup: '2024.01.008',
-    year: 2024,
-    roomId: '7',
-    status: 'Available',
-    qrCode: 'QR_TRP_2024_001',
-    description: 'Tripod carbon fiber untuk fotografi dan videografi',
-    createdAt: new Date('2024-01-16'),
-    updatedAt: new Date('2024-01-16')
-  },
-  {
-    id: '10',
-    serialNumber: 'SPK-2024-001',
-    name: 'Speaker JBL Professional EON615',
-    brand: 'JBL',
-    model: 'Professional EON615',
-    nup: '2024.01.009',
-    year: 2024,
-    roomId: '7',
-    status: 'Available',
-    qrCode: 'QR_SPK_2024_001',
-    description: 'Speaker aktif 15" untuk acara dan presentasi',
-    createdAt: new Date('2024-01-18'),
-    updatedAt: new Date('2024-01-18')
   }
 ];
 
@@ -439,29 +368,11 @@ export const mockLendingRequests: LendingRequest[] = [
   },
   {
     id: '2',
-    itemId: '6',
+    itemId: '5',
     pegawaiId: 'peg-5',
     pegawaiName: 'Sari Indrawati, S.T., M.T.',
     pegawaiNip: '198207252010032004',
     pegawaiUnit: 'IPAMP',
-    itemName: 'iPad Pro 12.9" M2',
-    itemSerialNumber: 'TAB-2024-001',
-    itemNup: '2024.01.005',
-    requestDate: new Date('2024-01-22'),
-    expectedReturnDate: new Date('2024-01-29'),
-    status: 'Active',
-    approvedBy: 'user-2',
-    approverName: 'Admin',
-    notes: 'Demo aplikasi mobile untuk workshop IPAMP',
-    requestedBy: 'user-4'
-  },
-  {
-    id: '3',
-    itemId: '5',
-    pegawaiId: 'peg-7',
-    pegawaiName: 'Eko Prasetyo, S.T., M.T.',
-    pegawaiNip: '198109182008031005',
-    pegawaiUnit: 'IMATAB',
     itemName: 'MacBook Pro 16" M3',
     itemSerialNumber: 'MB-2024-001',
     itemNup: '2024.01.004',
@@ -469,9 +380,21 @@ export const mockLendingRequests: LendingRequest[] = [
     expectedReturnDate: new Date('2024-02-01'),
     status: 'Pending',
     notes: 'Untuk pengolahan data penelitian material maritim',
-    requestedBy: 'user-5'
+    requestedBy: 'user-4'
   }
 ];
+
+// Create LendingRecord data for compatibility
+export const mockLendingRecords: LendingRecord[] = mockLendingRequests.map(request => ({
+  ...request,
+  borrowerId: request.pegawaiId,
+  borrowerName: request.pegawaiName,
+  borrowerNip: request.pegawaiNip,
+  borrowerUnit: request.pegawaiUnit,
+  userName: request.pegawaiName,
+  userDepartment: request.pegawaiUnit,
+  lendDate: request.requestDate
+}));
 
 export const mockRepairRequests: RepairRequest[] = [
   {
@@ -484,6 +407,10 @@ export const mockRepairRequests: RepairRequest[] = [
     pegawaiName: 'Budi Santoso, S.T.',
     pegawaiNip: '198005102005031003',
     pegawaiUnit: 'Logam',
+    requesterId: 'user-3',
+    requesterName: 'Budi Santoso, S.T.',
+    requesterNip: '198005102005031003',
+    requesterUnit: 'Logam',
     damageDescription: 'Microphone tidak dapat menangkap suara dengan baik, ada noise yang mengganggu saat digunakan. Kemungkinan ada masalah pada receiver atau transmitter.',
     urgencyLevel: 'High',
     requestDate: new Date('2024-01-25'),

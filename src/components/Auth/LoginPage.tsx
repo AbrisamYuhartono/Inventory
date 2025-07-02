@@ -26,9 +26,11 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
 
     if (user) {
       let pegawaiName = '';
+      let pegawaiNip = '';
       if (user.pegawaiId) {
         const pegawai = mockPegawai.find(p => p.id === user.pegawaiId);
         pegawaiName = pegawai?.name || '';
+        pegawaiNip = pegawai?.nip || '';
       }
 
       const authUser: AuthUser = {
@@ -37,7 +39,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
         role: user.role,
         unit: user.unit,
         pegawaiId: user.pegawaiId,
-        pegawaiName
+        pegawaiName,
+        name: pegawaiName,
+        nip: pegawaiNip
       };
       onLogin(authUser);
     } else {
