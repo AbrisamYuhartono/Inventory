@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { LendingRecord } from '../../types';
-import { mockLendingRecords } from '../../data/mockData';
+import { mockLendingRequests } from '../../data/mockData';
 import { format, isAfter, differenceInDays } from 'date-fns';
 import { 
   FileText, 
@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 
 export const LendingManagement: React.FC = () => {
-  const [records, setRecords] = useState<LendingRecord[]>(mockLendingRecords);
+  const [records, setRecords] = useState<LendingRecord[]>(mockLendingRequests);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 

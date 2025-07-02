@@ -10,7 +10,7 @@ import {
   FileText,
   PieChart
 } from 'lucide-react';
-import { mockItems, mockLendingRecords, mockUsers, mockRooms } from '../../data/mockData';
+import { mockItems, mockLendingRequests, mockUsers, mockRooms } from '../../data/mockData';
 
 export const ReportsPage: React.FC = () => {
   const [dateRange, setDateRange] = useState('30days');
@@ -77,12 +77,12 @@ export const ReportsPage: React.FC = () => {
     // Summary
     doc.setFontSize(12);
     doc.text('LENDING SUMMARY:', 20, 45);
-    doc.text(`Total Records: ${mockLendingRecords.length}`, 25, 55);
-    doc.text(`Active Lendings: ${mockLendingRecords.filter(r => r.status === 'Active').length}`, 25, 65);
-    doc.text(`Returned Items: ${mockLendingRecords.filter(r => r.status === 'Returned').length}`, 25, 75);
+    doc.text(`Total Records: ${mockLendingRequests.length}`, 25, 55);
+    doc.text(`Active Lendings: ${mockLendingRequests.filter(r => r.status === 'Active').length}`, 25, 65);
+    doc.text(`Returned Items: ${mockLendingRequests.filter(r => r.status === 'Returned').length}`, 25, 75);
     
     // Department usage
-    const deptUsage = mockLendingRecords.reduce((acc, record) => {
+    const deptUsage = mockLendingRequests.reduce((acc, record) => {
       acc[record.userDepartment] = (acc[record.userDepartment] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
@@ -142,7 +142,7 @@ export const ReportsPage: React.FC = () => {
     totalUsers: mockUsers.length,
     activeUsers: mockUsers.filter(u => u.isActive).length,
     totalRooms: mockRooms.length,
-    activeLendings: mockLendingRecords.filter(r => r.status === 'Active').length
+    activeLendings: mockLendingRequests.filter(r => r.status === 'Active').length
   };
 
   const categoryData = mockItems.reduce((acc, item) => {
@@ -150,7 +150,7 @@ export const ReportsPage: React.FC = () => {
     return acc;
   }, {} as Record<string, number>);
 
-  const departmentData = mockLendingRecords.reduce((acc, record) => {
+  const departmentData = mockLendingRequests.reduce((acc, record) => {
     acc[record.userDepartment] = (acc[record.userDepartment] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);
@@ -341,7 +341,7 @@ export const ReportsPage: React.FC = () => {
           
           <div className="space-y-4">
             {Object.entries(departmentData).map(([department, count]) => {
-              const percentage = Math.round((count / mockLendingRecords.length) * 100);
+              const percentage = Math.round((count / mockLendingRequests.length) * 100);
               return (
                 <div key={department} className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">

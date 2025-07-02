@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { LendingRecord } from '../../types';
-import { mockLendingRecords } from '../../data/mockData';
+import { mockLendingRequests } from '../../data/mockData';
 import { format } from 'date-fns';
 import { 
   Clock, 
@@ -19,7 +19,7 @@ interface MyRequestsPageProps {
 
 export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
   const [records] = useState<LendingRecord[]>(
-    mockLendingRecords.filter(r => r.borrowerId === user.id)
+    mockLendingRequests.filter(r => r.borrowerId === user.id)
   );
 
   const getStatusColor = (status: LendingRecord['status']) => {
