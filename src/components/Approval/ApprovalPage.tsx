@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { LendingRecord } from '../../types';
-import { mockLendingRequests } from '../../data/mockData';
+import { mockLendingRecords } from '../../data/mockData';
 import { format } from 'date-fns';
 import { 
   CheckCircle, 
@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 
 export const ApprovalPage: React.FC = () => {
-  const [records, setRecords] = useState<LendingRecord[]>(mockLendingRequests);
+  const [records, setRecords] = useState<LendingRecord[]>(mockLendingRecords);
   const [selectedRecord, setSelectedRecord] = useState<LendingRecord | null>(null);
   const [rejectionReason, setRejectionReason] = useState('');
   const [showRejectModal, setShowRejectModal] = useState(false);
