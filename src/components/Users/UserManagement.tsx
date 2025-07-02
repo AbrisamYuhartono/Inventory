@@ -28,7 +28,7 @@ export const UserManagement: React.FC = () => {
   const filteredUsers = users.filter(user => {
     const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         user.department.toLowerCase().includes(searchTerm.toLowerCase());
+                         (user.unit && user.unit.toLowerCase().includes(searchTerm.toLowerCase()));
     const matchesRole = roleFilter === 'all' || user.role === roleFilter;
     const matchesStatus = statusFilter === 'all' || 
                          (statusFilter === 'active' && user.isActive) ||
@@ -197,7 +197,7 @@ export const UserManagement: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900">{user.name}</h3>
-                  <p className="text-sm text-gray-500">{user.department}</p>
+                  <p className="text-sm text-gray-500">{user.unit}</p>
                 </div>
               </div>
               

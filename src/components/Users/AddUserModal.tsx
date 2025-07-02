@@ -12,7 +12,7 @@ export const AddUserModal: React.FC<AddUserModalProps> = ({ isOpen, onClose, onA
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    department: '',
+    unit: 'IT' as User['unit'],
     role: 'User' as User['role'],
     phone: '',
     isActive: true
@@ -27,7 +27,7 @@ export const AddUserModal: React.FC<AddUserModalProps> = ({ isOpen, onClose, onA
     setFormData({
       name: '',
       email: '',
-      department: '',
+      unit: 'IT',
       role: 'User',
       phone: '',
       isActive: true
@@ -76,15 +76,21 @@ export const AddUserModal: React.FC<AddUserModalProps> = ({ isOpen, onClose, onA
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Department
+              Unit
             </label>
-            <input
-              type="text"
+            <select
               required
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              value={formData.department}
-              onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-            />
+              value={formData.unit}
+              onChange={(e) => setFormData({ ...formData, unit: e.target.value as User['unit'] })}
+            >
+              <option value="IT">IT</option>
+              <option value="HR">HR</option>
+              <option value="Finance">Finance</option>
+              <option value="Operations">Operations</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Sales">Sales</option>
+            </select>
           </div>
 
           <div>
