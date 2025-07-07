@@ -7,7 +7,8 @@ interface StatCardProps {
   change?: string;
   changeType?: 'positive' | 'negative' | 'neutral';
   icon: LucideIcon;
-  color: 'primary' | 'blue' | 'purple' | 'danger';
+  color: 'blue' | 'indigo' | 'emerald' | 'orange';
+  gradient: string;
 }
 
 export const StatCard: React.FC<StatCardProps> = ({
@@ -16,35 +17,29 @@ export const StatCard: React.FC<StatCardProps> = ({
   change,
   changeType = 'neutral',
   icon: Icon,
-  color
+  color,
+  gradient
 }) => {
-  const colorClasses = {
-    primary: 'bg-primary-50 text-primary-600',
-    blue: 'bg-blue-50 text-blue-600',
-    purple: 'bg-purple-50 text-purple-600',
-    danger: 'bg-danger-50 text-danger-600'
-  };
-
   const changeClasses = {
-    positive: 'text-primary-600',
-    negative: 'text-danger-600',
-    neutral: 'text-gray-600'
+    positive: 'text-emerald-600 bg-emerald-50',
+    negative: 'text-red-600 bg-red-50',
+    neutral: 'text-gray-600 bg-gray-50'
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-primary-200 p-6 hover:shadow-md transition-shadow duration-200">
+    <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-105">
       <div className="flex items-center justify-between">
-        <div>
-          <p className="text-sm font-medium text-gray-600">{title}</p>
-          <p className="text-3xl font-bold text-gray-900 mt-2">{value}</p>
+        <div className="flex-1">
+          <p className="text-sm font-medium text-gray-600 mb-1">{title}</p>
+          <p className="text-3xl font-bold text-gray-900 mb-3">{value}</p>
           {change && (
-            <p className={`text-sm mt-2 ${changeClasses[changeType]}`}>
+            <div className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${changeClasses[changeType]}`}>
               {change}
-            </p>
+            </div>
           )}
         </div>
-        <div className={`p-3 rounded-lg ${colorClasses[color]}`}>
-          <Icon className="h-6 w-6" />
+        <div className={`p-4 rounded-2xl bg-gradient-to-br ${gradient} shadow-lg`}>
+          <Icon className="h-8 w-8 text-white" />
         </div>
       </div>
     </div>

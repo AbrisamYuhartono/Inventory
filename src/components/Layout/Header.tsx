@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bell, Search, User, LogOut, QrCode, Download } from 'lucide-react';
+import { Bell, Search, User, LogOut, QrCode, Download, Sparkles } from 'lucide-react';
 import { AuthUser } from '../../types';
 
 interface HeaderProps {
@@ -52,7 +52,7 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout }) => {
   };
 
   return (
-    <header className="bg-cream-50 shadow-sm border-b border-primary-200 ml-64">
+    <header className="bg-white shadow-sm border-b border-gray-200 ml-64 sticky top-0 z-40">
       <div className="px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
@@ -61,47 +61,51 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout }) => {
               <input
                 type="text"
                 placeholder="Cari barang, pengguna, atau catatan..."
-                className="pl-10 pr-4 py-2 border border-primary-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent w-96 bg-white"
+                className="pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-96 bg-gray-50 focus:bg-white transition-all"
               />
             </div>
           </div>
           
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
             {/* Quick Actions */}
-            <button 
-              onClick={generateQRCode}
-              className="p-2 text-gray-400 hover:text-primary-600 transition-colors"
-              title="Generate QR Code"
-            >
-              <QrCode className="h-6 w-6" />
+            <div className="flex items-center space-x-2 bg-gray-50 rounded-xl p-1">
+              <button 
+                onClick={generateQRCode}
+                className="p-2.5 text-gray-600 hover:text-blue-600 hover:bg-white rounded-lg transition-all duration-200 group"
+                title="Generate QR Code"
+              >
+                <QrCode className="h-5 w-5 group-hover:scale-110 transition-transform" />
+              </button>
+              
+              <button 
+                onClick={exportReport}
+                className="p-2.5 text-gray-600 hover:text-green-600 hover:bg-white rounded-lg transition-all duration-200 group"
+                title="Export Report"
+              >
+                <Download className="h-5 w-5 group-hover:scale-110 transition-transform" />
+              </button>
+            </div>
+            
+            <button className="relative p-2.5 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-200">
+              <Bell className="h-5 w-5" />
+              <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 rounded-full flex items-center justify-center">
+                <span className="text-white text-xs font-bold">3</span>
+              </span>
             </button>
             
-            <button 
-              onClick={exportReport}
-              className="p-2 text-gray-400 hover:text-primary-600 transition-colors"
-              title="Export Report"
-            >
-              <Download className="h-6 w-6" />
-            </button>
-            
-            <button className="relative p-2 text-gray-400 hover:text-primary-600 transition-colors">
-              <Bell className="h-6 w-6" />
-              <span className="absolute top-0 right-0 h-2 w-2 bg-danger-500 rounded-full"></span>
-            </button>
-            
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center shadow-sm">
-                <span className="text-cream-50 font-semibold text-sm">
+            <div className="flex items-center space-x-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-2">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+                <span className="text-white font-semibold text-sm">
                   {(user.pegawaiName || user.username).split(' ').map(n => n[0]).join('').toUpperCase()}
                 </span>
               </div>
               <div className="text-sm">
-                <p className="font-medium text-gray-900">{user.pegawaiName || user.username}</p>
-                <p className="text-primary-600">{user.role} - {user.unit}</p>
+                <p className="font-semibold text-gray-900">{user.pegawaiName || user.username}</p>
+                <p className="text-blue-600 font-medium">{user.role} • {user.unit}</p>
               </div>
               <button
                 onClick={onLogout}
-                className="p-2 text-gray-400 hover:text-danger-500 transition-colors"
+                className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all duration-200"
                 title="Logout"
               >
                 <LogOut className="h-5 w-5" />
