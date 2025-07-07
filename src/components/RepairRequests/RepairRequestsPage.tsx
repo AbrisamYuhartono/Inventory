@@ -171,16 +171,6 @@ export const RepairRequestsPage: React.FC<RepairRequestsPageProps> = ({ user }) 
               }
             </p>
           </div>
-          
-          {user.role === 'User' && (
-            <button
-              onClick={() => setIsCreateModalOpen(true)}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2"
-            >
-              <Plus className="h-5 w-5" />
-              <span>Ajukan Perbaikan</span>
-            </button>
-          )}
         </div>
 
         {/* Statistics */}

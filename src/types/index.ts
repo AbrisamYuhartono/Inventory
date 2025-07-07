@@ -18,7 +18,7 @@ export interface User {
   unit: 'Setditjen ILMATE' | 'Logam' | 'IPAMP' | 'IMATAB' | 'IET';
   pegawaiId?: string; // Link to Pegawai for User role
   isActive: boolean;
-  createdAt: Date;
+  joinDate: Date;
 }
 
 export interface Room {

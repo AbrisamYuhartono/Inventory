@@ -12,28 +12,11 @@ export const AddUserModal: React.FC<AddUserModalProps> = ({ isOpen, onClose, onA
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    unit: 'IT' as User['unit'],
+    unit: 'Logam' as User['unit'],
     role: 'User' as User['role'],
     phone: '',
     isActive: true
   });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onAdd({
-      ...formData,
-      joinDate: new Date()
-    });
-    setFormData({
-      name: '',
-      email: '',
-      unit: 'IT',
-      role: 'User',
-      phone: '',
-      isActive: true
-    });
-    onClose();
-  };
 
   if (!isOpen) return null;
 
@@ -46,20 +29,6 @@ export const AddUserModal: React.FC<AddUserModalProps> = ({ isOpen, onClose, onA
             <X className="h-6 w-6" />
           </button>
         </div>
-
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Full Name
-            </label>
-            <input
-              type="text"
-              required
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            />
-          </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -149,7 +118,6 @@ export const AddUserModal: React.FC<AddUserModalProps> = ({ isOpen, onClose, onA
               Add User
             </button>
           </div>
-        </form>
       </div>
     </div>
   );

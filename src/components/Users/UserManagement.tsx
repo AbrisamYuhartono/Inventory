@@ -26,8 +26,7 @@ export const UserManagement: React.FC = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   const filteredUsers = users.filter(user => {
-    const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    const matchesSearch = user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          (user.unit || '').toLowerCase().includes(searchTerm.toLowerCase());
     const matchesRole = roleFilter === 'all' || user.role === roleFilter;
     const matchesStatus = statusFilter === 'all' || 
@@ -40,8 +39,6 @@ export const UserManagement: React.FC = () => {
     switch (role) {
       case 'Admin':
         return <Crown className="h-4 w-4 text-purple-600" />;
-      case 'Manager':
-        return <ShieldCheck className="h-4 w-4 text-blue-600" />;
       case 'User':
         return <Shield className="h-4 w-4 text-gray-600" />;
     }
@@ -51,8 +48,6 @@ export const UserManagement: React.FC = () => {
     switch (role) {
       case 'Admin':
         return 'bg-purple-100 text-purple-800';
-      case 'Manager':
-        return 'bg-blue-100 text-blue-800';
       case 'User':
         return 'bg-gray-100 text-gray-800';
     }
@@ -80,7 +75,6 @@ export const UserManagement: React.FC = () => {
 
   const activeUsers = users.filter(u => u.isActive);
   const adminUsers = users.filter(u => u.role === 'Admin');
-  const managerUsers = users.filter(u => u.role === 'Manager');
 
   return (
     <div className="p-6 ml-64">
@@ -90,13 +84,6 @@ export const UserManagement: React.FC = () => {
             <h1 className="text-3xl font-bold text-gray-900">User Management</h1>
             <p className="text-gray-600 mt-2">Manage users and their permissions</p>
           </div>
-          <button
-            onClick={() => setIsAddModalOpen(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2"
-          >
-            <UserPlus className="h-5 w-5" />
-            <span>Add User</span>
-          </button>
         </div>
 
         {/* Statistics Cards */}
@@ -139,10 +126,6 @@ export const UserManagement: React.FC = () => {
 
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Managers</p>
-                <p className="text-3xl font-bold text-blue-600 mt-2">{managerUsers.length}</p>
-              </div>
               <div className="p-3 bg-blue-50 rounded-lg">
                 <ShieldCheck className="h-6 w-6 text-blue-600" />
               </div>
@@ -193,10 +176,10 @@ export const UserManagement: React.FC = () => {
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center space-x-3">
                 <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-lg">
-                  {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                  {user.username.split(' ').map(n => n[0]).join('').toUpperCase()}
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">{user.name}</h3>
+                  <h3 className="font-semibold text-gray-900">{user.username}</h3>
                   <p className="text-sm text-gray-500">{user.unit}</p>
                 </div>
               </div>
@@ -216,16 +199,6 @@ export const UserManagement: React.FC = () => {
             </div>
 
             <div className="space-y-2 mb-4">
-              <div className="flex items-center space-x-2 text-sm text-gray-600">
-                <Mail className="h-4 w-4" />
-                <span>{user.email}</span>
-              </div>
-              {user.phone && (
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <Phone className="h-4 w-4" />
-                  <span>{user.phone}</span>
-                </div>
-              )}
               {user.joinDate && (
                 <div className="flex items-center space-x-2 text-sm text-gray-600">
                   <Calendar className="h-4 w-4" />

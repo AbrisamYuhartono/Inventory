@@ -15,10 +15,10 @@ import { SystemSettings } from '../../types';
 
 export const SettingsPage: React.FC = () => {
   const [settings, setSettings] = useState<SystemSettings>({
-    companyName: 'PT. Inventory Solutions',
-    companyAddress: 'Jl. Sudirman No. 123, Jakarta Pusat 10220',
-    companyPhone: '+62 21 1234 5678',
-    companyEmail: 'info@inventorysolutions.com',
+    companyName: 'Kementerian Perindustrian',
+    companyAddress: 'Jl. Gatot Subroto No.Kav. 52-53, RT.1/RW.4, Kuningan Tim., Kecamatan Setiabudi, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12950',
+    companyPhone: '(021) 5255509',      
+    companyEmail: 'kemenperin@gmail.com', 
     maxLendingDays: 14,
     requireApproval: false,
     enableNotifications: true,
@@ -39,10 +39,10 @@ export const SettingsPage: React.FC = () => {
   const handleReset = () => {
     if (window.confirm('Are you sure you want to reset all settings to default?')) {
       setSettings({
-        companyName: 'PT. Inventory Solutions',
-        companyAddress: 'Jl. Sudirman No. 123, Jakarta Pusat 10220',
-        companyPhone: '+62 21 1234 5678',
-        companyEmail: 'info@inventorysolutions.com',
+        companyName: 'Kementerian Perindustrian',
+        companyAddress: 'Jl. Gatot Subroto No.Kav. 52-53, RT.1/RW.4, Kuningan Tim., Kecamatan Setiabudi, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12950',
+        companyPhone: '(021) 5255509',
+        companyEmail: 'kemenperin@gmail.com',
         maxLendingDays: 14,
         requireApproval: false,
         enableNotifications: true,

@@ -63,11 +63,6 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
             <h1 className="text-3xl font-bold text-gray-900">Permintaan Saya</h1>
             <p className="text-gray-600 mt-2">Kelola permintaan peminjaman barang Anda</p>
           </div>
-          
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2">
-            <Plus className="h-5 w-5" />
-            <span>Ajukan Peminjaman</span>
-          </button>
         </div>
 
         {/* Statistics */}
