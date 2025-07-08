@@ -14,7 +14,7 @@
         }
         
         .container {
-            max-width: 1800px;
+            max-width: 2000px;
             margin: 0 auto;
             background: white;
             border-radius: 20px;
@@ -49,11 +49,11 @@
         
         .flowchart-diagram {
             position: relative;
-            min-width: 1600px;
-            min-height: 1200px;
+            min-width: 1800px;
+            min-height: 1600px;
             background: #f8fafc;
             border-radius: 15px;
-            padding: 30px;
+            padding: 40px;
         }
         
         .flowchart-node {
@@ -64,10 +64,12 @@
             padding: 15px 20px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             transition: all 0.3s ease;
-            min-width: 150px;
+            min-width: 160px;
             text-align: center;
             font-weight: 600;
             z-index: 10;
+            font-size: 0.9rem;
+            line-height: 1.3;
         }
         
         .flowchart-node:hover {
@@ -237,234 +239,291 @@
                         </marker>
                     </defs>
                     
-                    <!-- Main Flow Lines -->
-                    <!-- Start to Login -->
-                    <path class="flow-line" d="M 150 80 L 150 130" />
+                    <!-- Main Authentication Flow -->
+                    <path class="flow-line" d="M 150 120 L 150 180" />
+                    <path class="flow-line" d="M 150 240 L 150 300" />
+                    <path class="flow-line" d="M 200 350 L 300 350 L 300 400" />
+                    <path class="flow-line" d="M 100 350 L 50 350 L 50 215 L 100 215" />
+                    <path class="flow-line" d="M 300 460 L 300 520" />
                     
-                    <!-- Login to Auth Check -->
-                    <path class="flow-line" d="M 150 180 L 150 230" />
+                    <!-- Role-based branching -->
+                    <path class="flow-line" d="M 250 570 L 150 620" />
+                    <path class="flow-line" d="M 300 620 L 300 680" />
+                    <path class="flow-line" d="M 350 570 L 450 620" />
                     
-                    <!-- Auth Check to Dashboard (Success) -->
-                    <path class="flow-line" d="M 200 280 L 300 280 L 300 330" />
+                    <!-- User workflow -->
+                    <path class="flow-line" d="M 150 680 L 150 740" />
+                    <path class="flow-line" d="M 150 800 L 150 860" />
+                    <path class="flow-line" d="M 150 920 L 150 980" />
                     
-                    <!-- Auth Check to Login (Fail) -->
-                    <path class="flow-line" d="M 100 280 L 50 280 L 50 155 L 100 155" />
+                    <!-- Admin workflow -->
+                    <path class="flow-line" d="M 300 740 L 300 800" />
+                    <path class="flow-line" d="M 300 860 L 300 920" />
+                    <path class="flow-line" d="M 300 980 L 300 1040" />
                     
-                    <!-- Dashboard to Role Check -->
-                    <path class="flow-line" d="M 300 380 L 300 430" />
-                    
-                    <!-- Role Check to User Functions -->
-                    <path class="flow-line" d="M 250 480 L 150 530" />
-                    
-                    <!-- Role Check to Admin Functions -->
-                    <path class="flow-line" d="M 300 530 L 300 580" />
-                    
-                    <!-- Role Check to Superadmin Functions -->
-                    <path class="flow-line" d="M 350 480 L 450 530" />
-                    
-                    <!-- User Functions Flow -->
-                    <path class="flow-line" d="M 150 580 L 150 630" />
-                    <path class="flow-line" d="M 150 680 L 150 730" />
-                    
-                    <!-- Admin Functions Flow -->
-                    <path class="flow-line" d="M 300 630 L 300 680" />
-                    <path class="flow-line" d="M 300 730 L 300 780" />
-                    
-                    <!-- Superadmin Functions Flow -->
-                    <path class="flow-line" d="M 450 580 L 450 630" />
-                    <path class="flow-line" d="M 450 680 L 450 730" />
+                    <!-- Superadmin workflow -->
+                    <path class="flow-line" d="M 450 680 L 450 740" />
+                    <path class="flow-line" d="M 450 800 L 450 860" />
+                    <path class="flow-line" d="M 450 920 L 450 980" />
                     
                     <!-- Request Processing Flow -->
-                    <path class="flow-line" d="M 600 180 L 600 230" />
-                    <path class="flow-line" d="M 600 280 L 600 330" />
-                    <path class="flow-line" d="M 650 380 L 750 380 L 750 430" />
-                    <path class="flow-line" d="M 550 380 L 450 380 L 450 430" />
+                    <path class="flow-line" d="M 700 120 L 700 180" />
+                    <path class="flow-line" d="M 700 240 L 700 300" />
+                    <path class="flow-line" d="M 750 350 L 850 350 L 850 400" />
+                    <path class="flow-line" d="M 650 350 L 550 350 L 550 400" />
+                    <path class="flow-line" d="M 850 460 L 850 520" />
+                    <path class="flow-line" d="M 550 460 L 550 520" />
+                    <path class="flow-line" d="M 850 580 L 850 640" />
                     
                     <!-- Data Management Flow -->
-                    <path class="flow-line" d="M 900 180 L 900 230" />
-                    <path class="flow-line" d="M 900 280 L 900 330" />
-                    <path class="flow-line" d="M 900 380 L 900 430" />
+                    <path class="flow-line" d="M 1100 120 L 1100 180" />
+                    <path class="flow-line" d="M 1100 240 L 1100 300" />
+                    <path class="flow-line" d="M 1100 360 L 1100 420" />
+                    <path class="flow-line" d="M 1100 480 L 1100 540" />
+                    <path class="flow-line" d="M 1100 600 L 1100 660" />
                     
                     <!-- System Integration Flow -->
-                    <path class="flow-line" d="M 1200 180 L 1200 230" />
-                    <path class="flow-line" d="M 1200 280 L 1200 330" />
-                    <path class="flow-line" d="M 1200 380 L 1200 430" />
+                    <path class="flow-line" d="M 1400 120 L 1400 180" />
+                    <path class="flow-line" d="M 1400 240 L 1400 300" />
+                    <path class="flow-line" d="M 1400 360 L 1400 420" />
+                    <path class="flow-line" d="M 1400 480 L 1400 540" />
+                    <path class="flow-line" d="M 1400 600 L 1400 660" />
                 </svg>
                 
                 <!-- Flow Labels -->
-                <div class="flow-label" style="top: 105px; left: 160px;">Start</div>
-                <div class="flow-label" style="top: 205px; left: 160px;">Submit</div>
-                <div class="flow-label" style="top: 255px; left: 240px;">Valid</div>
-                <div class="flow-label" style="top: 255px; left: 60px;">Invalid</div>
-                <div class="flow-label" style="top: 405px; left: 310px;">Success</div>
-                <div class="flow-label" style="top: 455px; left: 190px;">User</div>
-                <div class="flow-label" style="top: 505px; left: 310px;">Admin</div>
-                <div class="flow-label" style="top: 455px; left: 390px;">Superadmin</div>
+                <div class="flow-label" style="top: 150px; left: 160px;">Start</div>
+                <div class="flow-label" style="top: 270px; left: 160px;">Submit</div>
+                <div class="flow-label" style="top: 325px; left: 240px;">Valid</div>
+                <div class="flow-label" style="top: 325px; left: 60px;">Invalid</div>
+                <div class="flow-label" style="top: 490px; left: 310px;">Load</div>
+                <div class="flow-label" style="top: 590px; left: 190px;">User</div>
+                <div class="flow-label" style="top: 640px; left: 310px;">Admin</div>
+                <div class="flow-label" style="top: 590px; left: 390px;">Superadmin</div>
                 
-                <!-- Main Application Flow -->
-                <div class="flowchart-node start-node" style="top: 50px; left: 75px;">
+                <!-- COLUMN 1: Main Authentication Flow -->
+                <div class="flowchart-node start-node" style="top: 80px; left: 75px;">
                     System Start
                 </div>
                 
-                <div class="flowchart-node user-action-node" style="top: 130px; left: 75px;">
+                <div class="flowchart-node user-action-node" style="top: 140px; left: 75px;">
                     User Login
                 </div>
                 
-                <div class="flowchart-node decision-node" style="top: 230px; left: 75px;">
+                <div class="flowchart-node decision-node" style="top: 200px; left: 75px;">
                     Authentication<br>Valid?
                 </div>
                 
-                <div class="flowchart-node process-node" style="top: 330px; left: 225px;">
+                <div class="flowchart-node process-node" style="top: 360px; left: 225px;">
                     Load Dashboard
                 </div>
                 
-                <div class="flowchart-node decision-node" style="top: 430px; left: 225px;">
+                <div class="flowchart-node decision-node" style="top: 420px; left: 225px;">
                     Check User Role
                 </div>
                 
-                <!-- User Role Functions -->
-                <div class="flowchart-node user-action-node" style="top: 530px; left: 75px;">
+                <!-- User Role Functions (Column 1) -->
+                <div class="flowchart-node user-action-node" style="top: 580px; left: 75px;">
                     User Functions
                 </div>
                 
-                <div class="flowchart-node system-node" style="top: 580px; left: 75px;">
-                    • View Items<br>• Request Lending<br>• Request Repair
+                <div class="flowchart-node system-node" style="top: 640px; left: 75px;">
+                    • View Items<br>• My Requests<br>• Pegawai Data
                 </div>
                 
-                <div class="flowchart-node process-node" style="top: 630px; left: 75px;">
-                    Submit Request
+                <div class="flowchart-node process-node" style="top: 700px; left: 75px;">
+                    Request Lending
                 </div>
                 
-                <div class="flowchart-node system-node" style="top: 680px; left: 75px;">
+                <div class="flowchart-node process-node" style="top: 760px; left: 75px;">
+                    Request Repair
+                </div>
+                
+                <div class="flowchart-node system-node" style="top: 820px; left: 75px;">
                     Track Status
                 </div>
                 
-                <!-- Admin Role Functions -->
-                <div class="flowchart-node user-action-node" style="top: 530px; left: 225px;">
+                <div class="flowchart-node end-node" style="top: 880px; left: 75px;">
+                    User Complete
+                </div>
+                
+                <!-- Admin Role Functions (Column 2) -->
+                <div class="flowchart-node user-action-node" style="top: 580px; left: 225px;">
                     Admin Functions
                 </div>
                 
-                <div class="flowchart-node system-node" style="top: 580px; left: 225px;">
+                <div class="flowchart-node system-node" style="top: 640px; left: 225px;">
                     • Approve Requests<br>• Manage Items<br>• View Reports
                 </div>
                 
-                <div class="flowchart-node process-node" style="top: 630px; left: 225px;">
-                    Process Requests
+                <div class="flowchart-node process-node" style="top: 700px; left: 225px;">
+                    Process Approvals
                 </div>
                 
-                <div class="flowchart-node system-node" style="top: 680px; left: 225px;">
+                <div class="flowchart-node process-node" style="top: 760px; left: 225px;">
+                    Manage Inventory
+                </div>
+                
+                <div class="flowchart-node system-node" style="top: 820px; left: 225px;">
                     Generate Documents
                 </div>
                 
-                <!-- Superadmin Role Functions -->
-                <div class="flowchart-node user-action-node" style="top: 530px; left: 375px;">
+                <div class="flowchart-node process-node" style="top: 880px; left: 225px;">
+                    Export Reports
+                </div>
+                
+                <div class="flowchart-node end-node" style="top: 940px; left: 225px;">
+                    Admin Complete
+                </div>
+                
+                <!-- Superadmin Role Functions (Column 3) -->
+                <div class="flowchart-node user-action-node" style="top: 580px; left: 375px;">
                     Superadmin Functions
                 </div>
                 
-                <div class="flowchart-node system-node" style="top: 580px; left: 375px;">
+                <div class="flowchart-node system-node" style="top: 640px; left: 375px;">
                     • User Management<br>• System Settings<br>• Full Access
                 </div>
                 
-                <div class="flowchart-node process-node" style="top: 630px; left: 375px;">
+                <div class="flowchart-node process-node" style="top: 700px; left: 375px;">
+                    Manage Users
+                </div>
+                
+                <div class="flowchart-node process-node" style="top: 760px; left: 375px;">
                     System Configuration
                 </div>
                 
-                <div class="flowchart-node system-node" style="top: 680px; left: 375px;">
+                <div class="flowchart-node system-node" style="top: 820px; left: 375px;">
                     Audit & Monitoring
                 </div>
                 
-                <!-- Request Processing Flow -->
-                <div class="flowchart-node start-node" style="top: 130px; left: 525px;">
+                <div class="flowchart-node end-node" style="top: 880px; left: 375px;">
+                    Superadmin Complete
+                </div>
+                
+                <!-- COLUMN 4: Request Processing Flow -->
+                <div class="flowchart-node start-node" style="top: 80px; left: 625px;">
                     Request Submitted
                 </div>
                 
-                <div class="flowchart-node process-node" style="top: 180px; left: 525px;">
+                <div class="flowchart-node process-node" style="top: 140px; left: 625px;">
                     Validate Request
                 </div>
                 
-                <div class="flowchart-node decision-node" style="top: 230px; left: 525px;">
+                <div class="flowchart-node decision-node" style="top: 200px; left: 625px;">
                     Admin Approval<br>Required?
                 </div>
                 
-                <div class="flowchart-node system-node" style="top: 280px; left: 525px;">
-                    Pending Approval
+                <div class="flowchart-node process-node" style="top: 260px; left: 625px;">
+                    Queue for Review
                 </div>
                 
-                <div class="flowchart-node process-node" style="top: 330px; left: 675px;">
+                <div class="flowchart-node process-node" style="top: 320px; left: 775px;">
                     Auto Approve
                 </div>
                 
-                <div class="flowchart-node user-action-node" style="top: 330px; left: 375px;">
+                <div class="flowchart-node user-action-node" style="top: 320px; left: 475px;">
                     Admin Review
                 </div>
                 
-                <div class="flowchart-node decision-node" style="top: 380px; left: 675px;">
-                    Approved?
-                </div>
-                
-                <div class="flowchart-node process-node" style="top: 430px; left: 675px;">
+                <div class="flowchart-node decision-node" style="top: 380px; left: 775px;">
                     Execute Request
                 </div>
                 
-                <div class="flowchart-node end-node" style="top: 480px; left: 675px;">
+                <div class="flowchart-node decision-node" style="top: 380px; left: 475px;">
+                    Approved?
+                </div>
+                
+                <div class="flowchart-node process-node" style="top: 440px; left: 775px;">
+                    Update Status
+                </div>
+                
+                <div class="flowchart-node process-node" style="top: 440px; left: 475px;">
+                    Send Notification
+                </div>
+                
+                <div class="flowchart-node system-node" style="top: 500px; left: 775px;">
+                    Generate Document
+                </div>
+                
+                <div class="flowchart-node end-node" style="top: 560px; left: 775px;">
                     Request Complete
                 </div>
                 
-                <!-- Data Management Flow -->
-                <div class="flowchart-node start-node" style="top: 130px; left: 825px;">
+                <div class="flowchart-node end-node" style="top: 500px; left: 475px;">
+                    Request Rejected
+                </div>
+                
+                <!-- COLUMN 5: Data Management Flow -->
+                <div class="flowchart-node start-node" style="top: 80px; left: 1025px;">
                     Data Operations
                 </div>
                 
-                <div class="flowchart-node process-node" style="top: 180px; left: 825px;">
+                <div class="flowchart-node process-node" style="top: 140px; left: 1025px;">
                     CRUD Operations
                 </div>
                 
-                <div class="flowchart-node system-node" style="top: 230px; left: 825px;">
+                <div class="flowchart-node system-node" style="top: 200px; left: 1025px;">
                     • Items Management<br>• User Management<br>• Room Management
                 </div>
                 
-                <div class="flowchart-node process-node" style="top: 280px; left: 825px;">
+                <div class="flowchart-node process-node" style="top: 260px; left: 1025px;">
                     Data Validation
                 </div>
                 
-                <div class="flowchart-node system-node" style="top: 330px; left: 825px;">
+                <div class="flowchart-node system-node" style="top: 320px; left: 1025px;">
                     Database Update
                 </div>
                 
-                <div class="flowchart-node process-node" style="top: 380px; left: 825px;">
+                <div class="flowchart-node process-node" style="top: 380px; left: 1025px;">
                     Generate QR Codes
                 </div>
                 
-                <div class="flowchart-node end-node" style="top: 430px; left: 825px;">
+                <div class="flowchart-node system-node" style="top: 440px; left: 1025px;">
+                    Sync Relationships
+                </div>
+                
+                <div class="flowchart-node process-node" style="top: 500px; left: 1025px;">
+                    Update Inventory
+                </div>
+                
+                <div class="flowchart-node end-node" style="top: 560px; left: 1025px;">
                     Data Synchronized
                 </div>
                 
-                <!-- System Integration Flow -->
-                <div class="flowchart-node start-node" style="top: 130px; left: 1125px;">
+                <!-- COLUMN 6: System Integration Flow -->
+                <div class="flowchart-node start-node" style="top: 80px; left: 1325px;">
                     System Integration
                 </div>
                 
-                <div class="flowchart-node process-node" style="top: 180px; left: 1125px;">
+                <div class="flowchart-node process-node" style="top: 140px; left: 1325px;">
                     PDF Generation
                 </div>
                 
-                <div class="flowchart-node system-node" style="top: 230px; left: 1125px;">
+                <div class="flowchart-node system-node" style="top: 200px; left: 1325px;">
                     QR Code Generation
                 </div>
                 
-                <div class="flowchart-node process-node" style="top: 280px; left: 1125px;">
+                <div class="flowchart-node process-node" style="top: 260px; left: 1325px;">
                     Report Export
                 </div>
                 
-                <div class="flowchart-node system-node" style="top: 330px; left: 1125px;">
+                <div class="flowchart-node system-node" style="top: 320px; left: 1325px;">
                     Document Management
                 </div>
                 
-                <div class="flowchart-node process-node" style="top: 380px; left: 1125px;">
+                <div class="flowchart-node process-node" style="top: 380px; left: 1325px;">
                     Notification System
                 </div>
                 
-                <div class="flowchart-node end-node" style="top: 430px; left: 1125px;">
+                <div class="flowchart-node system-node" style="top: 440px; left: 1325px;">
+                    File Downloads
+                </div>
+                
+                <div class="flowchart-node process-node" style="top: 500px; left: 1325px;">
+                    Email Integration
+                </div>
+                
+                <div class="flowchart-node end-node" style="top: 560px; left: 1325px;">
                     Integration Complete
                 </div>
             </div>
