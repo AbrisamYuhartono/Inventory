@@ -7,7 +7,7 @@ import {
   Search,
   Edit3,
   Trash2,
-  MoreVertical,
+  MoreVertical
 } from 'lucide-react';
 import { AddRoomModal } from './AddRoomModal';
 
@@ -15,6 +15,7 @@ export const RoomManagement: React.FC = () => {
   const [rooms, setRooms] = useState<Room[]>(mockRooms);
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [editingRoom, setEditingRoom] = useState<Room | null>(null);
 
   const filteredRooms = rooms.filter((room) => {
     const search = searchTerm.toLowerCase();
@@ -34,6 +35,13 @@ export const RoomManagement: React.FC = () => {
     setRooms([...rooms, room]);
   };
 
+  const handleEditRoom = (updatedRoom: Room) => {
+    setRooms((prevRooms) =>
+      prevRooms.map((room) => (room.id === updatedRoom.id ? updatedRoom : room))
+    );
+    setEditingRoom(null);
+  };
+
   const handleDeleteRoom = (roomId: string) => {
     if (window.confirm('Are you sure you want to delete this room?')) {
       setRooms(rooms.filter((room) => room.id !== roomId));
@@ -49,7 +57,10 @@ export const RoomManagement: React.FC = () => {
             <p className="text-gray-600 mt-2">Manage rooms and location details</p>
           </div>
           <button
-            onClick={() => setIsAddModalOpen(true)}
+            onClick={() => {
+              setEditingRoom(null);
+              setIsAddModalOpen(true);
+            }}
             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2"
           >
             <Plus className="h-5 w-5" />
@@ -87,7 +98,6 @@ export const RoomManagement: React.FC = () => {
                   <p className="text-sm text-gray-500">{room.roomType}</p>
                 </div>
               </div>
-
               <button className="p-1 text-gray-400 hover:text-gray-600">
                 <MoreVertical className="h-4 w-4" />
               </button>
@@ -119,7 +129,13 @@ export const RoomManagement: React.FC = () => {
             </div>
 
             <div className="flex space-x-2">
-              <button className="flex-1 bg-gray-100 text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center space-x-1 text-sm">
+              <button
+                onClick={() => {
+                  setEditingRoom(room);
+                  setIsAddModalOpen(true);
+                }}
+                className="flex-1 bg-gray-100 text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center space-x-1 text-sm"
+              >
                 <Edit3 className="h-4 w-4" />
                 <span>Edit</span>
               </button>
@@ -143,12 +159,17 @@ export const RoomManagement: React.FC = () => {
         </div>
       )}
 
-      {/* Modal */}
+      {/* Modal: Add or Edit */}
       {isAddModalOpen && (
         <AddRoomModal
           isOpen={isAddModalOpen}
-          onClose={() => setIsAddModalOpen(false)}
+          onClose={() => {
+            setIsAddModalOpen(false);
+            setEditingRoom(null);
+          }}
           onAdd={handleAddRoom}
+          onEdit={handleEditRoom}
+          initialData={editingRoom || undefined}
         />
       )}
     </div>

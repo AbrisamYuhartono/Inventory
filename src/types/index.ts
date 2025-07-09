@@ -5,7 +5,7 @@ export interface Pegawai {
   karpeg: string;
   pangkatGolongan: string;
   jabatan: string;
-  unit: 'Setditjen ILMATE' | 'Logam' | 'IPAMP' | 'IMATAB' | 'IET';
+  unit: 'Setditjen ILMATE' | 'Logam' | 'IPAMP' | 'IMATAP' | 'IET';
   isActive: boolean;
   joinDate: Date;
 }
@@ -15,7 +15,7 @@ export interface User {
   username: string;
   password: string;
   role: 'Superadmin' | 'Admin' | 'User';
-  unit: 'Setditjen ILMATE' | 'Logam' | 'IPAMP' | 'IMATAB' | 'IET';
+  unit: 'Setditjen ILMATE' | 'Logam' | 'IPAMP' | 'IMATAP' | 'IET';
   pegawaiId?: string; // Link to Pegawai for User role
   isActive: boolean;
   joinDate: Date;

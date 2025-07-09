@@ -75,7 +75,7 @@ export const mockPegawai: Pegawai[] = [
     karpeg: 'B00047156',
     pangkatGolongan: 'Penata Muda Tk. I, III/b',
     jabatan: 'Pembina Industri',
-    unit: 'IMATAB',
+    unit: 'IMATAP',
     isActive: true,
     joinDate: new Date('1989-08-23')
   },  
@@ -130,7 +130,7 @@ export const mockPegawai: Pegawai[] = [
     karpeg: 'B 00003335',
     pangkatGolongan: 'Penata Muda, III/a',
     jabatan: 'Pelaksana',
-    unit: 'IMATAB',
+    unit: 'IMATAP',
     isActive: true,
     joinDate: new Date('1991-01-04')
   },
@@ -218,7 +218,7 @@ export const mockPegawai: Pegawai[] = [
     karpeg: '',
     pangkatGolongan: 'Penata Muda Tk. I, III/b',
     jabatan: 'Pelaksana',
-    unit: 'IMATAB',
+    unit: 'IMATAP',
     isActive: true,
     joinDate: new Date('1992-10-09')
   },
@@ -240,7 +240,7 @@ export const mockPegawai: Pegawai[] = [
     karpeg: '-',
     pangkatGolongan: 'Pengatur Tk. I, II/d',
     jabatan: 'Pelaksana',
-    unit: 'IMATAB',
+    unit: 'IMATAP',
     isActive: true,
     joinDate: new Date('1999-02-10')
   },
@@ -284,7 +284,7 @@ export const mockPegawai: Pegawai[] = [
     karpeg: '-',
     pangkatGolongan: 'IX, IX/9',
     jabatan: 'Perencana',
-    unit: 'IMATAB',
+    unit: 'IMATAP',
     isActive: true,
     joinDate: new Date('1984-09-01')
   },
@@ -328,7 +328,7 @@ export const mockPegawai: Pegawai[] = [
     karpeg: '-',
     pangkatGolongan: 'Penata Muda, III/a',
     jabatan: 'Pembina Industri',
-    unit: 'IMATAB',
+    unit: 'IMATAP',
     isActive: true,
     joinDate: new Date('1994-07-18')
   },
@@ -372,7 +372,7 @@ export const mockPegawai: Pegawai[] = [
     karpeg: '',
     pangkatGolongan: 'Penata Muda, III/a',
     jabatan: 'Pelaksana',
-    unit: 'IMATAB',
+    unit: 'IMATAP',
     isActive: true,
     joinDate: new Date('1993-12-27')
   },
@@ -570,7 +570,7 @@ export const mockPegawai: Pegawai[] = [
     karpeg: '',
     pangkatGolongan: 'Penata, III/c',
     jabatan: 'Pembina Industri',
-    unit: 'IMATAB',
+    unit: 'IMATAP',
     isActive: true,
     joinDate: new Date('1990-12-13')
   },
@@ -592,7 +592,7 @@ export const mockPegawai: Pegawai[] = [
     karpeg: 'B00040200',
     pangkatGolongan: 'Penata Muda Tk. I, III/b',
     jabatan: 'Pembina Industri',
-    unit: 'IMATAB',
+    unit: 'IMATAP',
     isActive: true,
     joinDate: new Date('1994-06-22')
   },
@@ -705,10 +705,10 @@ export const mockUsers: User[] = [
   },
   {
     id: 'user-5',
-    username: 'imatab',
-    password: 'imatab123',
+    username: 'IMATAP',
+    password: 'IMATAP123',
     role: 'User',
-    unit: 'IMATAB',
+    unit: 'IMATAP',
     pegawaiId: 'peg-7',
     isActive: true,
     joinDate: new Date('2021-09-18')
@@ -1671,7 +1671,7 @@ export const mockLendingRequests: LendingRequest[] = [
     pegawaiId: 'peg-5',
     pegawaiName: 'Dianna Agustina Sulaeman, S.Kom',
     pegawaiNip: '199101042014022001',
-    pegawaiUnit: 'IMATAB',
+    pegawaiUnit: 'IMATAP',
     itemName: 'MacBook Pro 16" M3',
     itemSerialNumber: 'MB-2024-001',
     itemNup: '2024.01.004',
@@ -1705,7 +1705,7 @@ export const mockLendingRequests: LendingRequest[] = [
     pegawaiId: 'peg-3',
     pegawaiName: 'Eva Maria Simanjuntak, S.Si',
     pegawaiNip: '198806292019012001',
-    pegawaiUnit: 'IMATAB',
+    pegawaiUnit: 'IMATAP',
     itemName: 'Tablet Samsung Galaxy Tab S9',
     itemSerialNumber: 'TAB-2024-003',
     itemNup: '2024.01.008',
@@ -1757,7 +1757,7 @@ export const mockLendingRequests: LendingRequest[] = [
     pegawaiId: 'peg-7',
     pegawaiName: 'Aderina Desmalia, SH',
     pegawaiNip: '198908232019012001',
-    pegawaiUnit: 'IMATAB',
+    pegawaiUnit: 'IMATAP',
     itemName: 'Mouse Logitech MX Master 3S',
     itemSerialNumber: 'MS-2024-004',
     itemNup: '2024.01.011',
