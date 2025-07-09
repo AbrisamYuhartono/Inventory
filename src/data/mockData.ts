@@ -130,7 +130,7 @@ export const mockUsers: User[] = [
     role: 'Superadmin',
     unit: 'Setditjen ILMATE',
     isActive: true,
-    createdAt: new Date('2020-01-01')
+    joinDate: new Date('2020-01-01')
   },
   {
     id: 'user-2',
@@ -139,7 +139,7 @@ export const mockUsers: User[] = [
     role: 'Admin',
     unit: 'Setditjen ILMATE',
     isActive: true,
-    createdAt: new Date('2020-03-15')
+    joinDate: new Date('2020-03-15')
   },
   {
     id: 'user-3',
@@ -149,7 +149,7 @@ export const mockUsers: User[] = [
     unit: 'Logam',
     pegawaiId: 'peg-3',
     isActive: true,
-    createdAt: new Date('2021-05-10')
+    joinDate: new Date('2021-05-10')
   },
   {
     id: 'user-4',
@@ -159,7 +159,7 @@ export const mockUsers: User[] = [
     unit: 'IPAMP',
     pegawaiId: 'peg-5',
     isActive: true,
-    createdAt: new Date('2021-07-25')
+    joinDate: new Date('2021-07-25')
   },
   {
     id: 'user-5',
@@ -169,7 +169,7 @@ export const mockUsers: User[] = [
     unit: 'IMATAB',
     pegawaiId: 'peg-7',
     isActive: true,
-    createdAt: new Date('2021-09-18')
+    joinDate: new Date('2021-09-18')
   },
   {
     id: 'user-6',
@@ -179,7 +179,7 @@ export const mockUsers: User[] = [
     unit: 'IET',
     pegawaiId: 'peg-9',
     isActive: true,
-    createdAt: new Date('2021-12-10')
+    joinDate: new Date('2021-12-10')
   }
 ];
 
