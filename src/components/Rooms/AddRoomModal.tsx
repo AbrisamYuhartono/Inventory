@@ -9,13 +9,15 @@ interface AddRoomModalProps {
 }
 
 export const AddRoomModal: React.FC<AddRoomModalProps> = ({ isOpen, onClose, onAdd }) => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<Omit<Room, 'id'>>({
     name: '',
+    roomCode: '',
+    lantai: 0,
+    roomType: 'Ruang Kerja',
     description: '',
-    building: '',
-    floor: 0,
-    capacity: 0,
-    itemCount: 0
+    picName: '',
+    picNip: '',
+    picJabatan: '',
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -23,11 +25,13 @@ export const AddRoomModal: React.FC<AddRoomModalProps> = ({ isOpen, onClose, onA
     onAdd(formData);
     setFormData({
       name: '',
+      roomCode: '',
+      lantai: 0,
+      roomType: 'Ruang Kerja',
       description: '',
-      building: '',
-      floor: 0,
-      capacity: 0,
-      itemCount: 0
+      picName: '',
+      picNip: '',
+      picJabatan: '',
     });
     onClose();
   };
@@ -46,78 +50,97 @@ export const AddRoomModal: React.FC<AddRoomModalProps> = ({ isOpen, onClose, onA
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Room Name
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Room Name</label>
             <input
               type="text"
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Description
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Room Code</label>
+            <input
+              type="text"
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+              value={formData.roomCode}
+              onChange={(e) => setFormData({ ...formData, roomCode: e.target.value })}
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Floor (Lantai)</label>
+            <input
+              type="number"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+              value={formData.lantai}
+              onChange={(e) => setFormData({ ...formData, lantai: parseInt(e.target.value) || 0 })}
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Room Type</label>
+            <select
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+              value={formData.roomType}
+              onChange={(e) =>
+                setFormData({ ...formData, roomType: e.target.value as Room['roomType'] })
+              }
+            >
+              <option value="Ruang Koridor">Ruang Koridor</option>
+              <option value="Ruang Gudang">Ruang Gudang</option>
+              <option value="Ruang Dapur">Ruang Dapur</option>
+              <option value="Ruang Toilet/WC">Ruang Toilet/WC</option>
+              <option value="Ruang Kerja">Ruang Kerja</option>
+              <option value="Ruang Rapat Besar">Ruang Rapat Besar</option>
+              <option value="Ruang Rapat Kecil">Ruang Rapat Kecil</option>
+              <option value="Ruang Arsip">Ruang Arsip</option>
+              <option value="Ruang Musholla">Ruang Musholla</option>
+              <option value="Ruang Tamu">Ruang Tamu</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
             <textarea
               rows={3}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg"
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Building
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">PIC Name</label>
             <input
               type="text"
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              value={formData.building}
-              onChange={(e) => setFormData({ ...formData, building: e.target.value })}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+              value={formData.picName}
+              onChange={(e) => setFormData({ ...formData, picName: e.target.value })}
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Floor
-              </label>
-              <input
-                type="number"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                value={formData.floor}
-                onChange={(e) => setFormData({ ...formData, floor: parseInt(e.target.value) || 0 })}
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Capacity
-              </label>
-              <input
-                type="number"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                value={formData.capacity}
-                onChange={(e) => setFormData({ ...formData, capacity: parseInt(e.target.value) || 0 })}
-              />
-            </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">PIC NIP</label>
+            <input
+              type="text"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+              value={formData.picNip}
+              onChange={(e) => setFormData({ ...formData, picNip: e.target.value })}
+            />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Current Item Count
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">PIC Jabatan</label>
             <input
-              type="number"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              value={formData.itemCount}
-              onChange={(e) => setFormData({ ...formData, itemCount: parseInt(e.target.value) || 0 })}
+              type="text"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+              value={formData.picJabatan}
+              onChange={(e) => setFormData({ ...formData, picJabatan: e.target.value })}
             />
           </div>
 

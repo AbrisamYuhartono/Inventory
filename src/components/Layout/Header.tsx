@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bell, Search, User, LogOut, QrCode, Download, Sparkles } from 'lucide-react';
+import { Bell, Search, LogOut, QrCode, Download } from 'lucide-react';
 import { AuthUser } from '../../types';
 
 interface HeaderProps {

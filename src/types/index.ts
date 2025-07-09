@@ -26,7 +26,7 @@ export interface Room {
   name: string;
   roomCode: string;
   lantai: number;
-  roomType: 'Office' | 'Meeting' | 'Storage' | 'Laboratory' | 'Workshop';
+  roomType: 'Ruang Koridor' | 'Ruang Gudang' | 'Ruang Dapur' | 'Ruang Toilet/WC' | 'Ruang Kerja' | 'Ruang Rapat Besar' | 'Ruang Rapat Kecil' | 'Ruang Arsip' | 'Ruang Musholla' | 'Ruang Tamu';
   description: string;
   picName: string;
   picNip: string;
