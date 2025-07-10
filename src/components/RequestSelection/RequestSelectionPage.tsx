@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Item, Pegawai } from '../../types';
+import { Item } from '../../types';
 import { mockItems, mockPegawai } from '../../data/mockData';
-import { 
-  Package, 
-  Search, 
-  Filter,
+import {
+  Package,
+  Search,
   ArrowLeft,
   User,
   Calendar,
@@ -12,6 +11,7 @@ import {
   Wrench
 } from 'lucide-react';
 import { AuthUser } from '../../types';
+import Select from 'react-select';
 
 interface RequestSelectionPageProps {
   type: 'lending' | 'repair';
@@ -34,13 +34,11 @@ export const RequestSelectionPage: React.FC<RequestSelectionPageProps> = ({
   const [damageDescription, setDamageDescription] = useState('');
   const [urgencyLevel, setUrgencyLevel] = useState<'Low' | 'Medium' | 'High' | 'Critical'>('Medium');
 
-  // Filter items based on type
-  const availableItems = type === 'lending' 
+  const availableItems = type === 'lending'
     ? mockItems.filter(item => item.status === 'Available')
     : mockItems.filter(item => item.status === 'Available' || item.status === 'Broken');
 
-  // Filter pegawai based on user's unit
-  const unitPegawai = mockPegawai.filter(pegawai => 
+  const unitPegawai = mockPegawai.filter(pegawai =>
     pegawai.unit === user.unit && pegawai.isActive
   );
 
@@ -58,22 +56,15 @@ export const RequestSelectionPage: React.FC<RequestSelectionPageProps> = ({
       return;
     }
 
-    const additionalData = type === 'lending' 
+    const additionalData = type === 'lending'
       ? { expectedReturnDate: new Date(expectedReturnDate), notes }
       : { damageDescription, urgencyLevel };
 
     onSubmit(selectedItem.id, selectedPegawai, additionalData);
   };
 
-  const getDefaultReturnDate = () => {
-    const date = new Date();
-    date.setDate(date.getDate() + 7); // Default 7 days from now
-    return date.toISOString().split('T')[0];
-  };
-
   return (
     <div className="min-h-screen bg-cream-50">
-      {/* Header */}
       <div className="bg-white shadow-sm border-b border-primary-200">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center space-x-4">
@@ -181,24 +172,23 @@ export const RequestSelectionPage: React.FC<RequestSelectionPageProps> = ({
               )}
 
               <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Pilih Pegawai (searchable + scrollable) */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     <User className="h-4 w-4 inline mr-1" />
                     Pilih Pegawai
                   </label>
-                  <select
-                    required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                    value={selectedPegawai}
-                    onChange={(e) => setSelectedPegawai(e.target.value)}
-                  >
-                    <option value="">-- Pilih Pegawai --</option>
-                    {unitPegawai.map((pegawai) => (
-                      <option key={pegawai.id} value={pegawai.id}>
-                        {pegawai.name} ({pegawai.nip})
-                      </option>
-                    ))}
-                  </select>
+                  <Select
+                    className="text-sm"
+                    classNamePrefix="react-select"
+                    placeholder="-- Pilih Pegawai --"
+                    isSearchable
+                    options={unitPegawai.map((pegawai) => ({
+                      value: pegawai.id,
+                      label: `${pegawai.name} (${pegawai.nip})`,
+                    }))}
+                    onChange={(option) => setSelectedPegawai(option?.value || '')}
+                  />
                 </div>
 
                 {type === 'lending' ? (
@@ -206,7 +196,7 @@ export const RequestSelectionPage: React.FC<RequestSelectionPageProps> = ({
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         <Calendar className="h-4 w-4 inline mr-1" />
-                        Tanggal Pengembalian
+                        Tanggal Peminjaman
                       </label>
                       <input
                         type="date"
@@ -215,7 +205,6 @@ export const RequestSelectionPage: React.FC<RequestSelectionPageProps> = ({
                         value={expectedReturnDate}
                         onChange={(e) => setExpectedReturnDate(e.target.value)}
                         min={new Date().toISOString().split('T')[0]}
-                        defaultValue={getDefaultReturnDate()}
                       />
                     </div>
 

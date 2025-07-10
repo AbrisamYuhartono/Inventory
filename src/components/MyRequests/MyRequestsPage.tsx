@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { LendingRecord } from '../../types';
-import { mockLendingRecords } from '../../data/mockData';
+import { LendingRequest } from '../../types';
+import { mockLendingRequests } from '../../data/mockData';
 import { format } from 'date-fns';
 import { 
   Clock, 
@@ -18,11 +18,11 @@ interface MyRequestsPageProps {
 }
 
 export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
-  const [records] = useState<LendingRecord[]>(
-    mockLendingRecords.filter(r => r.borrowerId === user.id)
+  const [records] = useState<LendingRequest[]>(
+    mockLendingRequests.filter(r => r.pegawaiId === user.id)
   );
 
-  const getStatusColor = (status: LendingRecord['status']) => {
+  const getStatusColor = (status: LendingRequest['status']) => {
     switch (status) {
       case 'Pending':
         return 'bg-amber-100 text-amber-800';
@@ -37,7 +37,7 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
     }
   };
 
-  const getStatusIcon = (status: LendingRecord['status']) => {
+  const getStatusIcon = (status: LendingRequest['status']) => {
     switch (status) {
       case 'Pending':
         return <Clock className="h-4 w-4" />;
@@ -152,7 +152,7 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
                       <div className="flex items-center space-x-2">
                         <Calendar className="h-4 w-4" />
                         <div>
-                          <p>Tanggal Pinjam: {format(record.lendDate, 'dd/MM/yyyy')}</p>
+                          <p>Tanggal Pinjam: {format(record.requestDate, 'dd/MM/yyyy')}</p>
                           <p>Tanggal Kembali: {format(record.expectedReturnDate, 'dd/MM/yyyy')}</p>
                         </div>
                       </div>

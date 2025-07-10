@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { LendingRecord } from '../../types';
-import { mockLendingRecords } from '../../data/mockData';
+import { LendingRequest } from '../../types';
+import { mockLendingRequests } from '../../data/mockData';
 import { format } from 'date-fns';
 import { 
   CheckCircle, 
@@ -14,8 +14,8 @@ import {
 } from 'lucide-react';
 
 export const ApprovalPage: React.FC = () => {
-  const [records, setRecords] = useState<LendingRecord[]>(mockLendingRecords);
-  const [selectedRecord, setSelectedRecord] = useState<LendingRecord | null>(null);
+  const [records, setRecords] = useState<LendingRequest[]>(mockLendingRequests);
+  const [selectedRecord, setSelectedRecord] = useState<LendingRequest | null>(null);
   const [rejectionReason, setRejectionReason] = useState('');
   const [showRejectModal, setShowRejectModal] = useState(false);
 
@@ -51,7 +51,7 @@ export const ApprovalPage: React.FC = () => {
     setRejectionReason('');
   };
 
-  const openRejectModal = (record: LendingRecord) => {
+  const openRejectModal = (record: LendingRequest) => {
     setSelectedRecord(record);
     setShowRejectModal(true);
   };
@@ -83,7 +83,7 @@ export const ApprovalPage: React.FC = () => {
               <p className="text-sm font-medium text-gray-600">Disetujui Hari Ini</p>
               <p className="text-3xl font-bold text-green-600 mt-2">
                 {records.filter(r => r.status === 'Approved' && 
-                  r.lendDate.toDateString() === new Date().toDateString()).length}
+                  r.requestDate.toDateString() === new Date().toDateString()).length}
               </p>
             </div>
             <div className="p-3 bg-green-50 rounded-lg">
@@ -98,7 +98,7 @@ export const ApprovalPage: React.FC = () => {
               <p className="text-sm font-medium text-gray-600">Ditolak Hari Ini</p>
               <p className="text-3xl font-bold text-red-600 mt-2">
                 {records.filter(r => r.status === 'Rejected' && 
-                  r.lendDate.toDateString() === new Date().toDateString()).length}
+                  r.requestDate.toDateString() === new Date().toDateString()).length}
               </p>
             </div>
             <div className="p-3 bg-red-50 rounded-lg">
@@ -139,16 +139,15 @@ export const ApprovalPage: React.FC = () => {
                       <div className="flex items-center space-x-2">
                         <User className="h-4 w-4" />
                         <div>
-                          <p className="font-medium">{record.borrowerName}</p>
-                          <p className="text-xs">NIP: {record.borrowerNip}</p>
-                          <p className="text-xs">{record.borrowerUnit}</p>
+                          <p className="font-medium">{record.pegawaiName}</p>
+                          <p className="text-xs">NIP: {record.pegawaiNip}</p>
+                          <p className="text-xs">{record.pegawaiUnit}</p>
                         </div>
                       </div>
                       <div className="flex items-center space-x-2">
                         <Calendar className="h-4 w-4" />
                         <div>
-                          <p>Tanggal Pinjam: {format(record.lendDate, 'dd/MM/yyyy')}</p>
-                          <p>Tanggal Kembali: {format(record.expectedReturnDate, 'dd/MM/yyyy')}</p>
+                          <p>Tanggal Pinjam: {format(record.requestDate, 'dd/MM/yyyy')}</p>
                         </div>
                       </div>
                       <div className="flex items-center space-x-2">

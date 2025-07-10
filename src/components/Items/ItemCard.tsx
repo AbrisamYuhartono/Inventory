@@ -1,15 +1,16 @@
 import React from 'react';
 import { Item } from '../../types';
-import { Package, MapPin, Calendar, QrCode, Edit3, FileText } from 'lucide-react';
+import { Package, Calendar, QrCode, Edit3, FileText } from 'lucide-react';
 import { format } from 'date-fns';
 
 interface ItemCardProps {
   item: Item;
   onStatusUpdate: (itemId: string, newStatus: Item['status']) => void;
   onLend: (item: Item) => void;
+  onEdit: (item: Item) => void;
 }
 
-export const ItemCard: React.FC<ItemCardProps> = ({ item, onStatusUpdate, onLend }) => {
+export const ItemCard: React.FC<ItemCardProps> = ({ item, onStatusUpdate, onLend, onEdit }) => {
   const getStatusColor = (status: Item['status']) => {
     switch (status) {
       case 'Available':
@@ -41,12 +42,9 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item, onStatusUpdate, onLend
   };
 
   const generateQRCode = async () => {
-    // This would integrate with the QR code generation functionality
     const QRCode = await import('qrcode');
     try {
       const qrCodeUrl = await QRCode.toDataURL(`ITEM_${item.id}_${item.serialNumber}`);
-      
-      // Create and download the QR code
       const link = document.createElement('a');
       link.download = `QR_${item.serialNumber}.png`;
       link.href = qrCodeUrl;
@@ -88,7 +86,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item, onStatusUpdate, onLend
         </div>
       </div>
 
-      <div className="flex space-x-2">
+      <div className="flex flex-wrap gap-2">
         <button
           onClick={generateQRCode}
           className="flex-1 bg-gray-100 text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center space-x-1 text-sm"
@@ -96,7 +94,15 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item, onStatusUpdate, onLend
           <QrCode className="h-4 w-4" />
           <span>QR Code</span>
         </button>
-        
+
+        <button
+          onClick={() => onEdit(item)}
+          className="flex-1 bg-yellow-100 text-yellow-800 px-3 py-2 rounded-lg hover:bg-yellow-200 transition-colors flex items-center justify-center space-x-1 text-sm"
+        >
+          <Edit3 className="h-4 w-4" />
+          <span>Edit</span>
+        </button>
+
         {item.status === 'Available' && (
           <button
             onClick={() => onLend(item)}
@@ -106,7 +112,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item, onStatusUpdate, onLend
             <span>Pinjam</span>
           </button>
         )}
-        
+
         {item.status === 'Lended' && (
           <button
             onClick={() => onStatusUpdate(item.id, 'Available')}
@@ -115,7 +121,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item, onStatusUpdate, onLend
             Kembalikan
           </button>
         )}
-        
+
         {item.status === 'Broken' && (
           <button
             onClick={() => onStatusUpdate(item.id, 'Available')}

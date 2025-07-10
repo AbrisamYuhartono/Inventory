@@ -1,4 +1,4 @@
-import { Item, User, Pegawai, LendingRequest, LendingRecord, Room, RepairRequest } from '../types';
+import { Item, User, Pegawai, LendingRequest, Room, RepairRequest } from '../types';
 
 export const mockPegawai: Pegawai[] = [
   // Setditjen ILMATE
@@ -1912,18 +1912,6 @@ export const mockLendingRequests: LendingRequest[] = [
     requestedBy: 'user-3'
   }
 ];
-
-// Create LendingRecord data for compatibility
-export const mockLendingRecords: LendingRecord[] = mockLendingRequests.map(request => ({
-  ...request,
-  borrowerId: request.pegawaiId,
-  borrowerName: request.pegawaiName,
-  borrowerNip: request.pegawaiNip,
-  borrowerUnit: request.pegawaiUnit,
-  userName: request.pegawaiName,
-  userDepartment: request.pegawaiUnit,
-  lendDate: request.requestDate
-}));
 
 export const mockRepairRequests: RepairRequest[] = [
   {

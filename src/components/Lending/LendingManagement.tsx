@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { LendingRecord } from '../../types';
-import { mockLendingRecords } from '../../data/mockData';
+import { LendingRequest } from '../../types';
+import { mockLendingRequests } from '../../data/mockData';
 import { format, isAfter, differenceInDays } from 'date-fns';
 import { 
   FileText, 
@@ -16,45 +16,45 @@ import {
 } from 'lucide-react';
 
 export const LendingManagement: React.FC = () => {
-  const [records, setRecords] = useState<LendingRecord[]>(mockLendingRecords);
+  const [records, setRecords] = useState<LendingRequest[]>(mockLendingRequests);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
   const filteredRecords = records.filter(record => {
     const matchesSearch = record.itemName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         record.userName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         record.pegawaiName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          record.itemSerialNumber.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === 'all' || record.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
 
-  const getStatusColor = (status: LendingRecord['status']) => {
+  const getStatusColor = (status: LendingRequest['status']) => {
     switch (status) {
       case 'Active':
         return 'bg-blue-100 text-blue-800';
       case 'Returned':
         return 'bg-green-100 text-green-800';
-      case 'Overdue':
+      case 'Rejected':
         return 'bg-red-100 text-red-800';
     }
   };
 
-  const getStatusIcon = (status: LendingRecord['status']) => {
+  const getStatusIcon = (status: LendingRequest['status']) => {
     switch (status) {
       case 'Active':
         return <Clock className="h-4 w-4" />;
       case 'Returned':
         return <CheckCircle className="h-4 w-4" />;
-      case 'Overdue':
+      case 'Rejected':
         return <AlertTriangle className="h-4 w-4" />;
     }
   };
 
-  const isOverdue = (record: LendingRecord) => {
+  const isOverdue = (record: LendingRequest) => {
     return record.status === 'Active' && isAfter(new Date(), record.expectedReturnDate);
   };
 
-  const getDaysRemaining = (record: LendingRecord) => {
+  const getDaysRemaining = (record: LendingRequest) => {
     if (record.status !== 'Active') return null;
     const days = differenceInDays(record.expectedReturnDate, new Date());
     return days;
@@ -103,9 +103,9 @@ export const LendingManagement: React.FC = () => {
       doc.setFontSize(10);
       doc.text(`${index + 1}. ${record.itemName} (${record.itemSerialNumber})`, 25, yPosition);
       yPosition += 10;
-      doc.text(`   Borrower: ${record.userName} - ${record.userDepartment}`, 25, yPosition);
+      doc.text(`   Borrower: ${record.pegawaiName} - ${record.pegawaiUnit}`, 25, yPosition);
       yPosition += 10;
-      doc.text(`   Period: ${format(record.lendDate, 'dd/MM/yyyy')} - ${format(record.expectedReturnDate, 'dd/MM/yyyy')}`, 25, yPosition);
+      doc.text(`   Period: ${format(record.requestDate, 'dd/MM/yyyy')} - ${format(record.expectedReturnDate, 'dd/MM/yyyy')}`, 25, yPosition);
       yPosition += 10;
       doc.text(`   Status: ${record.status}`, 25, yPosition);
       if (record.notes) {
@@ -244,11 +244,11 @@ export const LendingManagement: React.FC = () => {
                     <div className="flex items-center space-x-6 text-sm text-gray-600 mb-2">
                       <div className="flex items-center space-x-1">
                         <User className="h-4 w-4" />
-                        <span>{record.userName} - {record.userDepartment}</span>
+                        <span>{record.pegawaiName} - {record.pegawaiUnit}</span>
                       </div>
                       <div className="flex items-center space-x-1">
                         <Calendar className="h-4 w-4" />
-                        <span>{format(record.lendDate, 'MMM dd, yyyy')}</span>
+                        <span>{format(record.requestDate, 'MMM dd, yyyy')}</span>
                       </div>
                       <div className="flex items-center space-x-1">
                         <Calendar className="h-4 w-4" />

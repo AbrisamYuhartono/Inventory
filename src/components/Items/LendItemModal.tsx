@@ -52,7 +52,6 @@ export const LendItemModal: React.FC<LendItemModalProps> = ({ isOpen, item, onCl
     
     doc.text('INFORMASI PEMINJAMAN:', 20, 160);
     doc.text(`Tanggal Pinjam: ${format(new Date(), 'dd/MM/yyyy')}`, 25, 170);
-    doc.text(`Tanggal Kembali: ${format(new Date(returnDate), 'dd/MM/yyyy')}`, 25, 180);
     doc.text(`Catatan: ${notes || '-'}`, 25, 190);
     
     // Add footer

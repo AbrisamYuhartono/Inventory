@@ -6,7 +6,7 @@ interface StatCardProps {
   value: string | number;
   change?: string;
   changeType?: 'positive' | 'negative' | 'neutral';
-  icon: LucideIcon;
+  icon: typeof LucideIcon;
   color: 'blue' | 'indigo' | 'emerald' | 'orange';
   gradient: string;
 }

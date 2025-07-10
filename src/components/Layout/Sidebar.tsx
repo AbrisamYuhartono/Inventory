@@ -24,14 +24,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, user }
   const getMenuItems = () => {
     const baseItems = [
       { id: 'dashboard', label: 'Dashboard', icon: Home },
-      { id: 'items', label: 'Inventaris', icon: Package },
       { id: 'lending', label: 'Peminjaman', icon: FileText }
     ];
 
     if (user.role === 'User') {
       return [
         ...baseItems,
-        { id: 'my-requests', label: 'Permintaan Saya', icon: CheckSquare },
+        /*{ id: 'my-requests', label: 'Permintaan Saya', icon: CheckSquare },*/
         { id: 'repair-requests', label: 'Perbaikan Barang', icon: Wrench }
       ];
     }
@@ -40,6 +39,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, user }
       return [
         ...baseItems,
         { id: 'approval', label: 'Persetujuan', icon: CheckSquare },
+        { id: 'items', label: 'Inventaris', icon: Package },
         { id: 'repair-requests', label: 'Perbaikan Barang', icon: Wrench },
         { id: 'pegawai', label: 'Data Pegawai', icon: UserCheck },
         { id: 'rooms', label: 'Ruangan', icon: Building },
@@ -51,6 +51,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, user }
       return [
         ...baseItems,
         { id: 'approval', label: 'Persetujuan', icon: CheckSquare },
+        { id: 'items', label: 'Inventaris', icon: Package },
         { id: 'repair-requests', label: 'Perbaikan Barang', icon: Wrench },
         { id: 'users', label: 'Manajemen User', icon: Users },
         { id: 'pegawai', label: 'Data Pegawai', icon: UserCheck },

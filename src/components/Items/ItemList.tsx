@@ -11,6 +11,7 @@ export const ItemList: React.FC = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isLendModalOpen, setIsLendModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
+  const [editingItem, setEditingItem] = useState<Item | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -25,11 +26,19 @@ export const ItemList: React.FC = () => {
   const handleAddItem = (newItem: Omit<Item, 'id' | 'createdAt' | 'updatedAt'>) => {
     const item: Item = {
       ...newItem,
-      id: Date.now().toString(),
-      createdAt: new Date(),
-      updatedAt: new Date()
+      id: editingItem ? editingItem.id : Date.now().toString(),
+      createdAt: editingItem ? editingItem.createdAt : new Date(),
+      updatedAt: new Date(),
     };
-    setItems([...items, item]);
+
+    if (editingItem) {
+      setItems(prev => prev.map(i => (i.id === editingItem.id ? item : i)));
+    } else {
+      setItems(prev => [...prev, item]);
+    }
+
+    setIsAddModalOpen(false);
+    setEditingItem(null);
   };
 
   const handleLendItem = (itemId: string, userName: string, userEmail: string, userDepartment: string, returnDate: Date, notes: string) => {
@@ -51,8 +60,14 @@ export const ItemList: React.FC = () => {
     setIsLendModalOpen(true);
   };
 
+  const handleEditClick = (item: Item) => {
+    setEditingItem(item);
+    setIsAddModalOpen(true);
+  };
+
   return (
     <div className="p-6 ml-64 bg-cream-50 min-h-screen">
+      {/* Header and Filters */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-6">
           <div>
@@ -60,7 +75,10 @@ export const ItemList: React.FC = () => {
             <p className="text-gray-600 mt-2">Kelola barang inventaris Anda</p>
           </div>
           <button
-            onClick={() => setIsAddModalOpen(true)}
+            onClick={() => {
+              setEditingItem(null);
+              setIsAddModalOpen(true);
+            }}
             className="bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors flex items-center space-x-2 shadow-lg"
           >
             <Plus className="h-5 w-5" />
@@ -79,7 +97,6 @@ export const ItemList: React.FC = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
@@ -93,33 +110,9 @@ export const ItemList: React.FC = () => {
             <option value="Disposed">Dibuang</option>
           </select>
         </div>
-
-        <div className="bg-white rounded-lg p-4 mb-6 border border-primary-200 shadow-sm">
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 text-center">
-            <div>
-              <p className="text-2xl font-bold text-primary-600">{items.length}</p>
-              <p className="text-sm text-gray-600">Total Barang</p>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-primary-600">{items.filter(i => i.status === 'Available').length}</p>
-              <p className="text-sm text-gray-600">Tersedia</p>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-blue-600">{items.filter(i => i.status === 'Lended').length}</p>
-              <p className="text-sm text-gray-600">Dipinjam</p>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-amber-600">{items.filter(i => i.status === 'Under Repair').length}</p>
-              <p className="text-sm text-gray-600">Sedang Diperbaiki</p>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-danger-600">{items.filter(i => i.status === 'Broken').length}</p>
-              <p className="text-sm text-gray-600">Rusak</p>
-            </div>
-          </div>
-        </div>
       </div>
 
+      {/* Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredItems.map((item) => (
           <ItemCard
@@ -127,6 +120,7 @@ export const ItemList: React.FC = () => {
             item={item}
             onStatusUpdate={handleUpdateStatus}
             onLend={handleLendClick}
+            onEdit={handleEditClick}
           />
         ))}
       </div>
@@ -141,8 +135,12 @@ export const ItemList: React.FC = () => {
       {isAddModalOpen && (
         <AddItemModal
           isOpen={isAddModalOpen}
-          onClose={() => setIsAddModalOpen(false)}
+          onClose={() => {
+            setIsAddModalOpen(false);
+            setEditingItem(null);
+          }}
           onAdd={handleAddItem}
+          initialData={editingItem || undefined}
         />
       )}
 

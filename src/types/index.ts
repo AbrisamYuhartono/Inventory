@@ -67,6 +67,7 @@ export interface LendingRecord {
   expectedReturnDate: Date;
   actualReturnDate?: Date;
   status: 'Pending' | 'Approved' | 'Active' | 'Returned' | 'Rejected';
+  askedBy?: string;
   approvedBy?: string;
   approverName?: string;
   notes?: string;
