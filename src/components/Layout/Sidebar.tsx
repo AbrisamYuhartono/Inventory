@@ -30,7 +30,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, onTabChange, user }
     if (user.role === 'User') {
       return [
         ...baseItems,
-        /*{ id: 'my-requests', label: 'Permintaan Saya', icon: CheckSquare },*/
+        { id: 'my-requests', label: 'Permintaan Saya', icon: CheckSquare },
         { id: 'repair-requests', label: 'Perbaikan Barang', icon: Wrench }
       ];
     }
