@@ -52,26 +52,22 @@ export interface Item {
 }
 
 export interface LendingRecord {
-  id: string;
-  itemId: string;
-  borrowerId: string; // Add this field
-  borrowerName: string;
-  borrowerNip: string;
-  borrowerUnit: string;
-  userName: string; // Add this for compatibility
-  userDepartment: string; // Add this for compatibility
-  itemName: string;
-  itemSerialNumber: string;
-  itemNup: string;
-  lendDate: Date;
-  expectedReturnDate: Date;
-  actualReturnDate?: Date;
-  status: 'Pending' | 'Approved' | 'Active' | 'Returned' | 'Rejected';
-  askedBy?: string;
-  approvedBy?: string;
-  approverName?: string;
-  notes?: string;
-  rejectionReason?: string;
+    id: string;
+    itemId: string;
+    pegawaiId: string;
+    pegawaiName: string;
+    pegawaiNip: string;
+    pegawaiUnit: string;
+    itemName: string;
+    itemSerialNumber: string;
+    itemNup: string;
+    requestDate: Date;
+    expectedReturnDate: Date;
+    status: 'Pending' | 'Approved' | 'Active' | 'Returned' | 'Rejected';
+    approvedBy?: string;
+    requestedBy: string;
+    rejectionReason?: string;
+    notes: string;
 }
 
 export interface LendingRequest {

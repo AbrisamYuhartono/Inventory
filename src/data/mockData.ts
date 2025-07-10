@@ -1,4 +1,4 @@
-import { Item, User, Pegawai, LendingRequest, Room, RepairRequest } from '../types';
+import { Item, User, Pegawai, LendingRequest, LendingRecord, Room, RepairRequest } from '../types';
 
 export const mockPegawai: Pegawai[] = [
   // Setditjen ILMATE
@@ -1810,4 +1810,92 @@ export const mockRepairRequests: RepairRequest[] = [
     attachments: ['mic_damage_photo1.jpg', 'mic_damage_photo2.jpg'],
     requestedBy: 'user-3'
   }
+];
+
+export const mockLendingRecords: LendingRecord[] = [
+  {
+    id: 'lr-001',
+    itemId: 'itm-001',
+    pegawaiId: 'peg-101',
+    pegawaiName: 'Andi Saputra',
+    pegawaiNip: '198105152005011002',
+    pegawaiUnit: 'Logam',
+    itemName: 'Laptop Lenovo ThinkPad X1',
+    itemSerialNumber: 'LN-001',
+    itemNup: 'NUP-001',
+    requestDate: new Date(2025, 4, 10),
+    expectedReturnDate: new Date(2025, 4, 17),
+    status: 'Pending',
+    requestedBy: 'user-3',
+    notes: 'Untuk tugas desain produk',
+  },
+  {
+    id: 'lr-002',
+    itemId: 'itm-002',
+    pegawaiId: 'peg-102',
+    pegawaiName: 'Siti Aisyah',
+    pegawaiNip: '198712092010022003',
+    pegawaiUnit: 'IPAMP',
+    itemName: 'Proyektor Epson EB-X41',
+    itemSerialNumber: 'EP-101',
+    itemNup: 'NUP-002',
+    requestDate: new Date(2025, 3, 5),
+    expectedReturnDate: new Date(2025, 3, 10),
+    status: 'Approved',
+    requestedBy: 'user-4',
+    approvedBy: 'user-2',
+    notes: 'Untuk presentasi internal'
+  },
+  {
+    id: 'lr-003',
+    itemId: 'itm-003',
+    pegawaiId: 'peg-103',
+    pegawaiName: 'Budi Santoso',
+    pegawaiNip: '197904042008011003',
+    pegawaiUnit: 'IMATAB',
+    itemName: 'Printer HP LaserJet Pro M404',
+    itemSerialNumber: 'HP-404',
+    itemNup: 'NUP-003',
+    requestDate: new Date(2025, 2, 20),
+    expectedReturnDate: new Date(2025, 2, 25),
+    status: 'Rejected',
+    requestedBy: 'user-5',
+    approvedBy: 'user-1',
+    rejectionReason: 'Barang sedang dalam perbaikan',
+    notes: 'Untuk cetak laporan bulanan'
+  },
+  {
+    id: 'lr-004',
+    itemId: 'itm-004',
+    pegawaiId: 'peg-104',
+    pegawaiName: 'Dewi Lestari',
+    pegawaiNip: '198306232007012004',
+    pegawaiUnit: 'IET',
+    itemName: 'Scanner Canon DR-F120',
+    itemSerialNumber: 'CN-DR120',
+    itemNup: 'NUP-004',
+    requestDate: new Date(2025, 1, 15),
+    expectedReturnDate: new Date(2025, 1, 22),
+    status: 'Returned',
+    requestedBy: 'user-6',
+    approvedBy: 'user-2',
+    notes: 'Untuk arsip dokumen'
+  },
+  {
+    id: 'lr-005',
+    itemId: 'itm-005',
+    pegawaiId: 'peg-105',
+    pegawaiName: 'Rina Kartika',
+    pegawaiNip: '198911302012032005',
+    pegawaiUnit: 'Logam',
+    itemName: 'Tablet Samsung Galaxy Tab S6',
+    itemSerialNumber: 'SS-TAB06',
+    itemNup: 'NUP-005',
+    requestDate: new Date(2025, 0, 10),
+    expectedReturnDate: new Date(2025, 0, 17),
+    status: 'Active',
+    requestedBy: 'user-3',
+    approvedBy: 'user-1',
+    notes: 'Untuk pemetaan lapangan'
+  },
 ];

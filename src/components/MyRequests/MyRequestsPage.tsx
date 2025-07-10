@@ -1,28 +1,39 @@
-import React, { useState } from 'react';
-import { LendingRequest } from '../../types';
-import { mockLendingRequests } from '../../data/mockData';
+import React, { useMemo } from 'react';
+import { LendingRecord, AuthUser } from '../../types';
+import { mockLendingRecords } from '../../data/mockData';
 import { format } from 'date-fns';
-import { 
-  Clock, 
-  CheckCircle, 
-  XCircle, 
-  Package, 
+import {
+  Clock,
+  CheckCircle,
+  XCircle,
+  Package,
   Calendar,
   FileText,
-  Plus
+  User
 } from 'lucide-react';
-import { AuthUser } from '../../types';
 
 interface MyRequestsPageProps {
   user: AuthUser;
 }
 
 export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
-  const [records] = useState<LendingRequest[]>(
-    mockLendingRequests.filter(r => r.requestedBy === user.id)
-  );
+  // Optional role check — block admin/superadmin
+  if (user.id === 'user-1' || user.id === 'user-2') {
+    return (
+      <div className="p-6 ml-64">
+        <p className="text-gray-600">
+          Halaman ini hanya tersedia untuk pengguna unit peminjam (Logam, IPAMP, IMATAB, IET).
+        </p>
+      </div>
+    );
+  }
 
-  const getStatusColor = (status: LendingRequest['status']) => {
+  // Filter records that belong to the current user
+  const records = useMemo(() => {
+    return mockLendingRecords.filter(r => r.requestedBy === user.id);
+  }, [user.id]);
+
+  const getStatusColor = (status: LendingRecord['status']) => {
     switch (status) {
       case 'Pending':
         return 'bg-amber-100 text-amber-800';
@@ -37,13 +48,12 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
     }
   };
 
-  const getStatusIcon = (status: LendingRequest['status']) => {
+  const getStatusIcon = (status: LendingRecord['status']) => {
     switch (status) {
       case 'Pending':
         return <Clock className="h-4 w-4" />;
       case 'Approved':
       case 'Active':
-        return <CheckCircle className="h-4 w-4" />;
       case 'Returned':
         return <CheckCircle className="h-4 w-4" />;
       case 'Rejected':
@@ -71,65 +81,25 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
 
         {/* Statistics */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Total Permintaan</p>
-                <p className="text-3xl font-bold text-gray-900 mt-2">{records.length}</p>
-              </div>
-              <div className="p-3 bg-blue-50 rounded-lg">
-                <FileText className="h-6 w-6 text-blue-600" />
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Menunggu Persetujuan</p>
-                <p className="text-3xl font-bold text-amber-600 mt-2">{pendingCount}</p>
-              </div>
-              <div className="p-3 bg-amber-50 rounded-lg">
-                <Clock className="h-6 w-6 text-amber-600" />
+          {[
+            { label: 'Total Permintaan', count: records.length, icon: <FileText className="h-6 w-6 text-blue-600" />, bg: 'bg-blue-50' },
+            { label: 'Menunggu Persetujuan', count: pendingCount, icon: <Clock className="h-6 w-6 text-amber-600" />, bg: 'bg-amber-50' },
+            { label: 'Disetujui', count: approvedCount, icon: <CheckCircle className="h-6 w-6 text-blue-600" />, bg: 'bg-blue-50' },
+            { label: 'Sedang Dipinjam', count: activeCount, icon: <Package className="h-6 w-6 text-green-600" />, bg: 'bg-green-50' },
+            { label: 'Telah Dikembalikan', count: returnedCount, icon: <CheckCircle className="h-6 w-6 text-gray-600" />, bg: 'bg-gray-50' },
+          ].map((stat, idx) => (
+            <div key={idx} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-600">{stat.label}</p>
+                  <p className="text-3xl font-bold mt-2">{stat.count}</p>
+                </div>
+                <div className={`p-3 rounded-lg ${stat.bg}`}>
+                  {stat.icon}
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Disetujui</p>
-                <p className="text-3xl font-bold text-blue-600 mt-2">{approvedCount}</p>
-              </div>
-              <div className="p-3 bg-blue-50 rounded-lg">
-                <CheckCircle className="h-6 w-6 text-blue-600" />
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Sedang Dipinjam</p>
-                <p className="text-3xl font-bold text-green-600 mt-2">{activeCount}</p>
-              </div>
-              <div className="p-3 bg-green-50 rounded-lg">
-                <Package className="h-6 w-6 text-green-600" />
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Telah Dikembalikan</p>
-                <p className="text-3xl font-bold text-gray-600 mt-2">{returnedCount}</p>
-              </div>
-              <div className="p-3 bg-gray-50 rounded-lg">
-                <CheckCircle className="h-6 w-6 text-gray-600" />
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
@@ -143,7 +113,7 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
             </div>
           </div>
         </div>
-        
+
         <div className="divide-y divide-gray-200">
           {records.length === 0 ? (
             <div className="p-12 text-center">
@@ -164,13 +134,15 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
                       <span className="text-sm text-gray-500">({record.itemSerialNumber})</span>
                       <span className={`px-2 py-1 text-xs font-medium rounded-full flex items-center space-x-1 ${getStatusColor(record.status)}`}>
                         {getStatusIcon(record.status)}
-                        <span>{record.status === 'Pending' ? 'Menunggu Persetujuan' : 
-                               record.status === 'Approved' ? 'Disetujui' :
-                               record.status === 'Active' ? 'Sedang Dipinjam' :
-                               record.status === 'Returned' ? 'Dikembalikan' : 'Ditolak'}</span>
+                        <span>
+                          {record.status === 'Pending' ? 'Menunggu Persetujuan' :
+                           record.status === 'Approved' ? 'Disetujui' :
+                           record.status === 'Active' ? 'Sedang Dipinjam' :
+                           record.status === 'Returned' ? 'Dikembalikan' : 'Ditolak'}
+                        </span>
                       </span>
                     </div>
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600 mb-3">
                       <div className="flex items-center space-x-2">
                         <User className="h-4 w-4" />
@@ -191,8 +163,8 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
                         <FileText className="h-4 w-4" />
                         <div>
                           <p>NUP: {record.itemNup}</p>
-                          {record.approverName && (
-                            <p className="text-xs">Disetujui oleh: {record.approverName}</p>
+                          {record.approvedBy && (
+                            <p className="text-xs">Disetujui oleh: {record.approvedBy}</p>
                           )}
                         </div>
                       </div>
@@ -211,12 +183,6 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
                         <p className="text-sm text-red-800">
                           <strong>Alasan Penolakan:</strong> {record.rejectionReason}
                         </p>
-                      </div>
-                    )}
-
-                    {record.actualReturnDate && (
-                      <div className="text-sm text-green-600">
-                        Dikembalikan pada {format(record.actualReturnDate, 'dd/MM/yyyy')}
                       </div>
                     )}
 
