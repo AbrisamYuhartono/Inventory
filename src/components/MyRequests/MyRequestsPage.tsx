@@ -19,7 +19,7 @@ interface MyRequestsPageProps {
 
 export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
   const [records] = useState<LendingRequest[]>(
-    mockLendingRequests.filter(r => r.pegawaiId === user.id)
+    mockLendingRequests.filter(r => r.requestedBy === user.id)
   );
 
   const getStatusColor = (status: LendingRequest['status']) => {
@@ -54,6 +54,8 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
   const pendingCount = records.filter(r => r.status === 'Pending').length;
   const activeCount = records.filter(r => r.status === 'Active').length;
   const returnedCount = records.filter(r => r.status === 'Returned').length;
+  const approvedCount = records.filter(r => r.status === 'Approved').length;
+  const rejectedCount = records.filter(r => r.status === 'Rejected').length;
 
   return (
     <div className="p-6 ml-64">
@@ -61,12 +63,14 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Permintaan Saya</h1>
-            <p className="text-gray-600 mt-2">Kelola permintaan peminjaman barang Anda</p>
+            <p className="text-gray-600 mt-2">
+              Kelola permintaan peminjaman barang Anda - Unit {user.unit}
+            </p>
           </div>
         </div>
 
         {/* Statistics */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -94,6 +98,18 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             <div className="flex items-center justify-between">
               <div>
+                <p className="text-sm font-medium text-gray-600">Disetujui</p>
+                <p className="text-3xl font-bold text-blue-600 mt-2">{approvedCount}</p>
+              </div>
+              <div className="p-3 bg-blue-50 rounded-lg">
+                <CheckCircle className="h-6 w-6 text-blue-600" />
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div className="flex items-center justify-between">
+              <div>
                 <p className="text-sm font-medium text-gray-600">Sedang Dipinjam</p>
                 <p className="text-3xl font-bold text-green-600 mt-2">{activeCount}</p>
               </div>
@@ -107,10 +123,10 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">Telah Dikembalikan</p>
-                <p className="text-3xl font-bold text-blue-600 mt-2">{returnedCount}</p>
+                <p className="text-3xl font-bold text-gray-600 mt-2">{returnedCount}</p>
               </div>
-              <div className="p-3 bg-blue-50 rounded-lg">
-                <CheckCircle className="h-6 w-6 text-blue-600" />
+              <div className="p-3 bg-gray-50 rounded-lg">
+                <CheckCircle className="h-6 w-6 text-gray-600" />
               </div>
             </div>
           </div>
@@ -120,7 +136,12 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
       {/* Requests List */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200">
         <div className="p-6 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900">Riwayat Permintaan</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-semibold text-gray-900">Riwayat Permintaan</h2>
+            <div className="text-sm text-gray-500">
+              Unit: <span className="font-medium text-blue-600">{user.unit}</span>
+            </div>
+          </div>
         </div>
         
         <div className="divide-y divide-gray-200">
@@ -128,7 +149,9 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
             <div className="p-12 text-center">
               <FileText className="h-12 w-12 text-gray-300 mx-auto mb-4" />
               <p className="text-gray-500 text-lg">Belum ada permintaan peminjaman</p>
-              <p className="text-gray-400 text-sm mt-2">Ajukan permintaan peminjaman barang inventaris</p>
+              <p className="text-gray-400 text-sm mt-2">
+                Ajukan permintaan peminjaman barang inventaris dari dashboard
+              </p>
             </div>
           ) : (
             records.map((record) => (
@@ -148,11 +171,19 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
                       </span>
                     </div>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600 mb-3">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600 mb-3">
+                      <div className="flex items-center space-x-2">
+                        <User className="h-4 w-4" />
+                        <div>
+                          <p className="font-medium">{record.pegawaiName}</p>
+                          <p className="text-xs">NIP: {record.pegawaiNip}</p>
+                          <p className="text-xs">{record.pegawaiUnit}</p>
+                        </div>
+                      </div>
                       <div className="flex items-center space-x-2">
                         <Calendar className="h-4 w-4" />
                         <div>
-                          <p>Tanggal Pinjam: {format(record.requestDate, 'dd/MM/yyyy')}</p>
+                          <p>Tanggal Permintaan: {format(record.requestDate, 'dd/MM/yyyy')}</p>
                           <p>Tanggal Kembali: {format(record.expectedReturnDate, 'dd/MM/yyyy')}</p>
                         </div>
                       </div>
@@ -186,6 +217,14 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
                     {record.actualReturnDate && (
                       <div className="text-sm text-green-600">
                         Dikembalikan pada {format(record.actualReturnDate, 'dd/MM/yyyy')}
+                      </div>
+                    )}
+
+                    {record.status === 'Approved' && (
+                      <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-3">
+                        <p className="text-sm text-green-800">
+                          <strong>Status:</strong> Permintaan telah disetujui. Silakan ambil barang di lokasi yang telah ditentukan.
+                        </p>
                       </div>
                     )}
                   </div>
