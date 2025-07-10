@@ -106,7 +106,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item, onStatusUpdate, onLend
         {item.status === 'Available' && (
           <button
             onClick={() => onLend(item)}
-            className="flex-1 bg-primary-500 text-white px-3 py-2 rounded-lg hover:bg-primary-600 transition-colors flex items-center justify-center space-x-1 text-sm shadow-sm"
+            className="flex-1 bg-gradient-to-r from-green-500 to-lime-500 text-white px-3 py-2 rounded-lg hover:bg-primary-600 transition-colors flex items-center justify-center space-x-1 text-sm shadow-sm"
           >
             <FileText className="h-4 w-4" />
             <span>Pinjam</span>
@@ -116,7 +116,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item, onStatusUpdate, onLend
         {item.status === 'Lended' && (
           <button
             onClick={() => onStatusUpdate(item.id, 'Available')}
-            className="flex-1 bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition-colors text-sm shadow-sm"
+            className="flex-1 bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition-colors text-sm shadow-sm"
           >
             Kembalikan
           </button>
@@ -125,7 +125,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item, onStatusUpdate, onLend
         {item.status === 'Broken' && (
           <button
             onClick={() => onStatusUpdate(item.id, 'Available')}
-            className="flex-1 bg-amber-500 text-white px-3 py-2 rounded-lg hover:bg-amber-600 transition-colors text-sm shadow-sm"
+            className="flex-1 bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-2 rounded-lg hover:bg-amber-600 transition-colors text-sm shadow-sm"
           >
             Perbaiki
           </button>

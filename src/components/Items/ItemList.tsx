@@ -79,7 +79,7 @@ export const ItemList: React.FC = () => {
               setEditingItem(null);
               setIsAddModalOpen(true);
             }}
-            className="bg-primary-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors flex items-center space-x-2 shadow-lg"
+            className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors flex items-center space-x-2 shadow-lg"
           >
             <Plus className="h-5 w-5" />
             <span>Tambah Barang</span>

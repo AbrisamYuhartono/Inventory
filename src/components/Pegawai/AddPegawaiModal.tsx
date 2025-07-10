@@ -176,7 +176,7 @@ export const AddPegawaiModal: React.FC<AddPegawaiModalProps> = ({
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:bg-blue-700"
             >
               {initialData ? 'Simpan Perubahan' : 'Tambah Pegawai'}
             </button>

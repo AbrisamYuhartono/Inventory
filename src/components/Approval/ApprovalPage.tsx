@@ -171,7 +171,7 @@ export const ApprovalPage: React.FC = () => {
                   <div className="flex space-x-2 ml-4">
                     <button
                       onClick={() => handleApprove(record.id)}
-                      className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center space-x-2"
+                      className="bg-gradient-to-r from-green-500 to-lime-500 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center space-x-2"
                     >
                       <CheckCircle className="h-4 w-4" />
                       <span>Setujui</span>
@@ -179,7 +179,7 @@ export const ApprovalPage: React.FC = () => {
                     
                     <button
                       onClick={() => openRejectModal(record)}
-                      className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors flex items-center space-x-2"
+                      className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors flex items-center space-x-2"
                     >
                       <XCircle className="h-4 w-4" />
                       <span>Tolak</span>

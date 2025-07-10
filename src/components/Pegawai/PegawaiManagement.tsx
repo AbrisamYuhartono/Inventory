@@ -76,13 +76,13 @@ export const PegawaiManagement: React.FC<PegawaiManagementProps> = ({ user }) =>
           </p>
         </div>
         <button
-          className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+          className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors flex items-center space-x-2 shadow-lg"
           onClick={() => {
             setEditingPegawai(null);
             setIsAddModalOpen(true);
           }}
         >
-          <Plus className="h-4 w-4" />
+          <Plus className="h-5 w-5" />
           <span>Tambah Pegawai</span>
         </button>
       </div>

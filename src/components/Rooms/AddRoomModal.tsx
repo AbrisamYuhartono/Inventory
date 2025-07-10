@@ -171,7 +171,7 @@ export const AddRoomModal: React.FC<AddRoomModalProps> = ({
             </button>
             <button
               type="submit"
-              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="flex-1 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
               {initialData ? 'Save Changes' : 'Add Room'}
             </button>

@@ -61,7 +61,7 @@ export const RoomManagement: React.FC = () => {
               setEditingRoom(null);
               setIsAddModalOpen(true);
             }}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2"
+            className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2"
           >
             <Plus className="h-5 w-5" />
             <span>Add Room</span>
