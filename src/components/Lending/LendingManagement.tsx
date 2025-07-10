@@ -11,12 +11,11 @@ import {
   CheckCircle, 
   AlertTriangle,
   Search,
-  Filter,
   Download
 } from 'lucide-react';
 
 export const LendingManagement: React.FC = () => {
-  const [records, setRecords] = useState<LendingRequest[]>(mockLendingRequests);
+  const [records] = useState<LendingRequest[]>(mockLendingRequests);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -58,14 +57,6 @@ export const LendingManagement: React.FC = () => {
     if (record.status !== 'Active') return null;
     const days = differenceInDays(record.expectedReturnDate, new Date());
     return days;
-  };
-
-  const handleReturnItem = (recordId: string) => {
-    setRecords(records.map(record => 
-      record.id === recordId 
-        ? { ...record, status: 'Returned' as const, actualReturnDate: new Date() }
-        : record
-    ));
   };
 
   const generateReport = async () => {
@@ -132,7 +123,7 @@ export const LendingManagement: React.FC = () => {
           </div>
           <button
             onClick={generateReport}
-            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center space-x-2"
+            className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center space-x-2"
           >
             <Download className="h-5 w-5" />
             <span>Generate Report</span>
@@ -281,14 +272,6 @@ export const LendingManagement: React.FC = () => {
                     )}
                   </div>
 
-                  {record.status === 'Active' && (
-                    <button
-                      onClick={() => handleReturnItem(record.id)}
-                      className="ml-4 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm"
-                    >
-                      Mark as Returned
-                    </button>
-                  )}
                 </div>
               </div>
             );

@@ -63,7 +63,7 @@ export interface LendingRecord {
     itemNup: string;
     requestDate: Date;
     expectedReturnDate: Date;
-    status: 'Pending' | 'Approved' | 'Active' | 'Returned' | 'Rejected';
+    status: 'Pending' | 'Approved' | 'Active' | 'Returned' | 'Rejected' | 'Canceled';
     approvedBy?: string;
     requestedBy: string;
     rejectionReason?: string;

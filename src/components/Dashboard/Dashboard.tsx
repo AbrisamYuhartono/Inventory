@@ -71,7 +71,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user }) => {
             <div className="flex space-x-4">
               <button
                 onClick={() => setShowRequestPage('lending')}
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105"
               >
                 <Plus className="h-5 w-5" />
                 <span className="font-medium">Ajukan Peminjaman</span>
