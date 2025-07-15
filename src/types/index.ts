@@ -83,7 +83,7 @@ export interface LendingRequest {
   requestDate: Date;
   expectedReturnDate: Date;
   actualReturnDate?: Date;
-  status: 'Pending' | 'Approved' | 'Active' | 'Returned' | 'Rejected';
+  status: 'Pending' | 'Approved' | 'Active' | 'Returned' | 'Rejected' | 'Canceled';
   approvedBy?: string;
   approverName?: string;
   notes?: string;

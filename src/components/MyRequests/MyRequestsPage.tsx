@@ -17,7 +17,6 @@ interface MyRequestsPageProps {
 }
 
 export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
-  // Access restriction for admin/superadmin
   if (user.id === 'user-1' || user.id === 'user-2') {
     return (
       <div className="p-6 ml-64">
@@ -31,8 +30,8 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
   const [record, setRecords] = useState<LendingRecord[]>(mockLendingRecords);
 
   const records = useMemo(() => {
-    return mockLendingRecords.filter((r) => r.requestedBy === user.id);
-  }, [user.id]);
+    return record.filter((r) => r.requestedBy === user.id);
+  }, [record, user.id]);
 
   const getStatusColor = (status: LendingRecord['status']) => {
     switch (status) {
@@ -57,19 +56,23 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
   };
 
   const handleReturnItem = (recordId: string) => {
-    setRecords(records.map((record) =>
-      record.id === recordId
-        ? { ...record, status: 'Returned' as const, actualReturnDate: new Date() }
-        : record
-    ));
+    setRecords((prev) =>
+      prev.map((record) =>
+        record.id === recordId
+          ? { ...record, status: 'Returned' as const, actualReturnDate: new Date() }
+          : record
+      )
+    );
   };
 
   const handleCancelRequest = (recordId: string) => {
-    setRecords(records.map((record) =>
-      record.id === recordId
-        ? { ...record, status: 'Canceled' as const }
-        : record
-    ));
+    setRecords((prev) =>
+      prev.map((record) =>
+        record.id === recordId
+          ? { ...record, status: 'Canceled' as const }
+          : record
+      )
+    );
   };
 
   const pendingCount = records.filter((r) => r.status === 'Pending').length;
@@ -80,7 +83,6 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
 
   return (
     <div className="p-6 ml-64">
-      {/* Header */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-6">
           <div>
@@ -91,7 +93,6 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
           </div>
         </div>
 
-        {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-6 gap-6 mb-8">
           {[
             { label: 'Total Permintaan', count: records.length, icon: <FileText className="h-6 w-6 text-blue-600" />, bg: 'bg-blue-50' },
@@ -114,7 +115,6 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
         </div>
       </div>
 
-      {/* Requests */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200">
         <div className="p-6 border-b border-gray-200">
           <div className="flex items-center justify-between">
@@ -137,7 +137,6 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
           ) : (
             records.map((record) => (
               <div key={record.id} className="p-6 hover:bg-gray-50 transition-colors">
-                {/* Header Row */}
                 <div className="flex justify-between items-start mb-3">
                   <div className="flex items-center space-x-3">
                     <Package className="h-5 w-5 text-gray-400" />
@@ -158,7 +157,6 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
                     </span>
                   </div>
 
-                  {/* Buttons */}
                   {record.status === 'Active' && (
                     <button
                       onClick={() => handleReturnItem(record.id)}
@@ -178,7 +176,6 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
                   )}
                 </div>
 
-                {/* Details */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600 mb-3">
                   <div className="flex items-center space-x-2">
                     <User className="h-4 w-4" />
@@ -208,7 +205,6 @@ export const MyRequestsPage: React.FC<MyRequestsPageProps> = ({ user }) => {
                   </div>
                 </div>
 
-                {/* Notes */}
                 {record.notes && (
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-3">
                     <p className="text-sm text-blue-800">
