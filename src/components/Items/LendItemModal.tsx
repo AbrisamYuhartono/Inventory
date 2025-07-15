@@ -7,19 +7,18 @@ interface LendItemModalProps {
   isOpen: boolean;
   item: Item;
   onClose: () => void;
-  onLend: (itemId: string, userName: string, userEmail: string, userDepartment: string, returnDate: Date, notes: string) => void;
+  onLend: (itemId: string, userName: string, userEmail: string, userDepartment: string, notes: string) => void;
 }
 
 export const LendItemModal: React.FC<LendItemModalProps> = ({ isOpen, item, onClose, onLend }) => {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userDepartment, setUserDepartment] = useState('');
-  const [returnDate, setReturnDate] = useState(format(addDays(new Date(), 7), 'yyyy-MM-dd'));
   const [notes, setNotes] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onLend(item.id, userName, userEmail, userDepartment, new Date(returnDate), notes);
+    onLend(item.id, userName, userEmail, userDepartment, notes);
     generateLendingDocument();
   };
 
@@ -72,7 +71,6 @@ export const LendItemModal: React.FC<LendItemModalProps> = ({ isOpen, item, onCl
     setUserName('');
     setUserEmail('');
     setUserDepartment('');
-    setReturnDate(format(addDays(new Date(), 7), 'yyyy-MM-dd'));
     setNotes('');
   };
 
@@ -149,19 +147,7 @@ export const LendItemModal: React.FC<LendItemModalProps> = ({ isOpen, item, onCl
               </select>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Expected Return Date
-              </label>
-              <input
-                type="date"
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                value={returnDate}
-                onChange={(e) => setReturnDate(e.target.value)}
-                min={format(new Date(), 'yyyy-MM-dd')}
-              />
-            </div>
+            
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
