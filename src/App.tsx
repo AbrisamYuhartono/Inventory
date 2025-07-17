@@ -6,12 +6,12 @@ import { Dashboard } from './components/Dashboard/Dashboard';
 import { ItemList } from './components/Items/ItemList';
 import { LendingManagement } from './components/Lending/LendingManagement';
 import { UserManagement } from './components/Users/UserManagement';
-import { PegawaiMan agement } from './components/Pegawai/PegawaiManagement';
+import { PegawaiManagement } from './components/Pegawai/PegawaiManagement';
 import { RoomManagement } from './components/Rooms/RoomManagement';
 import { ReportsPage } from './components/Reports/ReportsPage';
 import { SettingsPage } from './components/Settings/SettingsPage';
 import { ApprovalPage } from './components/Approval/ApprovalPage';
-import { MyRequest sPage } from './components/MyRequests/MyRequestsPage';
+import { MyRequestsPage } from './components/MyRequests/MyRequestsPage';
 import { RepairRequestsPage } from './components/RepairRequests/RepairRequestsPage';
 import { AuthUser } from './types';
 
