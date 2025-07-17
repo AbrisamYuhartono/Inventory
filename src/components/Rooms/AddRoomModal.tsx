@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { Room } from '../../types';
 import { picOptions, PICData } from '../../data/picData';
+import { Combobox } from '@headlessui/react';
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
 interface AddRoomModalProps {
   isOpen: boolean;
@@ -16,7 +18,7 @@ export const AddRoomModal: React.FC<AddRoomModalProps> = ({
   onClose,
   onAdd,
   onEdit,
-  initialData
+  initialData,
 }) => {
   const [formData, setFormData] = useState<Omit<Room, 'id'>>({
     name: '',
@@ -26,18 +28,25 @@ export const AddRoomModal: React.FC<AddRoomModalProps> = ({
     description: '',
     picName: '',
     picNip: '',
-    picJabatan: ''
+    picJabatan: '',
   });
 
-  const [selectedPIC, setSelectedPIC] = useState<string>('');
+  const [selectedPIC, setSelectedPIC] = useState<PICData | null>(null);
+  const [query, setQuery] = useState('');
+
+  const filteredPIC =
+    query === ''
+      ? picOptions
+      : picOptions.filter((pic) =>
+          pic.name.toLowerCase().includes(query.toLowerCase())
+        );
 
   useEffect(() => {
     if (initialData) {
       const { id, ...rest } = initialData;
       setFormData(rest);
-      // Find matching PIC
-      const matchingPIC = picOptions.find(pic => pic.nip === rest.picNip);
-      setSelectedPIC(matchingPIC?.id || '');
+      const matchingPIC = picOptions.find((pic) => pic.nip === rest.picNip);
+      setSelectedPIC(matchingPIC || null);
     } else {
       setFormData({
         name: '',
@@ -47,28 +56,27 @@ export const AddRoomModal: React.FC<AddRoomModalProps> = ({
         description: '',
         picName: '',
         picNip: '',
-        picJabatan: ''
+        picJabatan: '',
       });
-      setSelectedPIC('');
+      setSelectedPIC(null);
     }
   }, [initialData]);
 
-  const handlePICChange = (picId: string) => {
-    setSelectedPIC(picId);
-    const selectedPICData = picOptions.find(pic => pic.id === picId);
-    if (selectedPICData) {
+  const handlePICChange = (pic: PICData | null) => {
+    setSelectedPIC(pic);
+    if (pic) {
       setFormData({
         ...formData,
-        picName: selectedPICData.name,
-        picNip: selectedPICData.nip,
-        picJabatan: selectedPICData.jabatan
+        picName: pic.name,
+        picNip: pic.nip,
+        picJabatan: pic.jabatan,
       });
     } else {
       setFormData({
         ...formData,
         picName: '',
         picNip: '',
-        picJabatan: ''
+        picJabatan: '',
       });
     }
   };
@@ -130,7 +138,9 @@ export const AddRoomModal: React.FC<AddRoomModalProps> = ({
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
                 value={formData.lantai}
-                onChange={(e) => setFormData({ ...formData, lantai: parseInt(e.target.value) || 0 })}
+                onChange={(e) =>
+                  setFormData({ ...formData, lantai: parseInt(e.target.value) || 0 })
+                }
               />
             </div>
           </div>
@@ -142,7 +152,9 @@ export const AddRoomModal: React.FC<AddRoomModalProps> = ({
               required
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
               value={formData.roomType}
-              onChange={(e) => setFormData({ ...formData, roomType: e.target.value as Room['roomType'] })}
+              onChange={(e) =>
+                setFormData({ ...formData, roomType: e.target.value as Room['roomType'] })
+              }
             >
               <option value="Ruang Kerja">Ruang Kerja</option>
               <option value="Ruang Rapat Besar">Ruang Rapat Besar</option>
@@ -171,22 +183,50 @@ export const AddRoomModal: React.FC<AddRoomModalProps> = ({
           {/* PIC Selection */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">PIC (Person in Charge)</label>
-            <select
-              required
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
-              value={selectedPIC}
-              onChange={(e) => handlePICChange(e.target.value)}
-            >
-              <option value="">-- Pilih PIC --</option>
-              {picOptions.map((pic) => (
-                <option key={pic.id} value={pic.id}>
-                  {pic.name} - {pic.jabatan}
-                </option>
-              ))}
-            </select>
+            <Combobox value={selectedPIC} onChange={handlePICChange}>
+              <div className="relative">
+                <Combobox.Input
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
+                  displayValue={(pic: PICData) => pic?.name || ''}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Cari nama PIC..."
+                  required
+                />
+                <Combobox.Button className="absolute inset-y-0 right-2 flex items-center">
+                  <ChevronUpDownIcon className="w-5 h-5 text-gray-500" />
+                </Combobox.Button>
+
+                {filteredPIC.length > 0 && (
+                  <Combobox.Options className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white border border-gray-200">
+                    {filteredPIC.map((pic) => (
+                      <Combobox.Option
+                        key={pic.id}
+                        value={pic}
+                        className={({ active }) =>
+                          `cursor-pointer select-none px-4 py-2 ${
+                            active ? 'bg-blue-100 text-blue-900' : 'text-gray-900'
+                          }`
+                        }
+                      >
+                        {({ selected }) => (
+                          <>
+                            <span className="block truncate">{pic.name} - {pic.jabatan}</span>
+                            {selected && (
+                              <span className="absolute inset-y-0 right-4 flex items-center text-blue-600">
+                                <CheckIcon className="w-5 h-5" />
+                              </span>
+                            )}
+                          </>
+                        )}
+                      </Combobox.Option>
+                    ))}
+                  </Combobox.Options>
+                )}
+              </div>
+            </Combobox>
           </div>
 
-          {/* PIC Details (Auto-filled) */}
+          {/* PIC Details */}
           {selectedPIC && (
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
               <h3 className="font-medium text-blue-900 mb-2">Detail PIC</h3>

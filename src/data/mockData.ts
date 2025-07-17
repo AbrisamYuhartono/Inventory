@@ -130,7 +130,7 @@ export const mockPegawai: Pegawai[] = [
     karpeg: 'B 00003335',
     pangkatGolongan: 'Penata Muda, III/a',
     jabatan: 'Pelaksana',
-    unit: 'IMATAP',
+    unit: 'Setditjen ILMATE',
     isActive: true,
     joinDate: new Date('1991-01-04')
   },
@@ -295,7 +295,7 @@ export const mockPegawai: Pegawai[] = [
     karpeg: '-',
     pangkatGolongan: 'VII, VII/7',
     jabatan: 'Pranata Komputer',
-    unit: 'IET',
+    unit: 'Setditjen ILMATE',
     isActive: true,
     joinDate: new Date('1989-11-12')
   },
