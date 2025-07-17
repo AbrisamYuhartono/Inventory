@@ -129,7 +129,7 @@ export const PegawaiManagement: React.FC<PegawaiManagementProps> = ({ user }) =>
             <option value="Setditjen ILMATE">Setditjen ILMATE</option>
             <option value="Logam">Logam</option>
             <option value="IPAMP">IPAMP</option>
-            <option value="IMATAB">IMATAB</option>
+            <option value="IMATAB">IMATAP</option>
             <option value="IET">IET</option>
           </select>
         )}
