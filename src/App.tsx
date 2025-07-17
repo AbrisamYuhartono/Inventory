@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { LoginPage } from './components/Auth/LoginPage';
-import { Sidebar } from './components/Layout/Sidebar';
+import {Sidebar } from './components/Layout/Sidebar';
 import { Header } from './components/Layout/Header';
 import { Dashboard } from './components/Dashboard/Dashboard';
 import { ItemList } from './components/Items/ItemList';
 import { LendingManagement } from './components/Lending/LendingManagement';
 import { UserManagement } from './components/Users/UserManagement';
-import { PegawaiManagement } from './components/Pegawai/PegawaiManagement';
+import { PegawaiMan agement } from './components/Pegawai/PegawaiManagement';
 import { RoomManagement } from './components/Rooms/RoomManagement';
 import { ReportsPage } from './components/Reports/ReportsPage';
 import { SettingsPage } from './components/Settings/SettingsPage';
 import { ApprovalPage } from './components/Approval/ApprovalPage';
-import { MyRequestsPage } from './components/MyRequests/MyRequestsPage';
+import { MyRequest sPage } from './components/MyRequests/MyRequestsPage';
 import { RepairRequestsPage } from './components/RepairRequests/RepairRequestsPage';
 import { AuthUser } from './types';
 
@@ -55,7 +55,7 @@ function App() {
         return (user.role === 'Admin' || user.role === 'Superadmin') ? <RoomManagement /> : <Dashboard user={user} />;
       case 'reports':
         return (user.role === 'Admin' || user.role === 'Superadmin') ? <ReportsPage /> : <Dashboard user={user} />;
-      case 'settings':
+      case  'settings':
         return user.role === 'Superadmin' ? <SettingsPage /> : <Dashboard user={user} />;
       default:
         return <Dashboard user={user} />;

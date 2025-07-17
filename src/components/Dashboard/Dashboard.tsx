@@ -56,40 +56,40 @@ export const Dashboard: React.FC<DashboardProps> = ({ user }) => {
   }
 
   return (
-    <div className="p-6 ml-64 bg-gray-50 min-h-screen">
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">Dashboard</h1>
-            <p className="text-gray-600 text-lg">
+    <div className="p-4 md:p-6 ml-0 md:ml-64 bg-gray-50 min-h-screen">
+      <div className="mb-6 md:mb-8">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 md:mb-8">
+          <div className="mb-4 md:mb-0">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Dashboard</h1>
+            <p className="text-gray-600 text-base md:text-lg">
               Selamat datang{user?.pegawaiName ? `, ${user.pegawaiName}` : ''}! 
               Berikut adalah ringkasan inventaris Anda.
             </p>
           </div>
           
           {user?.role === 'User' && (
-            <div className="flex space-x-4">
+            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
               <button
                 onClick={() => setShowRequestPage('lending')}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105"
               >
-                <Plus className="h-5 w-5" />
-                <span className="font-medium">Ajukan Peminjaman</span>
+                <Plus className="h-4 md:h-5 w-4 md:w-5" />
+                <span className="font-medium text-sm md:text-base">Ajukan Peminjaman</span>
               </button>
               
               <button
                 onClick={() => setShowRequestPage('repair')}
-                className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-3 rounded-xl hover:from-orange-600 hover:to-red-600 transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105"
+                className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 md:px-6 py-2 md:py-3 rounded-xl hover:from-orange-600 hover:to-red-600 transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105"
               >
-                <Wrench className="h-5 w-5" />
-                <span className="font-medium">Ajukan Perbaikan</span>
+                <Wrench className="h-4 md:h-5 w-4 md:w-5" />
+                <span className="font-medium text-sm md:text-base">Ajukan Perbaikan</span>
               </button>
             </div>
           )}
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mb-6 md:mb-8">
         <StatCard
           title="Total Barang"
           value={147}
@@ -128,19 +128,19 @@ export const Dashboard: React.FC<DashboardProps> = ({ user }) => {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white rounded-2xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-shadow duration-300">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-gray-900">Status Barang</h2>
-            <TrendingUp className="h-5 w-5 text-gray-400" />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+        <div className="lg:col-span-2 bg-white rounded-2xl shadow-lg border border-gray-200 p-4 md:p-6 hover:shadow-xl transition-shadow duration-300">
+          <div className="flex items-center justify-between mb-4 md:mb-6">
+            <h2 className="text-lg md:text-xl font-bold text-gray-900">Status Barang</h2>
+            <TrendingUp className="h-4 md:h-5 w-4 md:w-5 text-gray-400" />
           </div>
           <StatusChart />
         </div>
 
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-shadow duration-300">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-gray-900">Aktivitas Terbaru</h2>
-            <Clock className="h-5 w-5 text-gray-400" />
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-4 md:p-6 hover:shadow-xl transition-shadow duration-300">
+          <div className="flex items-center justify-between mb-4 md:mb-6">
+            <h2 className="text-lg md:text-xl font-bold text-gray-900">Aktivitas Terbaru</h2>
+            <Clock className="h-4 md:h-5 w-4 md:w-5 text-gray-400" />
           </div>
           <RecentActivity />
         </div>

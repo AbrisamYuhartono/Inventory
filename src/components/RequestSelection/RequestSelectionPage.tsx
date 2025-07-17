@@ -66,7 +66,7 @@ export const RequestSelectionPage: React.FC<RequestSelectionPageProps> = ({
   return (
     <div className="min-h-screen bg-cream-50">
       <div className="bg-white shadow-sm border-b border-primary-200">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-4">
           <div className="flex items-center space-x-4">
             <button
               onClick={onBack}
@@ -75,10 +75,10 @@ export const RequestSelectionPage: React.FC<RequestSelectionPageProps> = ({
               <ArrowLeft className="h-6 w-6" />
             </button>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-xl md:text-2xl font-bold text-gray-900">
                 {type === 'lending' ? 'Ajukan Peminjaman' : 'Ajukan Perbaikan'}
               </h1>
-              <p className="text-gray-600">
+              <p className="text-gray-600 text-sm md:text-base">
                 Pilih barang dan pegawai untuk {type === 'lending' ? 'peminjaman' : 'perbaikan'}
               </p>
             </div>
@@ -86,19 +86,19 @@ export const RequestSelectionPage: React.FC<RequestSelectionPageProps> = ({
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
           {/* Item Selection */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-xl shadow-sm border border-primary-200 p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-semibold text-gray-900">Pilih Barang</h2>
+            <div className="bg-white rounded-xl shadow-sm border border-primary-200 p-4 md:p-6">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 md:mb-6">
+                <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-2 md:mb-0">Pilih Barang</h2>
                 <div className="relative">
                   <Search className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                   <input
                     type="text"
                     placeholder="Cari barang..."
-                    className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent w-64"
+                    className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent w-full md:w-64"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
@@ -119,8 +119,8 @@ export const RequestSelectionPage: React.FC<RequestSelectionPageProps> = ({
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="flex items-center space-x-3 mb-2">
-                          <Package className="h-5 w-5 text-gray-400" />
-                          <h3 className="font-semibold text-gray-900">{item.name}</h3>
+                          <Package className="h-4 md:h-5 w-4 md:w-5 text-gray-400" />
+                          <h3 className="font-semibold text-gray-900 text-sm md:text-base">{item.name}</h3>
                           <span className={`px-2 py-1 text-xs font-medium rounded-full ${
                             item.status === 'Available' ? 'bg-primary-100 text-primary-800' :
                             item.status === 'Broken' ? 'bg-danger-100 text-danger-800' :
@@ -130,7 +130,7 @@ export const RequestSelectionPage: React.FC<RequestSelectionPageProps> = ({
                              item.status === 'Broken' ? 'Rusak' : item.status}
                           </span>
                         </div>
-                        <div className="grid grid-cols-2 gap-4 text-sm text-gray-600">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 text-xs md:text-sm text-gray-600">
                           <div>
                             <p><strong>Merek:</strong> {item.brand}</p>
                             <p><strong>Model:</strong> {item.model}</p>
@@ -140,7 +140,7 @@ export const RequestSelectionPage: React.FC<RequestSelectionPageProps> = ({
                             <p><strong>NUP:</strong> {item.nup}</p>
                           </div>
                         </div>
-                        <p className="text-sm text-gray-600 mt-2">{item.description}</p>
+                        <p className="text-xs md:text-sm text-gray-600 mt-2">{item.description}</p>
                       </div>
                     </div>
                   </div>
@@ -148,9 +148,9 @@ export const RequestSelectionPage: React.FC<RequestSelectionPageProps> = ({
               </div>
 
               {filteredItems.length === 0 && (
-                <div className="text-center py-8">
-                  <Package className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                  <p className="text-gray-500">Tidak ada barang yang ditemukan</p>
+                <div className="text-center py-6 md:py-8">
+                  <Package className="h-8 md:h-12 w-8 md:w-12 text-gray-300 mx-auto mb-4" />
+                  <p className="text-gray-500 text-sm md:text-base">Tidak ada barang yang ditemukan</p>
                 </div>
               )}
             </div>
@@ -158,13 +158,13 @@ export const RequestSelectionPage: React.FC<RequestSelectionPageProps> = ({
 
           {/* Request Form */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-sm border border-primary-200 p-6 sticky top-8">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">
+            <div className="bg-white rounded-xl shadow-sm border border-primary-200 p-4 md:p-6 sticky top-8">
+              <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-4 md:mb-6">
                 Detail {type === 'lending' ? 'Peminjaman' : 'Perbaikan'}
               </h2>
 
               {selectedItem && (
-                <div className="bg-primary-50 border border-primary-200 rounded-lg p-4 mb-6">
+                <div className="bg-primary-50 border border-primary-200 rounded-lg p-4 mb-4 md:mb-6">
                   <h3 className="font-medium text-primary-900 mb-2">Barang Dipilih</h3>
                   <p className="text-sm text-primary-800">{selectedItem.name}</p>
                   <p className="text-xs text-primary-600">{selectedItem.serialNumber}</p>
@@ -201,7 +201,7 @@ export const RequestSelectionPage: React.FC<RequestSelectionPageProps> = ({
                       <input
                         type="date"
                         required
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm md:text-base"
                         value={expectedReturnDate}
                         onChange={(e) => setExpectedReturnDate(e.target.value)}
                         min={new Date().toISOString().split('T')[0]}
@@ -215,11 +215,12 @@ export const RequestSelectionPage: React.FC<RequestSelectionPageProps> = ({
                       </label>
                       <textarea
                         rows={3}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm md:text-base"
                         placeholder="Tujuan penggunaan barang..."
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
                       />
+                
                     </div>
                   </>
                 ) : (
@@ -232,10 +233,10 @@ export const RequestSelectionPage: React.FC<RequestSelectionPageProps> = ({
                       <textarea
                         rows={4}
                         required
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm md:text-base"
                         placeholder="Jelaskan kerusakan yang terjadi..."
                         value={damageDescription}
-                        onChange={(e) => setDamageDescription(e.target.value)}
+                        onChange={(e) =>setDamageDescription(e.target.value)}
                       />
                     </div>
 
@@ -245,7 +246,7 @@ export const RequestSelectionPage: React.FC<RequestSelectionPageProps> = ({
                       </label>
                       <select
                         required
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 rounde-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm md:text-base"
                         value={urgencyLevel}
                         onChange={(e) => setUrgencyLevel(e.target.value as any)}
                       >
@@ -262,7 +263,7 @@ export const RequestSelectionPage: React.FC<RequestSelectionPageProps> = ({
                   <button
                     type="submit"
                     disabled={!selectedItem || !selectedPegawai}
-                    className="w-full bg-primary-500 text-white py-3 px-4 rounded-lg hover:bg-primary-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                    className="w-full bg-primary-500 text-white py-2 md:py-3 px-4 rounded-lg hover:bg-primary-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 text-sm md:text-base"
                   >
                     {type === 'lending' ? <FileText className="h-4 w-4" /> : <Wrench className="h-4 w-4" />}
                     <span>

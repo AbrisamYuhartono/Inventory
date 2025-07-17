@@ -52,11 +52,11 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout }) => {
   };
 
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200 ml-64 sticky top-0 z-40">
-      <div className="px-6 py-4">
+    <header className="bg-white shadow-sm border-b border-gray-200 ml-0 md:ml-64 sticky top-0 z-40">
+      <div className="px-4 md:px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <div className="relative">
+            <div className="relative hidden md:block">
               <Search className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
               <input
                 type="text"
@@ -66,49 +66,49 @@ export const Header: React.FC<HeaderProps> = ({ user, onLogout }) => {
             </div>
           </div>
           
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 md:space-x-3">
             {/* Quick Actions */}
-            <div className="flex items-center space-x-2 bg-gray-50 rounded-xl p-1">
+            <div className="flex items-center space-x-1 md:space-x-2 bg-gray-50 rounded-xl p-1">
               <button 
                 onClick={generateQRCode}
-                className="p-2.5 text-gray-600 hover:text-blue-600 hover:bg-white rounded-lg transition-all duration-200 group"
+                className="p-2 md:p-2.5 text-gray-600 hover:text-blue-600 hover:bg-white rounded-lg transition-all duration-200 group"
                 title="Generate QR Code"
               >
-                <QrCode className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                <QrCode className="h-4 md:h-5 w-4 md:w-5 group-hover:scale-110 transition-transform" />
               </button>
               
               <button 
                 onClick={exportReport}
-                className="p-2.5 text-gray-600 hover:text-green-600 hover:bg-white rounded-lg transition-all duration-200 group"
+                className="p-2 md:p-2.5 text-gray-600 hover:text-green-600 hover:bg-white rounded-lg transition-all duration-200 group"
                 title="Export Report"
               >
-                <Download className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                <Download className="h-4 md:h-5 w-4 md:w-5 group-hover:scale-110 transition-transform" />
               </button>
             </div>
             
-            <button className="relative p-2.5 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-200">
-              <Bell className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 rounded-full flex items-center justify-center">
+            <button className="relative p-2 md:p-2.5 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-200">
+              <Bell className="h-4 md:h-5 w-4 md:w-5" />
+              <span className="absolute -top-1 -right-1 h-3 md:h-4 w-3 md:w-4 bg-red-500 rounded-full flex items-center justify-center">
                 <span className="text-white text-xs font-bold">67</span>
               </span>
             </button>
             
-            <div className="flex items-center space-x-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-white font-semibold text-sm">
+            <div className="flex items-center space-x-2 md:space-x-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-2">
+              <div className="w-8 md:w-10 h-8 md:h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+                <span className="text-white font-semibold text-xs md:text-sm">
                   {(user.pegawaiName || user.username).split(' ').map(n => n[0]).join('').toUpperCase()}
                 </span>
               </div>
-              <div className="text-sm">
+              <div className="text-xs md:text-sm hidden sm:block">
                 <p className="font-semibold text-gray-900">{user.pegawaiName || user.username}</p>
                 <p className="text-blue-600 font-medium">{user.role} • {user.unit}</p>
               </div>
               <button
                 onClick={onLogout}
-                className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all duration-200"
+                className="p-1 md:p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all duration-200"
                 title="Logout"
               >
-                <LogOut className="h-5 w-5" />
+                <LogOut className="h-4 md:h-5 w-4 md:w-5" />
               </button>
             </div>
           </div>

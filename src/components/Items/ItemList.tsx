@@ -66,13 +66,13 @@ export const ItemList: React.FC = () => {
   };
 
   return (
-    <div className="p-6 ml-64 bg-cream-50 min-h-screen">
+    <div className="p-4 md:p-6 ml-0 md:ml-64 bg-cream-50 min-h-screen">
       {/* Header and Filters */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Inventaris</h1>
-            <p className="text-gray-600 mt-2">Kelola barang inventaris Anda</p>
+      <div className="mb-6 md:mb-8">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 md:mb-6">
+          <div className="mb-4 md:mb-0">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Inventaris</h1>
+            <p className="text-gray-600 mt-2 text-sm md:text-base">Kelola barang inventaris Anda</p>
           </div>
           <button
             onClick={() => {
@@ -81,12 +81,12 @@ export const ItemList: React.FC = () => {
             }}
             className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors flex items-center space-x-2 shadow-lg"
           >
-            <Plus className="h-5 w-5" />
-            <span>Tambah Barang</span>
+            <Plus className="h-4 md:h-5 w-4 md:w-5" />
+            <span className="text-sm md:text-base">Tambah Barang</span>
           </button>
         </div>
 
-        <div className="flex items-center space-x-4 mb-6">
+        <div className="flex flex-col md:flex-row items-stretch md:items-center space-y-2 md:space-y-0 md:space-x-4 mb-6">
           <div className="relative flex-1 max-w-md">
             <Search className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
             <input
@@ -113,7 +113,7 @@ export const ItemList: React.FC = () => {
       </div>
 
       {/* Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         {filteredItems.map((item) => (
           <ItemCard
             key={item.id}
@@ -126,9 +126,9 @@ export const ItemList: React.FC = () => {
       </div>
 
       {filteredItems.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">Tidak ada barang yang ditemukan</p>
-          <p className="text-gray-400 text-sm mt-2">Coba sesuaikan pencarian atau filter Anda</p>
+        <div className="text-center py-8 md:py-12">
+          <p className="text-gray-500 text-base md:text-lg">Tidak ada barang yang ditemukan</p>
+          <p className="text-gray-400 text-xs md:text-sm mt-2">Coba sesuaikan pencarian atau filter Anda</p>
         </div>
       )}
 
